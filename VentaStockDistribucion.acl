@@ -1,0 +1,2517 @@
+@ACL1500
+
+
+
+
+
+
+
+
+
+
+
+^LAYOUT   WRF1_DatosCentro                                                    99 D,T.
+WRF1_LOCNR     ASCII       1  10   AS "Datos de centro;Número de deudor"  
+Centro         ASCII       2   4    
+WRF1_EROED     DATETIME   11   8   PICTURE "YYYYMMDD" AS "Datos de centro;Fecha de apertura"  
+WRF1_SCHLD     DATETIME   19   8   PICTURE "YYYYMMDD" AS "Datos de centro;Fecha de cierre"  
+WRF1_SPDAB     DATETIME   27   8   PICTURE "YYYYMMDD" AS "Datos de centro;Bloqueo desde"  
+WRF1_SPDBI     DATETIME   35   8   PICTURE "YYYYMMDD" AS "Datos de centro;A bloqueo"  
+WRF1_KOPRO     ASCII      43   4   AS "Datos de centro;Perfil de salida a TPV"  
+WRF1_LAYVR     ASCII      47  10   AS "Datos de centro;Layout"  
+WRF1_INPRO     ASCII      57   4   AS "Datos de centro;Perfil de entrada TPV"  
+WRF1_KZLIK     ASCII      61   1   AS "Datos de centro;Condiciones de catalogación para surtidos"  
+WRF1_BETRP     ASCII      62   4   AS "Datos de centro;Perfil de centro"  
+WRF1_ERDAT     DATETIME   66   8   PICTURE "YYYYMMDD" AS "Datos de centro;Fecha de creación del registro"  
+WRF1_ERNAM     ASCII      74  12   AS "Datos de centro;Nombre del responsable que ha añadido el objeto"  
+WRF1_NLMATFB   ASCII      86   1   AS "Datos de centro;Indicador p.ejecutar catalogación siguiente"  
+WRF1_VKBUR_WRK ASCII      87   4   AS "Datos de centro;Oficina de ventas"  
+WRF1_VLFKZ     ASCII      91   1   AS "Datos de centro;Tipo de centro"  
+WRF1_VKORG     ASCII      92   4   AS "Datos de centro;Organización de ventas para compensación interna"  
+WRF1_VTWEG     ASCII      96   2   AS "Datos de centro;Canal de distribución para compensación interna"  
+^LAYOUT   DatosAlmacen                                                        82 D,T.
+!"Centros" "IxCentro" MARD_WERKS
+!"DatosMaterial" "IxMaterial" MARD_MATNR
+MARD_MATNR     ASCII       1  18   AS "Datos de almacén para el artículo;Número de artículo"  
+MARD_WERKS     ASCII      19   4   AS "Datos de almacén para el artículo;Centro"  
+MARD_LGORT     ASCII      23   4   AS "Datos de almacén para el artículo;Almacén"  
+MARD_LABST     NUMERIC    27  18 3 AS "Datos de almacén para el artículo;Stock valorado de libre utilización"  
+MARD_INSME     NUMERIC    45  18 3 AS "Datos de almacén para el artículo;Stock en control de calidad"  
+MARD_SPEME     NUMERIC    63  18 3 AS "Datos de almacén para el artículo;Stock bloqueado"  
+Almacen        COMPUTED             
+ *C 4 1 
+ MARD_LGORT
+LibreUtil      COMPUTED             
+ *N 0 1
+ DEC(MARD_LABST;0)
+Bloqueado      COMPUTED             
+ *N 0 1
+ DEC(MARD_SPEME;0)
+CtrlCalidad    COMPUTED             
+ *N 0 1
+ DEC(MARD_INSME;0)
+Transito       COMPUTED             
+ *N 0 1
+ 0
+Traslado       COMPUTED             
+ *N 0 1
+ 0
+^LAYOUT   DatosCentro                                                         60 D,T.
+!"Centros" "IxCentro" MARC_WERKS
+!"DatosMaterial" "IxMaterial" MARC_MATNR
+MARC_MATNR     ASCII       1  18   AS "Datos centro p.artículo;Número de artículo"  
+MARC_WERKS     ASCII      19   4   AS "Datos centro p.artículo;Centro"  
+MARC_UMLMC     NUMERIC    23  18 3 AS "Datos centro p.artículo;Stock en traslado (de centro a centro)"  
+MARC_TRAME     NUMERIC    41  18 3 AS "Datos centro p.artículo;Stock en tránsito"  
+Almacen        COMPUTED             
+ *C 4 1 
+ '    '
+LibreUtil      COMPUTED             
+ *N 0 1
+ 0
+Bloqueado      COMPUTED             
+ *N 0 1
+ 0
+CtrlCalidad    COMPUTED             
+ *N 0 1
+ 0
+TipoTRAME      COMPUTED             
+ *L 1
+ VERIFY(MARC_TRAME)
+Transito       COMPUTED             
+ *N 0 1
+ DEC(MARC_TRAME;0)
+Traslado       COMPUTED             
+ *N 0 1
+ DEC(MARC_UMLMC;0)
+^LAYOUT   DatosAlmacenCentroM                                                 307 D,T.
+Zona           ASCII       1   6    
+Centro         ASCII       7   4    
+Nombre         ASCII      11  30    
+Tipo           ASCII      41   1    
+Considerar     ASCII      42   2    ""
+Material       ASCII      44  18    
+Descripcion    ASCII      62  40    
+TipoMat        ASCII     102   4    
+Rubro          ASCII     106   3    
+RubroDesc      ASCII     109  40    
+SubRubro       ASCII     149   6    
+SubRubroDesc   ASCII     155  40    
+Grupo          ASCII     195   9    
+GrupoDesc      ASCII     204  40    
+Almacen        ASCII     244   4    
+LibreUtil      ACL       248  12 0  
+Bloqueado      ACL       260  12 0  
+CtrlCalidad    ACL       272  12 0  
+Transito       ACL       284  12 0  
+Traslado       ACL       296  12 0  
+^LAYOUT   DatosCentroCentroM                                                  307 D,T.
+Zona           ASCII       1   6    
+Centro         ASCII       7   4    
+Nombre         ASCII      11  30    
+Tipo           ASCII      41   1    
+Considerar     ASCII      42   2    ""
+Material       ASCII      44  18    
+Descripcion    ASCII      62  40    
+TipoMat        ASCII     102   4    
+Rubro          ASCII     106   3    
+RubroDesc      ASCII     109  40    
+SubRubro       ASCII     149   6    
+SubRubroDesc   ASCII     155  40    
+Grupo          ASCII     195   9    
+GrupoDesc      ASCII     204  40    
+Almacen        ASCII     244   4    
+LibreUtil      ACL       248  12 0  
+Bloqueado      ACL       260  12 0  
+CtrlCalidad    ACL       272  12 0  
+Transito       ACL       284  12 0  
+Traslado       ACL       296  12 0  
+^LAYOUT   EntregasPendientesCRUZ                                              50 D,T.
+!"Centros" "IxCentro" Origen
+!"DatosMaterial" "IxMaterial" Material
+Origen         ASCII       1   4    
+Almacen        ASCII       5   4    
+Material       ASCII       9  18    
+Cantidad_Externo ACL        27  12 3 AS "Cantidad;Cliente;Externo"  
+Cantidad_Interno ACL        39  12 3 AS "Cantidad;Cliente;Interno"  
+Total          COMPUTED             
+ *N 3 1
+ Cantidad_Interno + Cantidad_Externo
+^LAYOUT   EntregasPendientes                                                  244 D,T.
+!"Centros" "IxCentro" Origen
+VBUK_VBELN     ASCII       1  10   AS "Documento comercial: Status cabecera y datos gestión;Número de documento comercial"  
+VBUK_WBSTK     ASCII      11   1   AS "Documento comercial: Status cabecera y datos gestión;Status total de movimiento de mercancías"  
+VBUP_VBELN     ASCII      12  10   AS "Documento comercial: Status de posición;Número de documento comercial"  
+VBUP_POSNR     ASCII      22   6   AS "Documento comercial: Status de posición;Número de posición del documento comercial"  
+VBUP_WBSTA     ASCII      28   1   AS "Documento comercial: Status de posición;Status de movimiento de mercancías"  
+LIKP_VBELN     ASCII      29  10   AS "Doc.comercial: Entrega - Datos de cabecera;Entrega"  
+LIKP_ERDAT     DATETIME   39   8   PICTURE "YYYYMMDD" AS "Doc.comercial: Entrega - Datos de cabecera;Fecha de creación del registro"  
+LIKP_VSTEL     ASCII      47   4   AS "Doc.comercial: Entrega - Datos de cabecera;Pto.exped./depto.entrada mcía."  
+LIKP_LFART     ASCII      51   4   AS "Doc.comercial: Entrega - Datos de cabecera;Clase de entrega"  
+LIKP_WADAT     DATETIME   55   8   PICTURE "YYYYMMDD" AS "Doc.comercial: Entrega - Datos de cabecera;Fecha prevista para movimiento de mercancías"  
+LIKP_KUNNR     ASCII      63  10   AS "Doc.comercial: Entrega - Datos de cabecera;Destinatario de mercancías"  
+KNA1_KUNNR     ASCII      73  10   AS "Maestro de clientes (parte general);Número de deudor"  
+KNA1_NAME1     ASCII      83  35   AS "Maestro de clientes (parte general);Nombre 1"  
+KNA1_NAME2     ASCII     118  35   AS "Maestro de clientes (parte general);Nombre 2"  
+KNA1_SORTL     ASCII     153  10   AS "Maestro de clientes (parte general);Campo de clasificación"  
+KNA1_KTOKD     ASCII     163   4   AS "Maestro de clientes (parte general);Grupo de ctas.deudor"  
+LIPS_VBELN     ASCII     167  10   AS "Doc.comercial: Entrega - Datos de posición;Entrega"  
+LIPS_POSNR     ASCII     177   6   AS "Doc.comercial: Entrega - Datos de posición;Posición de entrega"  
+LIPS_ERDAT     DATETIME  183   8   PICTURE "YYYYMMDD" AS "Doc.comercial: Entrega - Datos de posición;Fecha de creación del registro"  
+LIPS_MATNR     ASCII     191  18   AS "Doc.comercial: Entrega - Datos de posición;Número de artículo"  
+LIPS_MATKL     ASCII     209   9   AS "Doc.comercial: Entrega - Datos de posición;Grupo de artículos"  
+LIPS_WERKS     ASCII     218   4   AS "Doc.comercial: Entrega - Datos de posición;Centro"  
+LIPS_LGORT     ASCII     222   4   AS "Doc.comercial: Entrega - Datos de posición;Almacén"  
+LIPS_LFIMG     NUMERIC   226  17 3 AS "Doc.comercial: Entrega - Datos de posición;Cantidad entregada efectivamente en UMV"  
+Origen         COMPUTED             
+ *C 4 1 
+ LIPS_WERKS
+Destinatario   COMPUTED             
+ *C 10 1 
+ LIKP_KUNNR
+Material       COMPUTED             
+ *C 18 1 
+ LIPS_MATNR
+Cantidad       COMPUTED             
+ *N 3 1
+ LIPS_LFIMG
+Almacen        COMPUTED             
+ *C 4 1 
+ LIPS_LGORT
+Cliente        COMPUTED             ""
+ *C 7 2 
+ "Interno" IF OCCURS(LIKP_KUNNR;"CM") > 0
+ "Externo"
+^LAYOUT   EntregasACentros_TMP                                                297 D,T.
+VBUK_VBELN     ASCII       1  10   AS "Documento comercial: Status cabecera y datos gestión;Número de documento comercial"  
+VBUK_WBSTK     ASCII      11   1   AS "Documento comercial: Status cabecera y datos gestión;Status total de movimiento de mercancías"  
+VBUP_VBELN     ASCII      12  10   AS "Documento comercial: Status de posición;Número de documento comercial"  
+VBUP_POSNR     ASCII      22   6   AS "Documento comercial: Status de posición;Número de posición del documento comercial"  
+VBUP_WBSTA     ASCII      28   1   AS "Documento comercial: Status de posición;Status de movimiento de mercancías"  
+LIKP_VBELN     ASCII      29  10   AS "Doc.comercial: Entrega - Datos de cabecera;Entrega"  
+LIKP_ERDAT     DATETIME   39   8   PICTURE "YYYYMMDD" AS "Doc.comercial: Entrega - Datos de cabecera;Fecha de creación del registro"  
+LIKP_VSTEL     ASCII      47   4   AS "Doc.comercial: Entrega - Datos de cabecera;Pto.exped./depto.entrada mcía."  
+LIKP_LFART     ASCII      51   4   AS "Doc.comercial: Entrega - Datos de cabecera;Clase de entrega"  
+LIKP_WADAT     DATETIME   55   8   PICTURE "YYYYMMDD" AS "Doc.comercial: Entrega - Datos de cabecera;Fecha prevista para movimiento de mercancías"  
+LIKP_KUNNR     ASCII      63  10   AS "Doc.comercial: Entrega - Datos de cabecera;Destinatario de mercancías"  
+KNA1_KUNNR     ASCII      73  10   AS "Maestro de clientes (parte general);Número de deudor"  
+KNA1_NAME1     ASCII      83  35   AS "Maestro de clientes (parte general);Nombre 1"  
+KNA1_NAME2     ASCII     118  35   AS "Maestro de clientes (parte general);Nombre 2"  
+KNA1_SORTL     ASCII     153  10   AS "Maestro de clientes (parte general);Campo de clasificación"  
+KNA1_KTOKD     ASCII     163   4   AS "Maestro de clientes (parte general);Grupo de ctas.deudor"  
+LIPS_VBELN     ASCII     167  10   AS "Doc.comercial: Entrega - Datos de posición;Entrega"  
+LIPS_POSNR     ASCII     177   6   AS "Doc.comercial: Entrega - Datos de posición;Posición de entrega"  
+LIPS_ERDAT     DATETIME  183   8   PICTURE "YYYYMMDD" AS "Doc.comercial: Entrega - Datos de posición;Fecha de creación del registro"  
+LIPS_MATNR     ASCII     191  18   AS "Doc.comercial: Entrega - Datos de posición;Número de artículo"  
+LIPS_MATKL     ASCII     209   9   AS "Doc.comercial: Entrega - Datos de posición;Grupo de artículos"  
+LIPS_WERKS     ASCII     218   4   AS "Doc.comercial: Entrega - Datos de posición;Centro"  
+LIPS_LGORT     ASCII     222   4   AS "Doc.comercial: Entrega - Datos de posición;Almacén"  
+LIPS_LFIMG     NUMERIC   226  17 3 AS "Doc.comercial: Entrega - Datos de posición;Cantidad entregada efectivamente en UMV"  
+Almacen        ASCII     243   4    
+Cantidad       ACL       247  12 3  
+Cliente        ASCII     259   7    ""
+Destinatario   ASCII     266  10    
+Material       ASCII     276  18    
+Origen         ASCII     294   4    
+Destino        COMPUTED             
+ *C 4 1 
+ SUBSTR(Destinatario;2;4)
+^LAYOUT   EntregasACentrosCRUZ                                                38 D,T.
+!"Centros" "IxCentro" Destino
+!"DatosMaterial" "IxMaterial" Material
+Destino        ASCII       1   4    
+Almacen        ASCII       5   4    
+Material       ASCII       9  18    
+Cantidad_Interno ACL        27  12 3 AS "Cantidad;Cliente;Interno" WIDTH 18  
+^LAYOUT   IngresosPendientes                                                  212 D,T.
+EKKO_EBELN     ASCII       1  10   AS "Cabecera del documento de compras;Número del documento de compras"  
+EKKO_BUKRS     ASCII      11   4   AS "Cabecera del documento de compras;Sociedad"  
+EKKO_BSTYP     ASCII      15   1   AS "Cabecera del documento de compras;Tipo de documento de compras"  
+EKKO_BSART     ASCII      16   4   AS "Cabecera del documento de compras;Clase de documento de compras"  
+EKKO_AEDAT     DATETIME   20   8   PICTURE "YYYYMMDD" AS "Cabecera del documento de compras;Fecha de creación del registro"  
+EKKO_LIFNR     ASCII      28  10   AS "Cabecera del documento de compras;Número de cuenta del proveedor"  
+EKKO_FRGZU     ASCII      38   8   AS "Cabecera del documento de compras;Estado liberación"  
+EKKO_PROCSTAT  ASCII      46   2   AS "Cabecera del documento de compras;Status tratamiento documento compras"  
+EKPO_EBELN     ASCII      48  10   AS "Posición del documento de compras;Número del documento de compras"  
+EKPO_EBELP     ASCII      58   5   AS "Posición del documento de compras;Número de posición del documento de compras"  
+EKPO_TXZ01     ASCII      63  40   AS "Posición del documento de compras;Texto breve"  
+EKPO_MATNR     ASCII     103  18   AS "Posición del documento de compras;Número de artículo"  
+EKPO_BUKRS     ASCII     121   4   AS "Posición del documento de compras;Sociedad"  
+EKPO_WERKS     ASCII     125   4   AS "Posición del documento de compras;Centro"  
+EKPO_LGORT     ASCII     129   4   AS "Posición del documento de compras;Almacén"  
+EKPO_MATKL     ASCII     133   9   AS "Posición del documento de compras;Grupo de artículos"  
+EKPO_MENGE     NUMERIC   142  17 3 AS "Posición del documento de compras;Cantidad de pedido"  
+EKPO_BSTAE     ASCII     159   4   AS "Posición del documento de compras;Clave de control de confirmaciones"  
+EKPO_MTART     ASCII     163   4   AS "Posición del documento de compras;Tipo de artículo"  
+EKET_EBELN     ASCII     167  10   AS "Repartos del plan de entregas;Número del documento de compras"  
+EKET_EBELP     ASCII     177   5   AS "Repartos del plan de entregas;Número de posición del documento de compras"  
+EKET_ETENR     ASCII     182   4   AS "Repartos del plan de entregas;Contador de repartos"  
+EKET_EINDT     DATETIME  186   8   PICTURE "YYYYMMDD" AS "Repartos del plan de entregas;Fecha de entrega de posición"  
+EKET_WEMNG     NUMERIC   194  17 3 AS "Repartos del plan de entregas;Cantidad entrada de mercancías"  
+CantPendiente  COMPUTED             
+ *N 3 1
+ EKPO_MENGE - EKET_WEMNG
+^LAYOUT   IngresosPendientesFinal                                             193 D,T.
+!"Centros" "IxCentro" Centro
+!"DatosMaterial" "IxMaterial" Material
+Pedido         ASCII       1  10    
+Sociedad       ASCII      11   4    
+TipoDoc        ASCII      15   1    
+ClasePedido    ASCII      16   4    
+FePedido       DATETIME   20   8   PICTURE "YYYYMMDD"  
+FeEntrega      DATETIME   28   8   PICTURE "YYYYMMDD"  
+Proveedor      ASCII      36  10    
+EstLib         ASCII      46   8    
+StatusTratam   ASCII      54   2    
+Pos            ASCII      56   5    
+TipoArt        ASCII      61   4    
+Material       ASCII      65  18    
+Descripcion    ASCII      83  40    
+Grupo          ASCII     123   9    
+Centro         ASCII     132   4    
+Almacen        ASCII     136   4    
+CantPedido     NUMERIC   140  17 3  
+CantEntrada    NUMERIC   157  17 3  
+CantPendiente  ACL       174  12 3  
+ControlConf    ASCII     186   4    
+CantReparto    ASCII     190   4    
+DiasParaIngreso COMPUTED             
+ *N 0 1
+ FeEntrega - v_FeHoy
+EntregaPlanificada COMPUTED             ""
+ *C 18 4 
+ "Proximos 30 dias  " IF DiasParaIngreso >= 0 AND DiasParaIngreso <= 30
+ "Despues de 30 dias" IF DiasParaIngreso > 30
+ "Ultimos 30 dias   " IF DiasParaIngreso >= -30 AND DiasParaIngreso <  0
+ "Antes de 30 dias  "
+^LAYOUT   IngresosPendientesCentroM                                           277 D,T.
+Zona           ASCII       1   6    
+Centro         ASCII       7   4    
+Nombre         ASCII      11  30    
+Tipo           ASCII      41   1    
+Considerar     ASCII      42   2    ""
+Material       ASCII      44  18    
+Descripcion    ASCII      62  40    
+TipoMat        ASCII     102   4    
+Rubro          ASCII     106   3    
+RubroDesc      ASCII     109  40    
+SubRubro       ASCII     149   6    
+SubRubroDesc   ASCII     155  40    
+Grupo          ASCII     195   9    
+GrupoDesc      ASCII     204  40    
+Almacen        ASCII     244   4    
+EntregaPlanificada ASCII     248  18    ""
+CantPendiente  ACL       266  12 3  
+^LAYOUT   Centros                                                             43 D,T.
+!"WRF1_DatosCentro" "IxWRF1DatosCentro" T001W_WERKS
+T001W_WERKS    ASCII       1   4   AS "Centros/Sucursales;Centro"  
+T001W_NAME1    ASCII       5  30   AS "Centros/Sucursales;Nombre"  
+T001W_VLFKZ    ASCII      35   1   AS "Centros/Sucursales;Tipo de centro"  
+T001W_BZIRK    ASCII      36   6   AS "Centros/Sucursales;Zona de ventas"  
+Bloqueado      COMPUTED             ""
+ *C 2 2 
+ "SI" IF BETWEEN(TODAY();WRF1_DatosCentro.WRF1_SPDAB;WRF1_DatosCentro.WRF1_SPDBI)
+ "NO"
+Considerar     COMPUTED             ""
+ *C 2 2 
+ "SI" IF MATCH(T001W_BZIRK;"MESOPO") AND NOT MATCH(T001W_WERKS;"M380") OR T001W_BZIRK = "METRO" AND MATCH(T001W_WERKS;"M222";"M283";"M767";"M768") OR T001W_BZIRK = "CENTRO" AND NOT MATCH(T001W_WERKS;"M006";"M487") OR T001W_BZIRK = "LITORA" AND NOT MATCH(T001W_WERKS;"M013") OR MATCH(T001W_BZIRK;"ZVIRT")
+ "NO"
+^LAYOUT   DatosMaterial                                                       91 D,T.
+!"RubroSubRubroGrupo" "IxClase" AS "Rubro" Rubro
+!"RubroSubRubroGrupo" "IxClase" AS "SubRubro" SubRubro
+!"RubroSubRubroGrupo" "IxClase" AS "Grupo" Grupo
+MARA_MATNR     ASCII       1  18   AS "Datos generales artículo;Número de artículo"  
+MARA_MTART     ASCII      19   4   AS "Datos generales artículo;Tipo de artículo"  
+MARA_MATKL     ASCII      23   9   AS "Datos generales artículo;Grupo de artículos"  
+MAKT_MATNR     ASCII      32  18   AS "Textos breves de artículo;Número de artículo"  
+MAKT_MAKTX     ASCII      50  40   AS "Textos breves de artículo;Texto breve de artículo"  
+Rubro          COMPUTED             
+ *C 3 1 
+ SUBSTR(MARA_MATKL;1;3)
+SubRubro       COMPUTED             
+ *C 6 1 
+ SUBSTR(MARA_MATKL;1;6)
+Grupo          COMPUTED             
+ *C 9 1 
+ MARA_MATKL
+RubroDesc      COMPUTED             
+ *C 40 1 
+ Rubro.SWOR_KSCHL
+SubRubroDesc   COMPUTED             
+ *C 40 1 
+ SubRubro.SWOR_KSCHL
+GrupoDesc      COMPUTED             
+ *C 40 1 
+ Grupo.SWOR_KSCHL
+^LAYOUT   RubroSubRubroGrupo                                                  96 D,T.
+KLAH_CLINT     ASCII       1  10   AS "Datos cabecera clase;Número de clase interno"  
+KLAH_CLASS     ASCII      11  18   AS "Datos cabecera clase;N° de clase"  
+KLAH_VONDT     DATETIME   29   8   PICTURE "YYYYMMDD" AS "Datos cabecera clase;Fecha de validez de"  
+KLAH_BISDT     DATETIME   37   8   PICTURE "YYYYMMDD" AS "Datos cabecera clase;Fecha de validez a"  
+SWOR_CLINT     ASCII      45  10   AS "Sistema de clasificación: palabras clave;Número de clase interno"  
+SWOR_KSCHL     ASCII      55  40   AS "Sistema de clasificación: palabras clave;Palabras clave"  
+^LAYOUT   TransitoyTraslado                                                   264 D,T.
+!"Centros" "IxCentro" Destino
+!"DatosMaterial" "IxMaterial" LIPS_MATNR
+LIKP_VBELN     ASCII       1  10   AS "Doc.comercial: Entrega - Datos de cabecera;Entrega"  
+LIKP_ERDAT     DATETIME   11   8   PICTURE "YYYYMMDD" AS "Doc.comercial: Entrega - Datos de cabecera;Fecha de creación del registro"  
+LIKP_VSTEL     ASCII      19   4   AS "Doc.comercial: Entrega - Datos de cabecera;Pto.exped./depto.entrada mcía."  
+LIKP_LFART     ASCII      23   4   AS "Doc.comercial: Entrega - Datos de cabecera;Clase de entrega"  
+LIKP_WADAT     DATETIME   27   8   PICTURE "YYYYMMDD" AS "Doc.comercial: Entrega - Datos de cabecera;Fecha prevista para movimiento de mercancías"  
+LIKP_LFDAT     DATETIME   35   8   PICTURE "YYYYMMDD" AS "Doc.comercial: Entrega - Datos de cabecera;Fecha de entrega"  
+LIKP_KUNNR     ASCII      43  10   AS "Doc.comercial: Entrega - Datos de cabecera;Destinatario de mercancías"  
+LIKP_WADAT_IST ASCII      53   8   AS "Doc.comercial: Entrega - Datos de cabecera;Fecha movimiento de mercancías real"  
+LIPS_VBELN     ASCII      61  10   AS "Doc.comercial: Entrega - Datos de posición;Entrega"  
+LIPS_POSNR     ASCII      71   6   AS "Doc.comercial: Entrega - Datos de posición;Posición de entrega"  
+LIPS_MATNR     ASCII      77  18   AS "Doc.comercial: Entrega - Datos de posición;Número de artículo"  
+LIPS_LGORT     ASCII      95   4   AS "Doc.comercial: Entrega - Datos de posición;Almacén"  
+LIPS_LGMNG     NUMERIC    99  17 3 AS "Doc.comercial: Entrega - Datos de posición;Cantidad entregada en unidades de medida de almacén"  
+LIPS_ARKTX     ASCII     116  40   AS "Doc.comercial: Entrega - Datos de posición;Texto breve posición de pedido de cliente"  
+VBUK_VBELN     ASCII     156  10   AS "Documento comercial: Status cabecera y datos gestión;Número de documento comercial"  
+VBFA_VBELV     ASCII     166  10   AS "Flujo de documentos comerciales;Documento comercial anterior"  
+VBFA_POSNV     ASCII     176   6   AS "Flujo de documentos comerciales;Posición anterior del documento comercial"  
+VBFA_VBELN     ASCII     182  10   AS "Flujo de documentos comerciales;Documento comercial subsiguiente"  
+VBFA_POSNN     ASCII     192   6   AS "Flujo de documentos comerciales;Posición siguiente del documento comercial"  
+VBFA_VBTYP_N   ASCII     198   1   AS "Flujo de documentos comerciales;Tipo de documento comercial subsiguiente"  
+VBFA_RFMNG     NUMERIC   199  19 3 AS "Flujo de documentos comerciales;Cantidad de referencia en unidades de me"  
+VBFA_VBTYP_V   ASCII     218   1   AS "Flujo de documentos comerciales;Tipo de documento comercial anterior"  
+VBFA_PLMIN     ASCII     219   1   AS "Flujo de documentos comerciales;Cantidad positiva, negativa o no calculada"  
+VBFA_ERDAT     DATETIME  220   8   PICTURE "YYYYMMDD" AS "Flujo de documentos comerciales;Fecha de creación del registro"  
+VBFA_ERZET     DATETIME  228   6   PICTURE "hhmmss" AS "Flujo de documentos comerciales;Hora registrada" WIDTH 14  
+VBFA_MATNR     ASCII     234  18   AS "Flujo de documentos comerciales;Número de artículo"  
+VBFA_BWART     ASCII     252   3   AS "Flujo de documentos comerciales;Clase de movimiento (gestión stocks)"  
+VBFA_AEDAT     DATETIME  255   8   PICTURE "YYYYMMDD" AS "Flujo de documentos comerciales;Fecha última modificación"  
+Destino        COMPUTED             
+ *C 4 1 
+ "M"+SUBSTR(LIKP_KUNNR;3;3)
+^LAYOUT   TransitoTrasladoAlmOrigen                                           452 D,T.
+Zona           ASCII       1   6    
+Centro         ASCII       7   4    
+Nombre         ASCII      11  30    
+Tipo           ASCII      41   1    
+Considerar     ASCII      42   2    ""
+Material       ASCII      44  18    
+Descripcion    ASCII      62  40    
+TipoMat        ASCII     102   4    
+Rubro          ASCII     106   3    
+RubroDesc      ASCII     109  40    
+SubRubro       ASCII     149   6    
+SubRubroDesc   ASCII     155  40    
+Grupo          ASCII     195   9    
+GrupoDesc      ASCII     204  40    
+Entrega        ASCII     244  10    
+Posicion       ASCII     254   6    
+FeCreacion     DATETIME  260   8   PICTURE "YYYYMMDD"  
+Origen         ASCII     268   4    
+Destino        ASCII     272   4    
+Expedicion     ASCII     276   4    
+ClaseEnt       ASCII     280   4    
+FePrevista     DATETIME  284   8   PICTURE "YYYYMMDD"  
+FeEntrega      DATETIME  292   8   PICTURE "YYYYMMDD"  
+Destinatario   ASCII     300  10    
+FeMovReal      ASCII     310   8    
+Material2      ASCII     318  18    
+Almacen        ASCII     336   4    
+CantEntrega    NUMERIC   340  17 3  
+TextoMaterial  ASCII     357  40    
+DocSig         ASCII     397  10    
+PosDocSig      ASCII     407   6    
+TipoDocSig     ASCII     413   1    
+Cantidad       NUMERIC   414  19 3  
+Signo          ASCII     433   1    
+FeCreDocSig    DATETIME  434   8   PICTURE "YYYYMMDD"  
+Mov            ASCII     442   3    
+FeModif        DATETIME  445   8   PICTURE "YYYYMMDD"  
+CantConSigno   COMPUTED             ""
+ *N 0 2
+ DEC(Cantidad;0) IF Signo = "+"
+ DEC(Cantidad;0) * -1
+^LAYOUT   EntregasIngresadas                                                  295 D,T.
+Entrega        ASCII       1  10    
+Posicion       ASCII      11   6    
+Centro         ASCII      17   4    
+Almacen        ASCII      21   4    
+Material       ASCII      25  18    
+CantConSigno   ACL        43  12 0  ""
+COUNT          ACL        55  12 0 WIDTH 8  
+Zona           ASCII      67   6    
+Nombre         ASCII      73  30    
+Tipo           ASCII     103   1    
+Considerar     ASCII     104   2    ""
+Descripcion    ASCII     106  40    
+TipoMat        ASCII     146   4    
+Rubro          ASCII     150   3    
+RubroDesc      ASCII     153  40    
+SubRubro       ASCII     193   6    
+SubRubroDesc   ASCII     199  40    
+Grupo          ASCII     239   9    
+GrupoDesc      ASCII     248  40    
+Origen         ASCII     288   4    
+ClaseEnt       ASCII     292   4    
+Clave          COMPUTED             
+ *C 38 1 
+ Entrega + Posicion + Material + Almacen
+^LAYOUT   EntregasContabilizadas                                              295 D,T.
+!"EntregasIngresadas" "IxClaveEntIngresadas" Clave
+Entrega        ASCII       1  10    
+Posicion       ASCII      11   6    
+Centro         ASCII      17   4    
+Almacen        ASCII      21   4    
+Material       ASCII      25  18    
+CantConSigno   ACL        43  12 0  ""
+COUNT          ACL        55  12 0 WIDTH 8  
+Zona           ASCII      67   6    
+Nombre         ASCII      73  30    
+Tipo           ASCII     103   1    
+Considerar     ASCII     104   2    ""
+Descripcion    ASCII     106  40    
+TipoMat        ASCII     146   4    
+Rubro          ASCII     150   3    
+RubroDesc      ASCII     153  40    
+SubRubro       ASCII     193   6    
+SubRubroDesc   ASCII     199  40    
+Grupo          ASCII     239   9    
+GrupoDesc      ASCII     248  40    
+Origen         ASCII     288   4    
+ClaseEnt       ASCII     292   4    
+Clave          COMPUTED             
+ *C 38 1 
+ Entrega + Posicion + Material + Almacen
+TransitoTraslado COMPUTED             
+ *N 0 1
+ CantConSigno - EntregasIngresadas.CantConSigno
+^LAYOUT   TransitoTrasladoCentroM_TEMP                                        275 D,T.
+Zona           ASCII       1   6    
+Centro         ASCII       7   4    
+Nombre         ASCII      11  30    
+Tipo           ASCII      41   1    
+Considerar     ASCII      42   2    ""
+Material       ASCII      44  18    
+Descripcion    ASCII      62  40    
+TipoMat        ASCII     102   4    
+Rubro          ASCII     106   3    
+RubroDesc      ASCII     109  40    
+SubRubro       ASCII     149   6    
+SubRubroDesc   ASCII     155  40    
+Grupo          ASCII     195   9    
+GrupoDesc      ASCII     204  40    
+Almacen        ASCII     244   4    
+Entrega        ASCII     248  10    
+Posicion       ASCII     258   6    
+TransitoTraslado ACL       264  12 0  
+^LAYOUT   EntregasPendientesACentroM                                          259 D,T.
+!"Stock" "IxClaveStock" Clave
+Zona           ASCII       1   6    
+Centro         ASCII       7   4    
+Nombre         ASCII      11  30    
+Tipo           ASCII      41   1    
+Considerar     ASCII      42   2    ""
+Material       ASCII      44  18    
+Descripcion    ASCII      62  40    
+TipoMat        ASCII     102   4    
+Rubro          ASCII     106   3    
+RubroDesc      ASCII     109  40    
+SubRubro       ASCII     149   6    
+SubRubroDesc   ASCII     155  40    
+Grupo          ASCII     195   9    
+GrupoDesc      ASCII     204  40    
+Almacen        ASCII     244   4    
+EntPendACentro ACL       248  12 0  
+Clave          COMPUTED             
+ *C 26 1 
+ Centro + Material + Almacen
+^LAYOUT   TransitoTrasladoCentroM                                             271 D,T.
+!"Stock" "IxClaveStock" Clave
+Centro         ASCII       1   4    
+Almacen        ASCII       5   4    
+Material       ASCII       9  18    
+TransitoTraslado ACL        27  12 0 WIDTH 16  
+COUNT          ACL        39  12 0 WIDTH 8  
+Zona           ASCII      51   6    
+Nombre         ASCII      57  30    
+Tipo           ASCII      87   1    
+Considerar     ASCII      88   2    ""
+Descripcion    ASCII      90  40    
+TipoMat        ASCII     130   4    
+Rubro          ASCII     134   3    
+RubroDesc      ASCII     137  40    
+SubRubro       ASCII     177   6    
+SubRubroDesc   ASCII     183  40    
+Grupo          ASCII     223   9    
+GrupoDesc      ASCII     232  40    
+Clave          COMPUTED             
+ *C 26 1 
+ Centro + Material + Almacen
+^LAYOUT   EntregasPendientesCentroM                                           283 D,T.
+!"Stock" "IxClaveStock" Clave
+Zona           ASCII       1   6    
+Centro         ASCII       7   4    
+Nombre         ASCII      11  30    
+Tipo           ASCII      41   1    
+Considerar     ASCII      42   2    ""
+Material       ASCII      44  18    
+Descripcion    ASCII      62  40    
+TipoMat        ASCII     102   4    
+Rubro          ASCII     106   3    
+RubroDesc      ASCII     109  40    
+SubRubro       ASCII     149   6    
+SubRubroDesc   ASCII     155  40    
+Grupo          ASCII     195   9    
+GrupoDesc      ASCII     204  40    
+Almacen        ASCII     244   4    
+CantCliInt     ACL       248  12 0  
+CantCliExt     ACL       260  12 0  
+Total          ACL       272  12 0  
+Clave          COMPUTED             
+ *C 26 1 
+ Centro + Material + Almacen
+^LAYOUT   IngresosPendientesCentroMCRUZ                                       295 D,T.
+!"Stock" "IxClaveStock" Clave
+Zona           ASCII       1   6    
+Centro         ASCII       7   4    
+Nombre         ASCII      11  30    
+Tipo           ASCII      41   1    
+Considerar     ASCII      42   2    
+Material       ASCII      44  18    
+Descripcion    ASCII      62  40    
+TipoMat        ASCII     102   4    
+Rubro          ASCII     106   3    
+RubroDesc      ASCII     109  40    
+SubRubro       ASCII     149   6    
+SubRubroDesc   ASCII     155  40    
+Grupo          ASCII     195   9    
+GrupoDesc      ASCII     204  40    
+Almacen        ASCII     244   4    
+CantPendiente_Antes_de_30_dias ACL       248  12 3 AS "CantPendiente;EntregaPlanificada;Antes de 30 dias  " WIDTH 18  
+CantPendiente_Despues_de_30_dias ACL       260  12 3 AS "CantPendiente;EntregaPlanificada;Despues de 30 dias" WIDTH 18  
+CantPendiente_Proximos_30_dias ACL       272  12 3 AS "CantPendiente;EntregaPlanificada;Proximos 30 dias  " WIDTH 18  
+CantPendiente_Ultimos_30_dias ACL       284  12 3 AS "CantPendiente;EntregaPlanificada;Ultimos 30 dias   " WIDTH 18  
+Prox30Dias     COMPUTED             
+ *N 0 1
+ DEC(CantPendiente_Proximos_30_dias;0)
+Desp30Dias     COMPUTED             
+ *N 0 1
+ DEC(CantPendiente_Despues_de_30_dias;0)
+Ult30Dias      COMPUTED             
+ *N 0 1
+ DEC(CantPendiente_Ultimos_30_dias;0)
+Antes30Dias    COMPUTED             
+ *N 0 1
+ DEC(CantPendiente_Antes_de_30_dias;0)
+Clave          COMPUTED             
+ *C 26 1 
+ Centro + Material + Almacen
+^LAYOUT   Stock                                                               307 D,T.
+!"EntregasPendientesCentroM" "IxClaveEntPendientes" Clave
+!"EntregasPendientesACentroM" "IxClaveEntPendientesACentro" Clave
+!"IngresosPendientesCentroMCRUZ" "IxClaveIngPendientes" Clave
+!"TransitoTrasladoCentroM" "IxClaveTransitoTraslado" Clave
+Zona           ASCII       1   6    
+Centro         ASCII       7   4    
+Nombre         ASCII      11  30    
+Tipo           ASCII      41   1    
+Considerar     ASCII      42   2    ""
+Material       ASCII      44  18    
+Descripcion    ASCII      62  40    
+TipoMat        ASCII     102   4    
+Rubro          ASCII     106   3    
+RubroDesc      ASCII     109  40    
+SubRubro       ASCII     149   6    
+SubRubroDesc   ASCII     155  40    
+Grupo          ASCII     195   9    
+GrupoDesc      ASCII     204  40    
+Almacen        ASCII     244   4    
+LibreUtil      ACL       248  12 0  
+Bloqueado      ACL       260  12 0  
+CtrlCalidad    ACL       272  12 0  
+Transito       ACL       284  12 0  
+Traslado       ACL       296  12 0  
+Clave          COMPUTED             
+ *C 26 1 
+ Centro + Material + Almacen
+^LAYOUT   EntregasPendientesSinStock                                          277 D,T.
+Zona           ASCII       1   6    
+Centro         ASCII       7   4    
+Nombre         ASCII      11  30    
+Tipo           ASCII      41   1    
+Considerar     ASCII      42   2    ""
+Material       ACL        44  12 0  
+Descripcion    ASCII      56  40    
+TipoMat        ASCII      96   4    
+Rubro          ASCII     100   3    
+RubroDesc      ASCII     103  40    
+SubRubro       ASCII     143   6    
+SubRubroDesc   ASCII     149  40    
+Grupo          ASCII     189   9    
+GrupoDesc      ASCII     198  40    
+Almacen        ASCII     238   4    
+EntPendCliInt  ACL       242  12 0  
+EntPendCliExt  ACL       254  12 0  
+EntPendTot     ACL       266  12 0  
+LibreUtil      COMPUTED             
+ *N 0 1
+ 0
+Bloqueado      COMPUTED             
+ *N 0 1
+ 0
+CtrlCalidad    COMPUTED             
+ *N 0 1
+ 0
+Transito       COMPUTED             
+ *N 0 1
+ 0
+Traslado       COMPUTED             
+ *N 0 1
+ 0
+EntPendACentro COMPUTED             
+ *N 0 1
+ 0
+IngPlanifAntes30Dias COMPUTED             
+ *N 0 1
+ 0
+IngPlanifUlt30Dias COMPUTED             
+ *N 0 1
+ 0
+IngPlanifProx30Dias COMPUTED             
+ *N 0 1
+ 0
+IngPlanifDesp30Dias COMPUTED             
+ *N 0 1
+ 0
+TransYTrasDeAlmOrig COMPUTED             
+ *N 0 1
+ 0
+^LAYOUT   EntregasPendientesACentroSinStock                                   253 D,T.
+Zona           ASCII       1   6    
+Centro         ASCII       7   4    
+Nombre         ASCII      11  30    
+Tipo           ASCII      41   1    
+Considerar     ASCII      42   2    ""
+Material       ACL        44  12 0  
+Descripcion    ASCII      56  40    
+TipoMat        ASCII      96   4    
+Rubro          ASCII     100   3    
+RubroDesc      ASCII     103  40    
+SubRubro       ASCII     143   6    
+SubRubroDesc   ASCII     149  40    
+Grupo          ASCII     189   9    
+GrupoDesc      ASCII     198  40    
+Almacen        ASCII     238   4    
+EntPendACentro ACL       242  12 0  
+LibreUtil      COMPUTED             
+ *N 0 1
+ 0
+Bloqueado      COMPUTED             
+ *N 0 1
+ 0
+CtrlCalidad    COMPUTED             
+ *N 0 1
+ 0
+Transito       COMPUTED             
+ *N 0 1
+ 0
+Traslado       COMPUTED             
+ *N 0 1
+ 0
+EntPendCliInt  COMPUTED             
+ *N 0 1
+ 0
+EntPendCliExt  COMPUTED             
+ *N 0 1
+ 0
+EntPendTot     COMPUTED             
+ *N 0 1
+ 0
+IngPlanifAntes30Dias COMPUTED             
+ *N 0 1
+ 0
+IngPlanifUlt30Dias COMPUTED             
+ *N 0 1
+ 0
+IngPlanifProx30Dias COMPUTED             
+ *N 0 1
+ 0
+IngPlanifDesp30Dias COMPUTED             
+ *N 0 1
+ 0
+TransYTrasDeAlmOrig COMPUTED             
+ *N 0 1
+ 0
+^LAYOUT   IngresosPendientesSinStock                                          289 D,T.
+Zona           ASCII       1   6    
+Centro         ASCII       7   4    
+Nombre         ASCII      11  30    
+Tipo           ASCII      41   1    
+Considerar     ASCII      42   2    
+Material       ACL        44  12 0  
+Descripcion    ASCII      56  40    
+TipoMat        ASCII      96   4    
+Rubro          ASCII     100   3    
+RubroDesc      ASCII     103  40    
+SubRubro       ASCII     143   6    
+SubRubroDesc   ASCII     149  40    
+Grupo          ASCII     189   9    
+GrupoDesc      ASCII     198  40    
+Almacen        ASCII     238   4    
+IngPlanifAntes30Dias ACL       242  12 0  
+IngPlanifUlt30Dias ACL       254  12 0  
+IngPlanifProx30Dias ACL       266  12 0  
+IngPlanifDesp30Dias ACL       278  12 0  
+LibreUtil      COMPUTED             
+ *N 0 1
+ 0
+Bloqueado      COMPUTED             
+ *N 0 1
+ 0
+CtrlCalidad    COMPUTED             
+ *N 0 1
+ 0
+Transito       COMPUTED             
+ *N 0 1
+ 0
+Traslado       COMPUTED             
+ *N 0 1
+ 0
+EntPendACentro COMPUTED             
+ *N 0 1
+ 0
+EntPendCliInt  COMPUTED             
+ *N 0 1
+ 0
+EntPendCliExt  COMPUTED             
+ *N 0 1
+ 0
+EntPendTot     COMPUTED             
+ *N 0 1
+ 0
+TransYTrasDeAlmOrig COMPUTED             
+ *N 0 1
+ 0
+^LAYOUT   TransitoTrasladoSinStock                                            253 D,T.
+Zona           ASCII       1   6    
+Centro         ASCII       7   4    
+Nombre         ASCII      11  30    
+Tipo           ASCII      41   1    
+Considerar     ASCII      42   2    ""
+Material       ACL        44  12 0  
+Descripcion    ASCII      56  40    
+TipoMat        ASCII      96   4    
+Rubro          ASCII     100   3    
+RubroDesc      ASCII     103  40    
+SubRubro       ASCII     143   6    
+SubRubroDesc   ASCII     149  40    
+Grupo          ASCII     189   9    
+GrupoDesc      ASCII     198  40    
+Almacen        ASCII     238   4    
+TransYTrasDeAlmOrig ACL       242  12 0 WIDTH 16  
+LibreUtil      COMPUTED             
+ *N 0 1
+ 0
+Bloqueado      COMPUTED             
+ *N 0 1
+ 0
+CtrlCalidad    COMPUTED             
+ *N 0 1
+ 0
+Transito       COMPUTED             
+ *N 0 1
+ 0
+Traslado       COMPUTED             
+ *N 0 1
+ 0
+EntPendACentro COMPUTED             
+ *N 0 1
+ 0
+IngPlanifAntes30Dias COMPUTED             
+ *N 0 1
+ 0
+IngPlanifUlt30Dias COMPUTED             
+ *N 0 1
+ 0
+IngPlanifProx30Dias COMPUTED             
+ *N 0 1
+ 0
+IngPlanifDesp30Dias COMPUTED             
+ *N 0 1
+ 0
+EntPendCliInt  COMPUTED             
+ *N 0 1
+ 0
+EntPendCliExt  COMPUTED             
+ *N 0 1
+ 0
+EntPendTot     COMPUTED             
+ *N 0 1
+ 0
+^LAYOUT   SituacionGeneralStockRES                                            421 D,T.
+Centro         ASCII       1   4    
+Material       ACL         5  12 0  
+Almacen        ASCII      17   4    
+LibreUtil      ACL        21  12 0  
+Bloqueado      ACL        33  12 0  
+CtrlCalidad    ACL        45  12 0  
+Transito       ACL        57  12 0  
+Traslado       ACL        69  12 0  
+EntPendACentro ACL        81  12 0  
+TransYTrasDeAlmOrig ACL        93  12 0 WIDTH 19  
+EntPendCliInt  ACL       105  12 0  
+EntPendCliExt  ACL       117  12 0  
+EntPendTot     ACL       129  12 0  
+IngPlanifAntes30Dias ACL       141  12 0 WIDTH 20  
+IngPlanifUlt30Dias ACL       153  12 0 WIDTH 18  
+IngPlanifProx30Dias ACL       165  12 0 WIDTH 19  
+IngPlanifDesp30Dias ACL       177  12 0 WIDTH 19  
+COUNT          ACL       189  12 0 WIDTH 8  
+Zona           ASCII     201   6    
+Nombre         ASCII     207  30    
+Tipo           ASCII     237   1    
+Considerar     ASCII     238   2    ""
+Descripcion    ASCII     240  40    
+TipoMat        ASCII     280   4    
+Rubro          ASCII     284   3    
+RubroDesc      ASCII     287  40    
+SubRubro       ASCII     327   6    
+SubRubroDesc   ASCII     333  40    
+Grupo          ASCII     373   9    
+GrupoDesc      ASCII     382  40    
+DisponibleVtaCentro COMPUTED             ""
+ *N 0 2
+ LibreUtil - EntPendTot IF Almacen = "0001"
+ 0
+DisponibleVtaEmpresa COMPUTED             ""
+ *N 0 2
+ LibreUtil - EntPendCliExt IF Almacen = "0001"
+ 0
+DisponibleAlmCentro COMPUTED             
+ *N 0 1
+ LibreUtil - EntPendTot
+DisponibleAlmEmpresa COMPUTED             
+ *N 0 1
+ LibreUtil - EntPendCliExt
+^LAYOUT   SituacionGeneralStockORD                                            421 D,T.
+Centro         ASCII       1   4    
+Material       ACL         5  12 0  
+Almacen        ASCII      17   4    
+LibreUtil      ACL        21  12 0  
+Bloqueado      ACL        33  12 0  
+CtrlCalidad    ACL        45  12 0  
+Transito       ACL        57  12 0  
+Traslado       ACL        69  12 0  
+EntPendACentro ACL        81  12 0  
+TransYTrasDeAlmOrig ACL        93  12 0 WIDTH 19  
+EntPendCliInt  ACL       105  12 0  
+EntPendCliExt  ACL       117  12 0  
+EntPendTot     ACL       129  12 0  
+IngPlanifAntes30Dias ACL       141  12 0 WIDTH 20  
+IngPlanifUlt30Dias ACL       153  12 0 WIDTH 18  
+IngPlanifProx30Dias ACL       165  12 0 WIDTH 19  
+IngPlanifDesp30Dias ACL       177  12 0 WIDTH 19  
+COUNT          ACL       189  12 0 WIDTH 8  
+Zona           ASCII     201   6    
+Nombre         ASCII     207  30    
+Tipo           ASCII     237   1    
+Considerar     ASCII     238   2    ""
+Descripcion    ASCII     240  40    
+TipoMat        ASCII     280   4    
+Rubro          ASCII     284   3    
+RubroDesc      ASCII     287  40    
+SubRubro       ASCII     327   6    
+SubRubroDesc   ASCII     333  40    
+Grupo          ASCII     373   9    
+GrupoDesc      ASCII     382  40    
+DisponibleVtaCentro COMPUTED             ""
+ *N 0 2
+ LibreUtil - EntPendTot IF Almacen = "0001"
+ 0
+DisponibleVtaEmpresa COMPUTED             ""
+ *N 0 2
+ LibreUtil - EntPendCliExt IF Almacen = "0001"
+ 0
+DisponibleAlmCentro COMPUTED             
+ *N 0 1
+ LibreUtil - EntPendTot
+DisponibleAlmEmpresa COMPUTED             
+ *N 0 1
+ LibreUtil - EntPendCliExt
+^LAYOUT   Datos                                                               868 D,T.
+Usu_Legacy     ASCII       1  50    
+Cl_Legacy      ASCII      52  50    
+Usu_SAP        ASCII     103  50    
+Cl_SAP         ASCII     154  50    
+Usu_REPO       ASCII     205  50    
+Cl_REPO        ASCII     256  50    
+megatone       ASCII     307  50    
+confina        ASCII     358  50    
+base_megatone  ASCII     409  50    
+base_corefin   ASCII     460  50    
+clientes_megatone ASCII     511  50    
+clientes_corefin ASCII     562  50    
+proveedores    ASCII     613  50    
+musimundo      ASCII     664  50    
+clientes_unificado ASCII     715  50    
+interfaz_sap   ASCII     766  50    
+reposar        ASCII     817  50    
+^LAYOUT   SituacionGeneralStock                                               455 D,T.
+Zona           ASCII       1   6    
+Centro         ASCII       7   4    
+Nombre         ASCII      11  30    
+Tipo           ASCII      41   1    
+Material       ACL        42  12 0  
+Descripcion    ASCII      54  40    
+TipoMat        ASCII      94   4    
+Rubro          ASCII      98   3    
+RubroDesc      ASCII     101  40    
+SubRubro       ASCII     141   6    
+SubRubroDesc   ASCII     147  40    
+Grupo          ASCII     187   9    
+GrupoDesc      ASCII     196  40    
+Almacen        ASCII     236   4    
+LibreUtil      ACL       240  12 0  
+Bloqueado      ACL       252  12 0  
+CtrlCalidad    ACL       264  12 0  
+Transito       ACL       276  12 0  
+Traslado       ACL       288  12 0  
+EntPendACentro ACL       300  12 0  
+TransYTrasDeAlmOrig ACL       312  12 0 WIDTH 19  
+EntPendCliInt  ACL       324  12 0  
+EntPendCliExt  ACL       336  12 0  
+EntPendTot     ACL       348  12 0  
+DisponibleVtaCentro ACL       360  12 0  ""
+DisponibleVtaEmpresa ACL       372  12 0  ""
+DisponibleAlmCentro ACL       384  12 0  
+DisponibleAlmEmpresa ACL       396  12 0  
+IngPlanifAntes30Dias ACL       408  12 0 WIDTH 20  
+IngPlanifUlt30Dias ACL       420  12 0 WIDTH 18  
+IngPlanifProx30Dias ACL       432  12 0 WIDTH 19  
+IngPlanifDesp30Dias ACL       444  12 0 WIDTH 19  
+^FOLDER   Tablas                                                               1593534508
+[PARENT_FOLDER_ID] 0
+^FOLDER   Scripts                                                              1593534819
+[PARENT_FOLDER_ID] 0
+^BATCH    S03_Ventas                                                          
+[PARENT_FOLDER_ID] 1593534819
+SET SAFETY OFF
+
+COMMENT
+Los datos podemos obtener de Legacy, Rumbo y si se puede de SAP por movimientos.
+Determinar el periodo, por ejemplo 30 dias atras o el mismo periodo del año anterior.
+
+
+
+SET SAFETY ON
+^BATCH    S07_IngresosPendientes                                              
+[PARENT_FOLDER_ID] 1593534819
+SET SAFETY OFF
+
+COMMENT
+Obtener pedidos pendiente de ingreso con fecha estimada.
+
+COMM dividir por dias de entrega, por ejemplo 30 dias atras, proximos 30 y mas de 30
+
+OPEN IngresosPendientes
+
+DELETE FIELD CantPendiente OK
+DEFINE FIELD CantPendiente COMPUTED EKPO_MENGE - EKET_WEMNG  
+
+EXTRACT FIELDS EKKO_EBELN AS "Pedido" EKKO_BUKRS AS "Sociedad" EKKO_BSTYP AS "TipoDoc" EKKO_BSART AS "ClasePedido" EKKO_AEDAT AS "FePedido" EKET_EINDT AS "FeEntrega" EKKO_LIFNR AS "Proveedor" EKKO_FRGZU AS "EstLib" EKKO_PROCSTAT AS "StatusTratam" EKPO_EBELP AS "Pos" EKPO_MTART AS "TipoArt" EKPO_MATNR AS "Material" EKPO_TXZ01 AS "Descripcion" EKPO_MATKL AS "Grupo" EKPO_WERKS AS "Centro" EKPO_LGORT AS "Almacen" EKPO_MENGE AS "CantPedido" EKET_WEMNG AS "CantEntrada" CantPendiente EKPO_BSTAE AS "ControlConf" EKET_ETENR AS "CantReparto" IF CantPendiente > 0 TO "IngresosPendientesFinal" 
+
+OPEN IngresosPendientesFinal
+
+DELETE FIELD DiasParaIngreso OK
+DEFINE FIELD DiasParaIngreso COMPUTED FeEntrega - v_FeHoy
+
+DELETE FIELD EntregaPlanificada OK
+DEFINE FIELD EntregaPlanificada COMPUTED
+""
+"Proximos 30 dias  " IF DiasParaIngreso >= 0 AND DiasParaIngreso <= 30
+"Despues de 30 dias" IF DiasParaIngreso > 30
+"Ultimos 30 dias   " IF DiasParaIngreso >= -30 AND DiasParaIngreso <  0 
+"Antes de 30 dias  " 
+
+DEFINE RELATION Centro WITH Centros INDEX IxCentro
+DEFINE RELATION Material WITH DatosMaterial INDEX IxMaterial
+
+EXTRACT FIELDS Centros.T001W_BZIRK AS "Zona" Centros.T001W_WERKS AS "Centro" Centros.T001W_NAME1 AS "Nombre" Centros.T001W_VLFKZ AS "Tipo" Centros.Considerar AS "Considerar" DatosMaterial.MARA_MATNR AS "Material" DatosMaterial.MAKT_MAKTX AS "Descripcion" DatosMaterial.MARA_MTART AS "TipoMat" DatosMaterial.Rubro AS "Rubro" DatosMaterial.RubroDesc AS "RubroDesc" DatosMaterial.SubRubro AS "SubRubro" DatosMaterial.SubRubroDesc AS "SubRubroDesc" DatosMaterial.Grupo AS "Grupo" DatosMaterial.GrupoDesc AS "GrupoDesc" Almacen EntregaPlanificada CantPendiente IF BETWEEN(Centro;"M000";"M999") AND MATCH(DatosMaterial.MARA_MTART;"ZPRO";"ZBLA";"ZPCO";"ZPVV") TO "IngresosPendientesCentroM" 
+
+OPEN IngresosPendientesCentroM
+
+CROSSTAB ON Zona Centro Nombre Tipo Considerar Material Descripcion TipoMat Rubro RubroDesc SubRubro SubRubroDesc Grupo GrupoDesc Almacen COLUMNS EntregaPlanificada SUBTOTAL CantPendiente TO "IngresosPendientesCentroMCRUZ.FIL" OPEN
+
+OPEN IngresosPendientesCentroMCRUZ
+
+v_Prox30Dias = ISDEFINED("CantPendiente_Proximos_30_dias")
+DELETE FIELD Prox30Dias OK
+IF v_Prox30Dias DEFINE FIELD Prox30Dias COMPUTED DEC(CantPendiente_Proximos_30_dias;0)
+IF NOT v_Prox30Dias DEFINE FIELD Prox30Dias COMPUTED 0
+
+v_Desp30Dias = ISDEFINED("CantPendiente_Despues_de_30_dias")
+DELETE FIELD Desp30Dias OK
+IF v_Desp30Dias DEFINE FIELD Desp30Dias COMPUTED DEC(CantPendiente_Despues_de_30_dias;0)
+IF NOT v_Desp30Dias DEFINE FIELD Desp30Dias COMPUTED 0
+
+v_Ult30Dias = ISDEFINED("CantPendiente_Ultimos_30_dias")
+DELETE FIELD Ult30Dias OK
+IF v_Ult30Dias DEFINE FIELD Ult30Dias COMPUTED DEC(CantPendiente_Ultimos_30_dias;0)
+IF NOT v_Ult30Dias DEFINE FIELD Ult30Dias COMPUTED 0
+
+v_Antes30Dias = ISDEFINED("CantPendiente_Antes_de_30_dias")
+DELETE FIELD Antes30Dias OK
+IF v_Antes30Dias DEFINE FIELD Antes30Dias COMPUTED DEC(CantPendiente_Antes_de_30_dias;0)
+IF NOT v_Antes30Dias DEFINE FIELD Antes30Dias COMPUTED 0
+
+DELETE FIELD Clave OK
+DEFINE FIELD Clave COMPUTED Centro + Material + Almacen
+
+INDEX ON Clave TO "IxClaveIngPendientes"
+
+
+SET SAFETY ON
+^BATCH    S05_EntregasPendientes                                              
+[PARENT_FOLDER_ID] 1593534819
+SET SAFETY OFF
+
+COMMENT
+Obtener entregas pendientes, discriminadas por destino (Centro y Cliente).
+*************************************************Entrergas Pendientes
+SELECT
+    LIKP.VBELN Entrega,
+    LIKP.LFART Tipo,
+    LIPS.WERKS Centro,
+    LIPS.LGORT Almacen,
+    LIKP.KUNNR Destino,
+    SUBSTR(LIPS.MATNR,-7) Material,
+    LIPS.MATKL Grupo,
+    CAST(LIPS.LFIMG AS INT) Cantidad,
+    VBUK.WBSTK Status
+FROM
+    LIPS LIPS
+    INNER JOIN LIKP LIKP ON LIPS.VBELN = LIKP.VBELN
+    INNER JOIN VBUK VBUK ON LIPS.VBELN = VBUK.VBELN
+WHERE
+    LIPS.ERDAT BETWEEN '20200101' AND '20200629'
+    AND VBUK.WBSTK = 'A'
+    AND LIKP.LFART <> 'EL'
+    AND LIPS.LGORT = '0001'
+    AND LIPS.MATKL LIKE 'IYSTEL%'
+/*    AND LIPS.WERKS = 'M222'*/
+/*    AND LIPS.MATNR = '000000000000175710'*/
+/*    AND LIKP.VBELN = '0088114448'*/
+END
+
+OPEN EntregasPendientes
+
+DELETE FIELD Origen OK
+DEFINE FIELD Origen COMPUTED LIPS_WERKS
+
+DELETE FIELD Destinatario OK
+DEFINE FIELD Destinatario COMPUTED LIKP_KUNNR
+
+DELETE FIELD Material OK
+DEFINE FIELD Material COMPUTED LIPS_MATNR
+
+DELETE FIELD Cantidad OK
+DEFINE FIELD Cantidad COMPUTED LIPS_LFIMG
+
+DELETE FIELD Almacen OK
+DEFINE FIELD Almacen COMPUTED LIPS_LGORT
+
+DELETE FIELD Cliente OK
+DEFINE FIELD Cliente COMPUTED
+""
+"Interno" IF OCCURS(LIKP_KUNNR;"CM") > 0
+"Externo"
+
+CROSSTAB ON Origen Almacen Material COLUMNS Cliente SUBTOTAL Cantidad TO "EntregasPendientesCRUZ.FIL" OPEN
+
+OPEN EntregasPendientesCRUZ
+
+DELETE FIELD Total OK
+DEFINE FIELD Total COMPUTED Cantidad_Interno + Cantidad_Externo
+
+COMM
+OPEN EntregasPendientes
+SUMMARIZE ON Origen Almacen Material Cliente SUBTOTAL Cantidad TO "EntregasPendientesRES.FIL" OPEN PRESORT
+OPEN EntregasPendientesRES
+
+DEFINE RELATION Origen WITH Centros INDEX IxCentro
+DEFINE RELATION Material WITH DatosMaterial INDEX IxMaterial
+
+EXTRACT FIELDS Centros.T001W_BZIRK AS "Zona" Centros.T001W_WERKS AS "Centro" Centros.T001W_NAME1 AS "Nombre" Centros.T001W_VLFKZ AS "Tipo" Centros.Considerar AS "Considerar" DatosMaterial.MARA_MATNR AS "Material" DatosMaterial.MAKT_MAKTX AS "Descripcion" DatosMaterial.MARA_MTART AS "TipoMat" DatosMaterial.Rubro AS "Rubro" DatosMaterial.RubroDesc AS "RubroDesc" DatosMaterial.SubRubro AS "SubRubro" DatosMaterial.SubRubroDesc AS "SubRubroDesc" DatosMaterial.Grupo AS "Grupo" DatosMaterial.GrupoDesc AS "GrupoDesc" Almacen DEC(Cantidad_Interno;0) AS "CantCliInt" DEC(Cantidad_Externo;0) AS "CantCliExt" DEC(Total;0) AS "Total"  IF BETWEEN(Origen;"M000";"M999") AND MATCH(DatosMaterial.MARA_MTART;"ZPRO";"ZBLA";"ZPCO";"ZPVV") TO "EntregasPendientesCentroM" 
+
+OPEN EntregasPendientesCentroM
+
+DELETE FIELD Clave OK
+DEFINE FIELD Clave COMPUTED Centro + Material + Almacen
+
+INDEX ON Clave TO "IxClaveEntPendientes"
+
+
+SET SAFETY ON
+^BATCH    S08_TransitoTraslado                                                
+[PARENT_FOLDER_ID] 1593534819
+SET SAFETY OFF
+
+COMMENT
+Transito y Traslado.
+
+OPEN TransitoyTraslado
+
+DELETE FIELD Destino OK
+DEFINE FIELD Destino COMPUTED "M"+SUBSTR(LIKP_KUNNR;3;3)
+
+DEFINE RELATION Destino WITH Centros INDEX IxCentro
+DEFINE RELATION LIPS_MATNR WITH DatosMaterial INDEX IxMaterial
+
+COMM
+Filtro
+Almacen 0001
+
+EXTRACT FIELDS Centros.T001W_BZIRK AS "Zona" Centros.T001W_WERKS AS "Centro" Centros.T001W_NAME1 AS "Nombre" Centros.T001W_VLFKZ AS "Tipo" Centros.Considerar AS "Considerar" DatosMaterial.MARA_MATNR AS "Material" DatosMaterial.MAKT_MAKTX AS "Descripcion" DatosMaterial.MARA_MTART AS "TipoMat" DatosMaterial.Rubro AS "Rubro" DatosMaterial.RubroDesc AS "RubroDesc" DatosMaterial.SubRubro AS "SubRubro" DatosMaterial.SubRubroDesc AS "SubRubroDesc" DatosMaterial.Grupo AS "Grupo" DatosMaterial.GrupoDesc AS "GrupoDesc" LIKP_VBELN AS "Entrega" LIPS_POSNR AS "Posicion" LIKP_ERDAT AS "FeCreacion" ("M"+SUBSTR(LIKP_VSTEL;2;3)) AS "Origen" Destino LIKP_VSTEL AS "Expedicion" LIKP_LFART AS "ClaseEnt" LIKP_WADAT AS "FePrevista" LIKP_LFDAT AS "FeEntrega" LIKP_KUNNR AS "Destinatario" LIKP_WADAT_IST AS "FeMovReal"  LIPS_MATNR AS "Material" LIPS_LGORT AS "Almacen" LIPS_LGMNG AS "CantEntrega" LIPS_ARKTX AS "TextoMaterial" VBFA_VBELN AS "DocSig" VBFA_POSNN AS "PosDocSig" VBFA_VBTYP_N AS "TipoDocSig" VBFA_RFMNG AS "Cantidad" VBFA_PLMIN AS "Signo" VBFA_ERDAT AS "FeCreDocSig" VBFA_BWART AS "Mov" VBFA_AEDAT AS "FeModif" IF BETWEEN(Destino;"M000";"M999") AND MATCH(DatosMaterial.MARA_MTART;"ZPRO";"ZBLA";"ZPCO";"ZPVV") TO "TransitoTrasladoAlmOrigen" 
+
+COMM LIPS_LGORT = '0001' AND 
+
+OPEN TransitoTrasladoAlmOrigen
+
+COMM
+101  B   EM Entr.mercancías
+102  B   Anul.EM para pedido
+603     TR Salida a centro
+604     AnTR Salida a centro
+605  L   TR Almacenar en ce.
+606  L   AnTR Almacenar en ce
+
+
+DELETE FIELD CantConSigno OK
+DEFINE FIELD CantConSigno COMPUTED 
+""
+DEC(Cantidad;0) IF Signo = "+"
+DEC(Cantidad;0) * -1
+
+COMMENT
+Obtener los ingresos
+
+OPEN TransitoTrasladoAlmOrigen
+
+SUMMARIZE ON Entrega Posicion Centro Almacen Material SUBTOTAL CantConSigno OTHER Zona Centro Nombre Tipo Considerar Material Descripcion TipoMat Rubro RubroDesc SubRubro SubRubroDesc Grupo GrupoDesc Origen ClaseEnt Almacen IF MATCH(TipoDocSig;"i") TO "EntregasIngresadas.FIL" OPEN PRESORT
+
+OPEN EntregasIngresadas
+
+DELETE FIELD Clave OK
+DEFINE FIELD Clave COMPUTED Entrega + Posicion + Material + Almacen
+
+INDEX ON Clave TO "IxClaveEntIngresadas" 
+
+
+COMMENT
+Obtener las entregas contabilizadas
+Resumir por Entrega y Posicion, netear con R (Contabilizacion) y h (Anulacion)
+
+OPEN TransitoTrasladoAlmOrigen 
+
+SUMMARIZE ON Entrega Posicion Centro Almacen Material SUBTOTAL CantConSigno OTHER Zona Centro Nombre Tipo Considerar Material Descripcion TipoMat Rubro RubroDesc SubRubro SubRubroDesc Grupo GrupoDesc Origen ClaseEnt Almacen IF MATCH(TipoDocSig;"R";"h") TO "EntregasContabilizadas.FIL" OPEN PRESORT
+
+OPEN EntregasContabilizadas
+
+DELETE FIELD Clave OK
+DEFINE FIELD Clave COMPUTED Entrega + Posicion + Material + Almacen
+
+COMMENT
+Desde las entregas contabilizadas relacionar con los Ingresos de las mismas para calcular el saldo, que es lo que deberia estar en transito
+
+
+OPEN EntregasContabilizadas
+
+DEFINE RELATION Clave WITH EntregasIngresadas INDEX IxClaveEntIngresadas
+
+DELETE FIELD TransitoTraslado OK
+DEFINE FIELD TransitoTraslado COMPUTED CantConSigno - EntregasIngresadas.CantConSigno
+
+COMM Extraer casos con TransitoTraslado > 0
+
+EXTRACT FIELDS Zona Centro Nombre Tipo Considerar Material Descripcion TipoMat Rubro RubroDesc SubRubro SubRubroDesc Grupo GrupoDesc Almacen Entrega Posicion TransitoTraslado IF TransitoTraslado > 0 TO "TransitoTrasladoCentroM_TEMP" 
+
+OPEN TransitoTrasladoCentroM_TEMP
+
+COMM
+Resumir por Centro, Almacen y Material
+
+SUMMARIZE ON Centro Almacen Material SUBTOTAL TransitoTraslado OTHER Zona Centro Nombre Tipo Considerar Material Descripcion TipoMat Rubro RubroDesc SubRubro SubRubroDesc Grupo GrupoDesc Almacen TO "TransitoTrasladoCentroM.FIL" OPEN PRESORT
+
+OPEN TransitoTrasladoCentroM
+
+DELETE FIELD Clave OK
+DEFINE FIELD Clave COMPUTED Centro + Material + Almacen
+
+INDEX ON Clave TO "IxClaveTransitoTraslado"
+
+
+SET SAFETY ON
+^BATCH    S00_AX                                                              
+[PARENT_FOLDER_ID] 1593534819
+COMMENT
+//ANALYTIC SituacionStock
+//RESULT LOG
+//RESULT TABLE Stock
+//RESULT TABLE EntregasPendientesCentroM
+//RESULT TABLE EntregasPendientesACentroM
+//RESULT TABLE IngresosPendientesCentroMCRUZ
+//RESULT TABLE TransitoTrasladoCentroM
+//RESULT TABLE SituacionGeneralStock_%Nom%
+//RESULT FILE *.XLSX
+END
+
+SET SAFETY OFF
+
+SET FOLDER /Tablas
+
+DO S01_Inicializar 
+DO S02_Importar
+DO S04_Stock 
+DO S05_EntregasPendientes
+DO S06_EntregasPendientesACentro
+DO S07_IngresosPendientes 
+DO S08_TransitoTraslado
+DO S09_Armar
+
+
+SET SAFETY ON
+^BATCH    S06_EntregasPendientesACentro                                       
+[PARENT_FOLDER_ID] 1593534819
+SET SAFETY OFF
+
+COMM Para Entregas a Centro
+
+OPEN EntregasPendientes
+
+DEFINE RELATION Origen WITH Centros INDEX IxCentro
+
+EXTRACT FIELDS VBUK_VBELN VBUK_WBSTK VBUP_VBELN VBUP_POSNR VBUP_WBSTA LIKP_VBELN LIKP_ERDAT LIKP_VSTEL LIKP_LFART LIKP_WADAT LIKP_KUNNR KNA1_KUNNR KNA1_NAME1 KNA1_NAME2 KNA1_SORTL KNA1_KTOKD LIPS_VBELN LIPS_POSNR LIPS_ERDAT LIPS_MATNR LIPS_MATKL LIPS_WERKS LIPS_LGORT LIPS_LFIMG Almacen Cantidad Cliente Destinatario Material Origen IF Cliente = "Interno" AND Centros.Considerar = "SI" TO "EntregasACentros_TMP" 
+
+OPEN EntregasACentros_TMP
+
+DELETE FIELD Destino OK
+DEFINE FIELD Destino COMPUTED SUBSTR(Destinatario;2;4)
+
+CROSSTAB ON Destino Almacen Material COLUMNS Cliente SUBTOTAL Cantidad TO "EntregasACentrosCRUZ.FIL" OPEN
+
+OPEN EntregasACentrosCRUZ
+
+DEFINE RELATION Destino WITH Centros INDEX IxCentro
+DEFINE RELATION Material WITH DatosMaterial INDEX IxMaterial
+
+EXTRACT FIELDS Centros.T001W_BZIRK AS "Zona" Centros.T001W_WERKS AS "Centro" Centros.T001W_NAME1 AS "Nombre" Centros.T001W_VLFKZ AS "Tipo" Centros.Considerar AS "Considerar" DatosMaterial.MARA_MATNR AS "Material" DatosMaterial.MAKT_MAKTX AS "Descripcion" DatosMaterial.MARA_MTART AS "TipoMat" DatosMaterial.Rubro AS "Rubro" DatosMaterial.RubroDesc AS "RubroDesc" DatosMaterial.SubRubro AS "SubRubro" DatosMaterial.SubRubroDesc AS "SubRubroDesc" DatosMaterial.Grupo AS "Grupo" DatosMaterial.GrupoDesc AS "GrupoDesc" Almacen DEC(Cantidad_Interno;0) AS "EntPendACentro" IF BETWEEN(Destino;"M000";"M999") AND MATCH(DatosMaterial.MARA_MTART;"ZPRO";"ZBLA";"ZPCO";"ZPVV") TO "EntregasPendientesACentroM" 
+
+OPEN EntregasPendientesACentroM
+
+DELETE FIELD Clave OK
+DEFINE FIELD Clave COMPUTED Centro + Material + Almacen
+
+INDEX ON Clave TO "IxClaveEntPendientesACentro"
+
+SET SAFETY ON
+^BATCH    S99_CentroActivos                                                   
+[PARENT_FOLDER_ID] 1593534819
+
+IMPORT EXCEL TO Copia_de_Suc_Baja "D:\Mis Documentos\AUDITORIA OPERATIVA\SCRIPT\VentaStockDistribucion\Script\Copia de Suc_Baja.fil" FROM "D:\Mis Documentos\AUDITORIA OPERATIVA\SCRIPT\VentaStockDistribucion\Script\Copia de Suc_Baja.xlsx" TABLE "Sheet1$" KEEPTITLE FIELD "Centro" C WID 4 AS "" FIELD "Suc_Baja" C WID 2 AS ""
+
+OPEN Copia_de_Suc_Baja
+
+INDEX ON Centro TO "IxSuc_Baja"
+
+OPEN Centros
+
+DEFINE RELATION T001W_WERKS WITH Copia_de_Suc_Baja INDEX IxSuc_Baja
+^LOGFILE  VentaStockDistribucion                                                                                                                                                                                                                                               "" "VentaStockDistribucion.LOG"
+[PARENT_FOLDER_ID] 0
+^BATCH    S04_Stock                                                           
+[PARENT_FOLDER_ID] 1593534819
+SET SAFETY OFF
+
+COMMENT
+Obtener datos de Libre Utilizacion, Bloqueado, Control de Calidad, Transtito y Traslado.
+*************************************************LU-Control de Calidad-Bloqueado
+SELECT
+    T001W.BZIRK Zona,
+    MARD.WERKS Centro,
+    T001W.NAME1 Nombre,
+    SUBSTR(MARD.MATNR,-7) Material,
+    MAKT.MAKTX Descripcion,
+    MARA.MTART Tipo,
+    MARA.MATKL Grupo,
+    MARD.LGORT Almacen,
+    CAST(MARD.LABST AS INT) LibreUtil,
+    CAST(MARD.SPEME AS INT) Bloqueado,
+    CAST(MARD.INSME AS INT) ControlCalidad,
+    0 Transito,
+    0 Traslado
+FROM
+    MARD MARD
+    INNER JOIN T001W T001W ON T001W.WERKS = MARD.WERKS
+    INNER JOIN MARA MARA ON MARD.MATNR = MARA.MATNR
+    INNER JOIN MAKT MAKT ON MARA.MATNR = MAKT.MATNR
+    INNER JOIN MBEW MBEW ON MARD.WERKS||MARD.MATNR = MBEW.BWKEY||MBEW.MATNR
+    LEFT JOIN MARC MARC ON MARC.WERKS||MARC.MATNR||MARC.LGFSB = MARD.WERKS||MARD.MATNR||MARD.LGORT
+WHERE
+    (MARD.LABST <> 0.00 OR MARD.SPEME <> 0.00 OR  MARD.INSME <> 0.00)
+     AND MARD.WERKS LIKE 'M%'
+     AND MARA.MTART IN ('ZPRO','ZBLA','ZPCO')
+     AND MARA.MATKL LIKE 'IYSTEL%'
+END
+
+OPEN DatosAlmacen
+
+DEFINE RELATION MARD_WERKS WITH Centros INDEX IxCentro
+DEFINE RELATION MARD_MATNR WITH DatosMaterial INDEX IxMaterial
+
+DELETE FIELD Almacen OK
+DEFINE FIELD Almacen COMPUTED MARD_LGORT
+
+DELETE FIELD LibreUtil OK
+DEFINE FIELD LibreUtil COMPUTED DEC(MARD_LABST;0)
+
+DELETE FIELD Bloqueado OK
+DEFINE FIELD Bloqueado COMPUTED DEC(MARD_SPEME;0)
+
+DELETE FIELD CtrlCalidad OK
+DEFINE FIELD CtrlCalidad COMPUTED DEC(MARD_INSME;0)
+
+DELETE FIELD Transito OK
+DEFINE FIELD Transito COMPUTED 0
+
+DELETE FIELD Traslado OK
+DEFINE FIELD Traslado COMPUTED 0
+
+EXTRACT FIELDS Centros.T001W_BZIRK AS "Zona" Centros.T001W_WERKS AS "Centro" Centros.T001W_NAME1 AS "Nombre" Centros.T001W_VLFKZ AS "Tipo" Centros.Considerar AS "Considerar" DatosMaterial.MARA_MATNR AS "Material" DatosMaterial.MAKT_MAKTX AS "Descripcion" DatosMaterial.MARA_MTART AS "TipoMat" DatosMaterial.Rubro AS "Rubro" DatosMaterial.RubroDesc AS "RubroDesc" DatosMaterial.SubRubro AS "SubRubro" DatosMaterial.SubRubroDesc AS "SubRubroDesc" DatosMaterial.Grupo AS "Grupo" DatosMaterial.GrupoDesc AS "GrupoDesc" Almacen LibreUtil Bloqueado CtrlCalidad Transito Traslado IF BETWEEN(MARD_WERKS;"M000";"M999") AND MATCH(DatosMaterial.MARA_MTART;"ZPRO";"ZBLA";"ZPCO";"ZPVV")  TO "DatosAlmacenCentroM" 
+
+OPEN DatosAlmacenCentroM
+
+COMMENT
+***********************************************Transito y Traslado
+SELECT
+    T001W.BZIRK Zona,
+    MARD.WERKS Centro,
+    T001W.NAME1 Nombre,
+    SUBSTR(MARD.MATNR,-7) Material,
+    MAKT.MAKTX Descripcion,
+    MARA.MTART Tipo,
+    MARA.MATKL Grupo,
+    '    ' Almacen,
+    0 LibreUtil,
+    0 Bloqueado,
+    0 ControlCalidad,
+    CAST(MARC.TRAME AS INT) Transito,
+    CAST(MARC.UMLMC AS INT) Traslado
+FROM
+    MARD MARD
+    INNER JOIN T001W T001W ON T001W.WERKS = MARD.WERKS
+    INNER JOIN MARA MARA ON MARD.MATNR = MARA.MATNR
+    INNER JOIN MAKT MAKT ON MARA.MATNR = MAKT.MATNR
+    INNER JOIN MBEW MBEW ON MARD.WERKS||MARD.MATNR = MBEW.BWKEY||MBEW.MATNR
+    LEFT JOIN MARC MARC ON MARC.WERKS||MARC.MATNR||MARC.LGFSB = MARD.WERKS||MARD.MATNR||MARD.LGORT
+WHERE
+    (MARC.TRAME <> 0.00 OR MARC.UMLMC <> 0.00 )
+     AND MARD.WERKS LIKE 'M%'
+     AND MARA.MTART IN ('ZPRO','ZBLA','ZPCO')
+     AND MARA.MATKL LIKE 'IYSTEL%'
+END
+  
+OPEN DatosCentro
+
+DEFINE RELATION MARC_WERKS WITH Centros INDEX IxCentro
+DEFINE RELATION MARC_MATNR WITH DatosMaterial INDEX IxMaterial
+
+DELETE FIELD Almacen OK
+DEFINE FIELD Almacen COMPUTED '    '
+
+DELETE FIELD LibreUtil OK
+DEFINE FIELD LibreUtil COMPUTED 0
+
+DELETE FIELD Bloqueado OK
+DEFINE FIELD Bloqueado COMPUTED 0
+
+DELETE FIELD CtrlCalidad OK
+DEFINE FIELD CtrlCalidad COMPUTED 0
+
+DELETE FIELD TipoTRAME OK
+DEFINE FIELD TipoTRAME COMPUTED VERIFY(MARC_TRAME)
+
+DELETE FIELD Transito OK
+DEFINE FIELD Transito COMPUTED DEC(MARC_TRAME;0)
+
+COMM CantDisp NUMERIC 61 10 0 PIC "(9.999.999)" AS "Cantidad disponible"
+
+DELETE FIELD Traslado OK
+DEFINE FIELD Traslado COMPUTED DEC(MARC_UMLMC;0)
+
+EXTRACT FIELDS Centros.T001W_BZIRK AS "Zona" Centros.T001W_WERKS AS "Centro" Centros.T001W_NAME1 AS "Nombre" Centros.T001W_VLFKZ AS "Tipo" Centros.Considerar AS "Considerar" DatosMaterial.MARA_MATNR AS "Material" DatosMaterial.MAKT_MAKTX AS "Descripcion" DatosMaterial.MARA_MTART AS "TipoMat" DatosMaterial.Rubro AS "Rubro" DatosMaterial.RubroDesc AS "RubroDesc" DatosMaterial.SubRubro AS "SubRubro" DatosMaterial.SubRubroDesc AS "SubRubroDesc" DatosMaterial.Grupo AS "Grupo" DatosMaterial.GrupoDesc AS "GrupoDesc" Almacen LibreUtil Bloqueado CtrlCalidad Transito Traslado IF BETWEEN(MARC_WERKS;"M000";"M999") AND MATCH(DatosMaterial.MARA_MTART;"ZPRO";"ZBLA";"ZPCO";"ZPVV") TO "DatosCentroCentroM" 
+
+OPEN DatosCentroCentroM
+
+
+COMMENT
+Unir ambas tablas
+
+OPEN DatosAlmacenCentroM
+EXTRACT FIELDS Zona Centro Nombre Tipo Considerar Material Descripcion TipoMat Rubro RubroDesc SubRubro SubRubroDesc Grupo GrupoDesc Almacen LibreUtil Bloqueado CtrlCalidad Transito Traslado TO "Stock"
+
+OPEN DatosCentroCentroM
+EXTRACT FIELDS Zona Centro Nombre Tipo Considerar Material Descripcion TipoMat Rubro RubroDesc SubRubro SubRubroDesc Grupo GrupoDesc Almacen LibreUtil Bloqueado CtrlCalidad Transito Traslado TO "Stock" APPEND
+
+
+OPEN Stock
+
+DELETE FIELD Clave OK
+DEFINE FIELD Clave COMPUTED Centro + Material + Almacen
+
+INDEX ON Clave TO "IxClaveStock"
+
+SET SAFETY ON
+
+^BATCH    S00_Local                                                           
+[PARENT_FOLDER_ID] 1593534819
+SET SAFETY OFF
+
+SET FOLDER /Tablas
+
+IMPORT ODBC SOURCE "Excel Files" TABLE "Datos$" QUALIFIER "D:\Mis Documentos\AUDITORIA OPERATIVA\SCRIPT\Biblioteca AX\Datos.xls" TO "Datos.FIL" WIDTH 50 MAXIMUM 100 FIELDS "Usu_Legacy","Cl_Legacy","Usu_SAP","Cl_SAP","Usu_REPO","Cl_REPO","megatone","confina","base_megatone","base_corefin","clientes_megatone","clientes_corefin","proveedores","musimundo","clientes_unificado","interfaz_sap","reposar"
+
+DO S01_Inicializar 
+InicioImport = TIME()
+DO S02_Importar
+FinImport = TIME()
+DO S04_Stock 
+DO S05_EntregasPendientes
+DO S06_EntregasPendientesACentro
+DO S07_IngresosPendientes 
+DO S08_TransitoTraslado
+DO S09_Armar
+
+SET SAFETY ON
+^BATCH    S02_Importar                                                        
+[PARENT_FOLDER_ID] 1593534819
+SET SAFETY OFF
+
+COMMENT
+*******************************************WRF1 Datos de centro
+
+IMPORT SAP PASSWORD 1 TO WRF1_DatosCentro SAP SOURCE "SAP AGENT" <q version="7.5"><s>0</s><d>PRD_-_Productivo</d><u>%v_Usuario%</u><c>300</c><lg>ES</lg><cf>WRF1_DatosCentro.fil</cf><sf></sf><jcount></jcount><jname></jname><dl>99</dl><m>0</m><ws>0</ws><jw>0</jw><r>5000</r><ar>1</ar><e>500</e><ts><t><n>WRF1</n><a>T00001</a><td>Datos de centro</td><tt>1</tt><fs><f>LOCNR</f><f>EROED</f><f>SCHLD</f><f>SPDAB</f><f>SPDBI</f><f>KOPRO</f><f>LAYVR</f><f>INPRO</f><f>KZLIK</f><f>BETRP</f><f>ERDAT</f><f>ERNAM</f><f>NLMATFB</f><f>VKBUR_WRK</f><f>VLFKZ</f><f>VKORG</f><f>VTWEG</f></fs><wc><w><f>LOCNR</f><o>7</o><l>CM*</l><h></h></w></wc></t></ts><js></js></q>
+
+OPEN WRF1_DatosCentro
+
+DELETE FIELD Centro OK
+DEFINE FIELD Centro ASCII 2 4    
+
+INDEX ON Centro TO "IxWRF1DatosCentro"
+
+COMMENT
+*******************************************T001W Centros/Sucursales
+
+IMPORT SAP PASSWORD 1 TO Centros SAP SOURCE "SAP AGENT" <q version="7.5"><s>0</s><d>PRD_-_Productivo</d><u>%v_Usuario%</u><c>300</c><lg>ES</lg><cf>Centros.fil</cf><sf></sf><jcount></jcount><jname></jname><dl>43</dl><m>0</m><ws>0</ws><jw>0</jw><r>500</r><ar>1</ar><e>500</e><ts><t><n>T001W</n><a>T00001</a><td>Centros/Sucursales</td><tt>1</tt><fs><f>WERKS</f><f>NAME1</f><f>VLFKZ</f><f>BZIRK</f></fs><wc><w><f>WERKS</f><o>7</o><l>M*</l><h></h></w></wc></t></ts><js></js></q>
+
+OPEN Centros
+
+DEFINE RELATION T001W_WERKS WITH WRF1_DatosCentro INDEX IxWRF1DatosCentro
+
+DELETE FIELD Bloqueado OK
+DEFINE FIELD Bloqueado COMPUTED
+""
+"SI" IF BETWEEN(TODAY();WRF1_DatosCentro.WRF1_SPDAB;WRF1_DatosCentro.WRF1_SPDBI)
+"NO"
+
+DELETE FIELD Considerar OK
+DEFINE FIELD Considerar COMPUTED
+""
+"SI" IF MATCH(T001W_BZIRK;"MESOPO") AND NOT MATCH(T001W_WERKS;"M380") OR T001W_BZIRK = "METRO" AND MATCH(T001W_WERKS;"M222";"M283";"M767";"M768") OR T001W_BZIRK = "CENTRO" AND NOT MATCH(T001W_WERKS;"M006";"M487") OR T001W_BZIRK = "LITORA" AND NOT MATCH(T001W_WERKS;"M013") OR MATCH(T001W_BZIRK;"ZVIRT")
+"NO" 
+
+INDEX ON T001W_WERKS TO "IxCentro"
+
+COMMENT
+*******************************************Rubro, SubRubro y Grupo
+KLAH
+SWOR
+
+IMPORT SAP PASSWORD 1 TO RubroSubRubroGrupo SAP SOURCE "SAP AGENT" <q version="7.5"><s>0</s><d>PRD_-_Productivo</d><u>%v_Usuario%</u><c>300</c><lg>ES</lg><cf>RubroSubRubroGrupo.fil</cf><sf></sf><jcount></jcount><jname></jname><dl>96</dl><m>0</m><ws>0</ws><jw>0</jw><r>500</r><ar>1</ar><e>500</e><ts><t><n>KLAH</n><a>T00001</a><td>Datos cabecera clase</td><tt>1</tt><fs><f>CLINT</f><f>CLASS</f><f>VONDT</f><f>BISDT</f></fs><wc></wc></t><t><n>SWOR</n><a>T00002</a><td>Sistema de clasificación: palabras clave</td><tt>1</tt><fs><f>CLINT</f><f>KSCHL</f></fs><wc><w><f>SPRAS</f><o>0</o><l>S</l><h></h></w></wc></t></ts><js><jc><pt><pa>T00001</pa><pf>CLINT</pf></pt><ct><ca>T00002</ca><cf>CLINT</cf></ct></jc></js></q>
+
+OPEN RubroSubRubroGrupo
+
+INDEX ON KLAH_CLASS TO "IxClase"
+
+COMM
+***********************************************MARA y MAKT
+
+IMPORT SAP PASSWORD 1 TO DatosMaterial SAP SOURCE "SAP AGENT" <q version="7.5"><s>0</s><d>PRD_-_Productivo</d><u>%v_Usuario%</u><c>300</c><lg>ES</lg><cf>DatosMaterial.fil</cf><sf></sf><jcount></jcount><jname></jname><dl>91</dl><m>0</m><ws>0</ws><jw>0</jw><r>500</r><ar>1</ar><e>500</e><ts><t><n>MARA</n><a>T00001</a><td>Datos generales artículo</td><tt>1</tt><fs><f>MATNR</f><f>MTART</f><f>MATKL</f></fs><wc></wc></t><t><n>MAKT</n><a>T00003</a><td>Textos breves de artículo</td><tt>1</tt><fs><f>MATNR</f><f>MAKTX</f></fs><wc><w><f>SPRAS</f><o>0</o><l>S</l><h></h></w></wc></t></ts><js><jc><pt><pa>T00001</pa><pf>MATNR</pf></pt><ct><ca>T00003</ca><cf>MATNR</cf></ct></jc></js></q>
+
+OPEN DatosMaterial
+
+DELETE FIELD Rubro OK
+DEFINE FIELD Rubro COMPUTED SUBSTR(MARA_MATKL;1;3)
+
+DELETE FIELD SubRubro OK
+DEFINE FIELD SubRubro COMPUTED SUBSTR(MARA_MATKL;1;6)
+
+DELETE FIELD Grupo OK
+DEFINE FIELD Grupo COMPUTED MARA_MATKL
+
+INDEX ON MARA_MATNR TO "IxMaterial"
+
+DEFINE RELATION Rubro WITH RubroSubRubroGrupo INDEX IxClase AS Rubro
+DEFINE RELATION SubRubro WITH RubroSubRubroGrupo INDEX IxClase AS SubRubro
+DEFINE RELATION Grupo WITH RubroSubRubroGrupo INDEX IxClase AS Grupo
+
+DELETE FIELD RubroDesc OK
+DEFINE FIELD RubroDesc COMPUTED Rubro.SWOR_KSCHL
+
+DELETE FIELD SubRubroDesc OK
+DEFINE FIELD SubRubroDesc COMPUTED SubRubro.SWOR_KSCHL
+
+DELETE FIELD GrupoDesc OK
+DEFINE FIELD GrupoDesc COMPUTED Grupo.SWOR_KSCHL
+
+COMMENT
+Obtener datos de Libre Utilizacion, Bloqueado, Control de Calidad, Transtito y Traslado.
+*************************************************LU-Control de Calidad-Bloqueado
+SELECT
+    T001W.BZIRK Zona,
+    MARD.WERKS Centro,
+    T001W.NAME1 Nombre,
+    SUBSTR(MARD.MATNR,-7) Material,
+    MAKT.MAKTX Descripcion,
+    MARA.MTART Tipo,
+    MARA.MATKL Grupo,
+    MARD.LGORT Almacen,
+    CAST(MARD.LABST AS INT) LibreUtil,
+    CAST(MARD.SPEME AS INT) Bloqueado,
+    CAST(MARD.INSME AS INT) ControlCalidad,
+    0 Transito,
+    0 Traslado
+FROM
+    MARD MARD
+    INNER JOIN T001W T001W ON T001W.WERKS = MARD.WERKS
+    INNER JOIN MARA MARA ON MARD.MATNR = MARA.MATNR
+    INNER JOIN MAKT MAKT ON MARA.MATNR = MAKT.MATNR
+    INNER JOIN MBEW MBEW ON MARD.WERKS||MARD.MATNR = MBEW.BWKEY||MBEW.MATNR
+    LEFT JOIN MARC MARC ON MARC.WERKS||MARC.MATNR||MARC.LGFSB = MARD.WERKS||MARD.MATNR||MARD.LGORT
+WHERE
+    (MARD.LABST <> 0.00 OR MARD.SPEME <> 0.00 OR  MARD.INSME <> 0.00)
+     AND MARD.WERKS LIKE 'M%'
+     AND MARA.MTART IN ('ZPRO','ZBLA','ZPCO')
+     AND MARA.MATKL LIKE 'IYSTEL%'
+
+IMPORT SAP PASSWORD 1 TO DatosAlmacen SAP SOURCE "SAP AGENT" <q version="7.5"><s>0</s><d>PRD_-_Productivo</d><u>%v_Usuario%</u><c>300</c><lg>ES</lg><cf>DatosAlmacen.fil</cf><sf></sf><jcount></jcount><jname></jname><dl>82</dl><m>0</m><sn></sn><sg></sg><ws>1</ws><jw>0</jw><r>500</r><ar>1</ar><e>500</e><ts><t><n>MARD</n><a>T00001</a><td>Datos de almacén para el artículo</td><tt>1</tt><fs><f>MATNR</f><f>WERKS</f><f>LGORT</f><f>LABST</f><f>INSME</f><f>SPEME</f></fs><wc><w><f>LABST</f><o>1</o><l>0</l><h></h></w><w><f>INSME</f><o>1</o><l>0</l><h></h></w><w><f>SPEME</f><o>1</o><l>0</l><h></h></w></wc></t></ts><js></js></q>
+
+OPEN DatosAlmacen
+
+COMM
+***********************************************Transito y Traslado
+SELECT
+    T001W.BZIRK Zona,
+    MARD.WERKS Centro,
+    T001W.NAME1 Nombre,
+    SUBSTR(MARD.MATNR,-7) Material,
+    MAKT.MAKTX Descripcion,
+    MARA.MTART Tipo,
+    MARA.MATKL Grupo,
+    '    ' Almacen,
+    0 LibreUtil,
+    0 Bloqueado,
+    0 ControlCalidad,
+    CAST(MARC.TRAME AS INT) Transito,
+    CAST(MARC.UMLMC AS INT) Traslado
+FROM
+    MARD MARD
+    INNER JOIN T001W T001W ON T001W.WERKS = MARD.WERKS
+    INNER JOIN MARA MARA ON MARD.MATNR = MARA.MATNR
+    INNER JOIN MAKT MAKT ON MARA.MATNR = MAKT.MATNR
+    INNER JOIN MBEW MBEW ON MARD.WERKS||MARD.MATNR = MBEW.BWKEY||MBEW.MATNR
+    LEFT JOIN MARC MARC ON MARC.WERKS||MARC.MATNR||MARC.LGFSB = MARD.WERKS||MARD.MATNR||MARD.LGORT
+WHERE
+    (MARC.TRAME <> 0.00 OR MARC.UMLMC <> 0.00 )
+     AND MARD.WERKS LIKE 'M%'
+     AND MARA.MTART IN ('ZPRO','ZBLA','ZPCO')
+     AND MARA.MATKL LIKE 'IYSTEL%'
+END
+ 
+IMPORT SAP PASSWORD 1 TO DatosCentro SAP SOURCE "SAP AGENT" <q version="7.5"><s>0</s><d>PRD_-_Productivo</d><u>%v_Usuario%</u><c>300</c><lg>ES</lg><cf>DatosCentro.fil</cf><sf></sf><jcount></jcount><jname></jname><dl>60</dl><m>0</m><ws>1</ws><jw>0</jw><r>500</r><ar>1</ar><e>500</e><ts><t><n>MARC</n><a>T00001</a><td>Datos centro p.artículo</td><tt>1</tt><fs><f>MATNR</f><f>WERKS</f><f>UMLMC</f><f>TRAME</f></fs><wc><w><f>TRAME</f><o>1</o><l>0</l><h></h></w><w><f>UMLMC</f><o>1</o><l>0</l><h></h></w></wc></t></ts><js></js></q>
+
+OPEN DatosCentro
+
+COMMENT
+***********************************************Entregas Pendientes
+SELECT
+    LIKP.VBELN Entrega,
+    LIKP.LFART Tipo,
+    LIPS.WERKS Centro,
+    LIPS.LGORT Almacen,
+    LIKP.KUNNR Destino,
+    SUBSTR(LIPS.MATNR,-7) Material,
+    LIPS.MATKL Grupo,
+    CAST(LIPS.LFIMG AS INT) Cantidad,
+    VBUK.WBSTK Status
+FROM
+    LIPS LIPS
+    INNER JOIN LIKP LIKP ON LIPS.VBELN = LIKP.VBELN
+    INNER JOIN VBUK VBUK ON LIPS.VBELN = VBUK.VBELN
+WHERE
+    LIPS.ERDAT BETWEEN '20200101' AND '20200629'
+    AND VBUK.WBSTK = 'A'
+    AND LIKP.LFART <> 'EL'
+    AND LIPS.LGORT = '0001'
+    AND LIPS.MATKL LIKE 'IYSTEL%'
+/*    AND LIPS.WERKS = 'M222'*/
+/*    AND LIPS.MATNR = '000000000000175710'*/
+/*    AND LIKP.VBELN = '0088114448'*/
+END
+
+IMPORT SAP PASSWORD 1 TO EntregasPendientes SAP SOURCE "SAP AGENT" <q version="7.5"><s>0</s><d>PRD_-_Productivo</d><u>%v_Usuario%</u><c>300</c><lg>ES</lg><cf>EntregasPendientes.fil</cf><sf></sf><jcount></jcount><jname></jname><dl>244</dl><m>0</m><ws>0</ws><jw>0</jw><r>500</r><ar>1</ar><e>500</e><ts><t><n>VBUK</n><a>T00001</a><td>Documento comercial: Status cabecera y datos gestión</td><tt>1</tt><fs><f>VBELN</f><f>WBSTK</f></fs><wc><w><f>WBSTK</f><o>0</o><l>A</l><h></h></w></wc></t><t><n>VBUP</n><a>T00002</a><td>Documento comercial: Status de posición</td><tt>1</tt><fs><f>VBELN</f><f>POSNR</f><f>WBSTA</f></fs><wc><w><f>WBSTA</f><o>0</o><l>A</l><h></h></w></wc></t><t><n>LIKP</n><a>T00003</a><td>Doc.comercial: Entrega - Datos de cabecera</td><tt>1</tt><fs><f>VBELN</f><f>ERDAT</f><f>VSTEL</f><f>LFART</f><f>WADAT</f><f>KUNNR</f></fs><wc><w><f>LFART</f><o>1</o><l>EL</l><h></h></w></wc></t><t><n>KNA1</n><a>T00004</a><td>Maestro de clientes (parte general)</td><tt>1</tt><fs><f>KUNNR</f><f>NAME1</f><f>NAME2</f><f>SORTL</f><f>KTOKD</f></fs><wc></wc></t><t><n>LIPS</n><a>T00005</a><td>Doc.comercial: Entrega - Datos de posición</td><tt>1</tt><fs><f>VBELN</f><f>POSNR</f><f>ERDAT</f><f>MATNR</f><f>MATKL</f><f>WERKS</f><f>LGORT</f><f>LFIMG</f></fs><wc></wc></t></ts><js><jc><pt><pa>T00001</pa><pf>VBELN</pf></pt><ct><ca>T00002</ca><cf>VBELN</cf></ct></jc><jc><pt><pa>T00001</pa><pf>VBELN</pf></pt><ct><ca>T00003</ca><cf>VBELN</cf></ct></jc><jc><pt><pa>T00003</pa><pf>KUNNR</pf></pt><ct><ca>T00004</ca><cf>KUNNR</cf></ct></jc><jc><pt><pa>T00002</pa><pf>VBELN</pf></pt><ct><ca>T00005</ca><cf>VBELN</cf></ct></jc><jc><pt><pa>T00002</pa><pf>POSNR</pf></pt><ct><ca>T00005</ca><cf>POSNR</cf></ct></jc></js></q>
+
+
+OPEN EntregasPendientes
+
+COMMENT
+***********************************************Para Transito y Traslado
+SELECT
+  K.VBELN,P.POSNR,K.KUNNR,K.VSTEL,K.LFDAT,K.ERDAT,P.MATNR,P.LGMNG,K.WADAT_IST,P.LGORT,K.LFART,P.ARKTX,
+  F.VBELN,F.POSNN,F.VBTYP_N,F.RFMNG,F.VBTYP_V,F.PLMIN,F.ERDAT,F.ERZET,F.MATNR,F.BWART,F.AEDAT   
+FROM
+  LIKP K
+  INNER JOIN LIPS P ON K.VBELN=P.VBELN
+  INNER JOIN VBUK U ON U.VBELN=K.VBELN
+  LEFT JOIN VBFA F ON P.VBELN=F.VBELV AND P.POSNR=F.POSNV  
+WHERE
+  /*K.VBELN AND*/
+  K.WADAT_IST BETWEEN '20200801' AND '20200806'
+  AND K.LFART IN ('ZREP','ZTTI','ZMUN','ZMTI','ZMUS','ZMTU','ZRRT','ZRTI')
+  AND K.KUNNR='CM009' AND K.VSTEL='N903'
+  AND P.MATNR='000000000000173467'
+  AND P.LFIMG>0 AND U.WBSTK='C'
+  /*AND F.VBTYP_N='i'*/
+ORDER BY 1,2
+
+IMPORT SAP PASSWORD 1 TO TransitoyTraslado SAP SOURCE "SAP AGENT" <q version="7.5"><s>0</s><d>PRD_-_Productivo</d><u>%v_Usuario%</u><c>300</c><lg>ES</lg><cf>TransitoyTraslado.fil</cf><sf></sf><jcount></jcount><jname></jname><dl>258</dl><m>0</m><ws>0</ws><jw>0</jw><r>500</r><ar>1</ar><e>500</e><ts><t><n>LIKP</n><a>T00001</a><td>Doc.comercial: Entrega - Datos de cabecera</td><tt>1</tt><fs><f>VBELN</f><f>ERDAT</f><f>VSTEL</f><f>LFART</f><f>WADAT</f><f>LFDAT</f><f>KUNNR</f><f>WADAT_IST</f></fs><wc><w><f>VKORG</f><o>0</o><l>1000</l><h></h></w><w><f>WADAT_IST</f><o>6</o><l>%v_Desde%</l><h>%v_Hasta%</h></w><w><f>LFART</f><o>0</o><l>ZREP</l><h></h></w><w><f>LFART</f><o>0</o><l>ZTTI</l><h></h></w><w><f>LFART</f><o>0</o><l>ZMUN</l><h></h></w><w><f>LFART</f><o>0</o><l>ZMTI</l><h></h></w><w><f>LFART</f><o>0</o><l>ZMUS</l><h></h></w><w><f>LFART</f><o>0</o><l>ZMTU</l><h></h></w><w><f>LFART</f><o>0</o><l>ZRRT</l><h></h></w><w><f>LFART</f><o>0</o><l>ZRTI</l><h></h></w></wc></t><t><n>LIPS</n><a>T00002</a><td>Doc.comercial: Entrega - Datos de posición</td><tt>1</tt><fs><f>VBELN</f><f>POSNR</f><f>MATNR</f><f>LGORT</f><f>LGMNG</f><f>ARKTX</f></fs><wc><w><f>LFIMG</f><o>4</o><l>0</l><h></h></w></wc></t><t><n>VBUK</n><a>T00003</a><td>Documento comercial: Status cabecera y datos gestión</td><tt>1</tt><fs><f>VBELN</f></fs><wc><w><f>WBSTK</f><o>0</o><l>C</l><h></h></w></wc></t><t><n>VBFA</n><a>T00004</a><td>Flujo de documentos comerciales</td><tt>1</tt><fs><f>VBELV</f><f>POSNV</f><f>VBELN</f><f>POSNN</f><f>VBTYP_N</f><f>RFMNG</f><f>VBTYP_V</f><f>PLMIN</f><f>ERDAT</f><f>ERZET</f><f>MATNR</f><f>BWART</f><f>AEDAT</f></fs><wc><w><f>VBTYP_N</f><o>0</o><l>R</l><h></h></w><w><f>VBTYP_N</f><o>0</o><l>i</l><h></h></w><w><f>VBTYP_N</f><o>0</o><l>h</l><h></h></w></wc></t></ts><js><jc><pt><pa>T00001</pa><pf>VBELN</pf></pt><ct><ca>T00002</ca><cf>VBELN</cf></ct></jc><jc><pt><pa>T00001</pa><pf>VBELN</pf></pt><ct><ca>T00003</ca><cf>VBELN</cf></ct></jc><jc><pt><pa>T00002</pa><pf>VBELN</pf></pt><ct><ca>T00004</ca><cf>VBELV</cf></ct></jc><jc><pt><pa>T00002</pa><pf>POSNR</pf></pt><ct><ca>T00004</ca><cf>POSNV</cf></ct></jc></js></q>
+
+OPEN TransitoyTraslado
+
+COMMENT
+***********************************************Pendientes de Ingreso
+SELECT
+   K.EBELN,K.BSTYP,K.BSART,K.AEDAT,K.LIFNR,K.FRGZU,K.PROCSTAT,
+   P.EBELP,P.TXZ01,P.MATNR,P.BUKRS,P.WERKS,P.LGORT,P.MATKL,P.MENGE,P.BSTAE,P.MTART,
+   E.WEMNG,E.EINDT
+FROM
+   EKKO K 
+   INNER JOIN EKPO P ON K.EBELN = P.EBELN
+   INNER JOIN EKET E ON P.EBELN = E.EBELN AND P.EBELP = E.EBELP
+WHERE
+   K.BSART IN ('ZPNA','ZIMP','ZPBC','ZPBI','ZPBL','ZPCO') 
+   AND P.LOEKZ <> 'L' 
+   AND (E.MENGE - E.WEMNG) <> 0
+
+IMPORT SAP PASSWORD 1 TO IngresosPendientes SAP SOURCE "SAP AGENT" <q version="7.5"><s>0</s><d>PRD_-_Productivo</d><u>%v_Usuario%</u><c>300</c><lg>ES</lg><cf>IngresosPendientes.fil</cf><sf></sf><jcount></jcount><jname></jname><dl>212 </dl><m>0</m><ws>0</ws><jw>0</jw><r>500</r><ar>1</ar><e>500</e><ts><t><n>EKKO</n><a>T00001</a><td>Cabecera del documento de compras</td><tt>1</tt><fs><f>EBELN</f><f>BUKRS</f><f>BSTYP</f><f>BSART</f><f>AEDAT</f><f>LIFNR</f><f>FRGZU</f><f>PROCSTAT</f></fs><wc><w><f>BSART</f><o>0</o><l>ZPNA</l><h></h></w><w><f>BSART</f><o>0</o><l>ZIMP</l><h></h></w><w><f>BSART</f><o>0</o><l>ZPBC</l><h></h></w><w><f>BSART</f><o>0</o><l>ZPBI</l><h></h></w><w><f>BSART</f><o>0</o><l>ZPBL</l><h></h></w><w><f>BSART</f><o>0</o><l>ZPCO</l><h></h></w></wc></t><t><n>EKPO</n><a>T00002</a><td>Posición del documento de compras</td><tt>1</tt><fs><f>EBELN</f><f>EBELP</f><f>TXZ01</f><f>MATNR</f><f>BUKRS</f><f>WERKS</f><f>LGORT</f><f>MATKL</f><f>MENGE</f><f>BSTAE</f><f>MTART</f></fs><wc><w><f>LOEKZ</f><o>1</o><l>L</l><h></h></w></wc></t><t><n>EKET</n><a>T00003</a><td>Repartos del plan de entregas</td><tt>1</tt><fs><f>EBELN</f><f>EBELP</f><f>ETENR</f><f>EINDT</f><f>WEMNG</f></fs><wc></wc></t></ts><js><jc><pt><pa>T00001</pa><pf>EBELN</pf></pt><ct><ca>T00002</ca><cf>EBELN</cf></ct></jc><jc><pt><pa>T00002</pa><pf>EBELN</pf></pt><ct><ca>T00003</ca><cf>EBELN</cf></ct></jc><jc><pt><pa>T00002</pa><pf>EBELP</pf></pt><ct><ca>T00003</ca><cf>EBELP</cf></ct></jc></js></q>
+
+OPEN IngresosPendientes
+
+
+
+
+SET SAFETY ON
+^FORMAT   WRF1_DatosCentro                                                    WRF1_DatosCentro                                                  "" "WRF1_DatosCentro.fil" 0 ASCII 
+[PARENT_FOLDER_ID] 1593534508
+[RETRIEVE] 0
+[REFRESH] SAP SOURCE "SAP AGENT" <q version="7.5"><s>0</s><d>PRD_-_Productivo               </d><u>macabrer    </u><c>300</c><lg>ES</lg><cf>WRF1_DatosCentro.fil</cf><sf>                                                                                                                                                                                                                                                               </sf><jcount>        </jcount><jname>                                </jname><dl>99  </dl><m>0</m><ws>0</ws><jw>0</jw><r>5000</r><ar>1</ar><e>500</e><ts><t><n>WRF1</n><a>T00001</a><td>Datos de centro</td><tt>1</tt><fs><f>LOCNR</f><f>EROED</f><f>SCHLD</f><f>SPDAB</f><f>SPDBI</f><f>KOPRO</f><f>LAYVR</f><f>INPRO</f><f>KZLIK</f><f>BETRP</f><f>ERDAT</f><f>ERNAM</f><f>NLMATFB</f><f>VKBUR_WRK</f><f>VLFKZ</f><f>VKORG</f><f>VTWEG</f></fs><wc><w><f>LOCNR</f><o>7</o><l>CM*</l><h></h></w></wc></t></ts><js></js></q>
+^INDEX    IxWRF1DatosCentro                                                   WRF1_DatosCentro                                                  "" "IxWRF1DatosCentro.INX" 
+*INDEX ON CENTRO TO "IXWRF1DATOSCENTRO"
+^FORMAT   Centros                                                             Centros                                                           "" "Centros.fil" 0 ASCII 
+[PARENT_FOLDER_ID] 1593534508
+[RETRIEVE] 0
+[REFRESH] SAP SOURCE "SAP AGENT" <q version="7.5"><s>0</s><d>PRD_-_Productivo               </d><u>macabrer    </u><c>300</c><lg>ES</lg><cf>Centros.fil</cf><sf>                                                                                                                                                                                                                                                               </sf><jcount>        </jcount><jname>                                </jname><dl>43  </dl><m>0</m><ws>0</ws><jw>0</jw><r>500</r><ar>1</ar><e>500</e><ts><t><n>T001W</n><a>T00001</a><td>Centros/Sucursales</td><tt>1</tt><fs><f>WERKS</f><f>NAME1</f><f>VLFKZ</f><f>BZIRK</f></fs><wc><w><f>WERKS</f><o>7</o><l>M*</l><h></h></w></wc></t></ts><js></js></q>
+^INDEX    IxCentro                                                            Centros                                                           "" "IxCentro.INX" 
+*INDEX ON T001W_WERKS TO "IXCENTRO"
+^FORMAT   RubroSubRubroGrupo                                                  RubroSubRubroGrupo                                                "" "RubroSubRubroGrupo.fil" 0 ASCII 
+[PARENT_FOLDER_ID] 1593534508
+[RETRIEVE] 0
+[REFRESH] SAP SOURCE "SAP AGENT" <q version="7.5"><s>0</s><d>PRD_-_Productivo               </d><u>macabrer    </u><c>300</c><lg>ES</lg><cf>RubroSubRubroGrupo.fil</cf><sf>                                                                                                                                                                                                                                                               </sf><jcount>        </jcount><jname>                                </jname><dl>96  </dl><m>0</m><ws>0</ws><jw>0</jw><r>500</r><ar>1</ar><e>500</e><ts><t><n>KLAH</n><a>T00001</a><td>Datos cabecera clase</td><tt>1</tt><fs><f>CLINT</f><f>CLASS</f><f>VONDT</f><f>BISDT</f></fs><wc></wc></t><t><n>SWOR</n><a>T00002</a><td>Sistema de clasificación: palabras clave</td><tt>1</tt><fs><f>CLINT</f><f>KSCHL</f></fs><wc><w><f>SPRAS</f><o>0</o><l>S</l><h></h></w></wc></t></ts><js><jc><pt><pa>T00001</pa><pf>CLINT</pf></pt><ct><ca>T00002</ca><cf>CLINT</cf></ct></jc></js></q>
+^INDEX    IxClase                                                             RubroSubRubroGrupo                                                "" "IxClase.INX" 
+*INDEX ON KLAH_CLASS TO "IXCLASE"
+^FORMAT   DatosMaterial                                                       DatosMaterial                                                     "" "DatosMaterial.fil" 0 ASCII 
+[PARENT_FOLDER_ID] 1593534508
+[RETRIEVE] 0
+[REFRESH] SAP SOURCE "SAP AGENT" <q version="7.5"><s>0</s><d>PRD_-_Productivo               </d><u>macabrer    </u><c>300</c><lg>ES</lg><cf>DatosMaterial.fil</cf><sf>                                                                                                                                                                                                                                                               </sf><jcount>        </jcount><jname>                                </jname><dl>91  </dl><m>0</m><ws>0</ws><jw>0</jw><r>500</r><ar>1</ar><e>500</e><ts><t><n>MARA</n><a>T00001</a><td>Datos generales artículo</td><tt>1</tt><fs><f>MATNR</f><f>MTART</f><f>MATKL</f></fs><wc></wc></t><t><n>MAKT</n><a>T00003</a><td>Textos breves de artículo</td><tt>1</tt><fs><f>MATNR</f><f>MAKTX</f></fs><wc><w><f>SPRAS</f><o>0</o><l>S</l><h></h></w></wc></t></ts><js><jc><pt><pa>T00001</pa><pf>MATNR</pf></pt><ct><ca>T00003</ca><cf>MATNR</cf></ct></jc></js></q>
+^INDEX    IxMaterial                                                          DatosMaterial                                                     "" "IxMaterial.INX" 
+*INDEX ON MARA_MATNR TO "IXMATERIAL"
+^FORMAT   DatosAlmacen                                                        DatosAlmacen                                                      "" "DatosAlmacen.fil" 0 ASCII 
+[PARENT_FOLDER_ID] 1593534508
+[RETRIEVE] 0
+[REFRESH] SAP SOURCE "SAP AGENT" <q version="7.5"><s>0</s><d>PRD_-_Productivo               </d><u>macabrer    </u><c>300</c><lg>ES</lg><cf>DatosAlmacen.fil</cf><sf>                                                                                                                                                                                                                                                               </sf><jcount>        </jcount><jname>                                </jname><dl>82  </dl><m>0</m><ws>1</ws><jw>0</jw><r>500</r><ar>1</ar><e>500</e><ts><t><n>MARD</n><a>T00001</a><td>Datos de almacén para el artículo</td><tt>1</tt><fs><f>MATNR</f><f>WERKS</f><f>LGORT</f><f>LABST</f><f>INSME</f><f>SPEME</f></fs><wc><w><f>LABST</f><o>1</o><l>0</l><h></h></w><w><f>INSME</f><o>1</o><l>0</l><h></h></w><w><f>SPEME</f><o>1</o><l>0</l><h></h></w></wc></t></ts><js></js></q>
+^FORMAT   DatosCentro                                                         DatosCentro                                                       "" "DatosCentro.fil" 0 ASCII 
+[PARENT_FOLDER_ID] 1593534508
+[RETRIEVE] 0
+[REFRESH] SAP SOURCE "SAP AGENT" <q version="7.5"><s>0</s><d>PRD_-_Productivo               </d><u>macabrer    </u><c>300</c><lg>ES</lg><cf>DatosCentro.fil</cf><sf>                                                                                                                                                                                                                                                               </sf><jcount>        </jcount><jname>                                </jname><dl>60  </dl><m>0</m><ws>1</ws><jw>0</jw><r>500</r><ar>1</ar><e>500</e><ts><t><n>MARC</n><a>T00001</a><td>Datos centro p.artículo</td><tt>1</tt><fs><f>MATNR</f><f>WERKS</f><f>UMLMC</f><f>TRAME</f></fs><wc><w><f>TRAME</f><o>1</o><l>0</l><h></h></w><w><f>UMLMC</f><o>1</o><l>0</l><h></h></w></wc></t></ts><js></js></q>
+^FORMAT   EntregasPendientes                                                  EntregasPendientes                                                "" "EntregasPendientes.fil" 0 ASCII 
+[PARENT_FOLDER_ID] 1593534508
+[RETRIEVE] 0
+[REFRESH] SAP SOURCE "SAP AGENT" <q version="7.5"><s>0</s><d>PRD_-_Productivo               </d><u>macabrer    </u><c>300</c><lg>ES</lg><cf>EntregasPendientes.fil</cf><sf>                                                                                                                                                                                                                                                               </sf><jcount>        </jcount><jname>                                </jname><dl>244 </dl><m>0</m><ws>0</ws><jw>0</jw><r>500</r><ar>1</ar><e>500</e><ts><t><n>VBUK</n><a>T00001</a><td>Documento comercial: Status cabecera y datos gestión</td><tt>1</tt><fs><f>VBELN</f><f>WBSTK</f></fs><wc><w><f>WBSTK</f><o>0</o><l>A</l><h></h></w></wc></t><t><n>VBUP</n><a>T00002</a><td>Documento comercial: Status de posición</td><tt>1</tt><fs><f>VBELN</f><f>POSNR</f><f>WBSTA</f></fs><wc><w><f>WBSTA</f><o>0</o><l>A</l><h></h></w></wc></t><t><n>LIKP</n><a>T00003</a><td>Doc.comercial: Entrega - Datos de cabecera</td><tt>1</tt><fs><f>VBELN</f><f>ERDAT</f><f>VSTEL</f><f>LFART</f><f>WADAT</f><f>KUNNR</f></fs><wc><w><f>LFART</f><o>1</o><l>EL</l><h></h></w></wc></t><t><n>KNA1</n><a>T00004</a><td>Maestro de clientes (parte general)</td><tt>1</tt><fs><f>KUNNR</f><f>NAME1</f><f>NAME2</f><f>SORTL</f><f>KTOKD</f></fs><wc></wc></t><t><n>LIPS</n><a>T00005</a><td>Doc.comercial: Entrega - Datos de posición</td><tt>1</tt><fs><f>VBELN</f><f>POSNR</f><f>ERDAT</f><f>MATNR</f><f>MATKL</f><f>WERKS</f><f>LGORT</f><f>LFIMG</f></fs><wc></wc></t></ts><js><jc><pt><pa>T00001</pa><pf>VBELN</pf></pt><ct><ca>T00002</ca><cf>VBELN</cf></ct></jc><jc><pt><pa>T00001</pa><pf>VBELN</pf></pt><ct><ca>T00003</ca><cf>VBELN</cf></ct></jc><jc><pt><pa>T00003</pa><pf>KUNNR</pf></pt><ct><ca>T00004</ca><cf>KUNNR</cf></ct></jc><jc><pt><pa>T00002</pa><pf>VBELN</pf></pt><ct><ca>T00005</ca><cf>VBELN</cf></ct></jc><jc><pt><pa>T00002</pa><pf>POSNR</pf></pt><ct><ca>T00005</ca><cf>POSNR</cf></ct></jc></js></q>
+^FORMAT   TransitoyTraslado                                                   TransitoyTraslado                                                 "" "TransitoyTraslado.fil" 0 ASCII 
+[PARENT_FOLDER_ID] 1593534508
+[RETRIEVE] 0
+[REFRESH] SAP SOURCE "SAP AGENT" <q version="7.5"><s>0</s><d>PRD_-_Productivo               </d><u>macabrer    </u><c>300</c><lg>ES</lg><cf>TransitoyTraslado.fil</cf><sf>                                                                                                                                                                                                                                                               </sf><jcount>        </jcount><jname>                                </jname><dl>264 </dl><m>0</m><ws>0</ws><jw>0</jw><r>500</r><ar>1</ar><e>500</e><ts><t><n>LIKP</n><a>T00001</a><td>Doc.comercial: Entrega - Datos de cabecera</td><tt>1</tt><fs><f>VBELN</f><f>ERDAT</f><f>VSTEL</f><f>LFART</f><f>WADAT</f><f>LFDAT</f><f>KUNNR</f><f>WADAT_IST</f></fs><wc><w><f>VKORG</f><o>0</o><l>1000</l><h></h></w><w><f>WADAT_IST</f><o>6</o><l>20220203</l><h>20220217</h></w><w><f>LFART</f><o>0</o><l>ZREP</l><h></h></w><w><f>LFART</f><o>0</o><l>ZTTI</l><h></h></w><w><f>LFART</f><o>0</o><l>ZMUN</l><h></h></w><w><f>LFART</f><o>0</o><l>ZMTI</l><h></h></w><w><f>LFART</f><o>0</o><l>ZMUS</l><h></h></w><w><f>LFART</f><o>0</o><l>ZMTU</l><h></h></w><w><f>LFART</f><o>0</o><l>ZRRT</l><h></h></w><w><f>LFART</f><o>0</o><l>ZRTI</l><h></h></w></wc></t><t><n>LIPS</n><a>T00002</a><td>Doc.comercial: Entrega - Datos de posición</td><tt>1</tt><fs><f>VBELN</f><f>POSNR</f><f>MATNR</f><f>LGORT</f><f>LGMNG</f><f>ARKTX</f></fs><wc><w><f>LFIMG</f><o>4</o><l>0</l><h></h></w></wc></t><t><n>VBUK</n><a>T00003</a><td>Documento comercial: Status cabecera y datos gestión</td><tt>1</tt><fs><f>VBELN</f></fs><wc><w><f>WBSTK</f><o>0</o><l>C</l><h></h></w></wc></t><t><n>VBFA</n><a>T00004</a><td>Flujo de documentos comerciales</td><tt>1</tt><fs><f>VBELV</f><f>POSNV</f><f>VBELN</f><f>POSNN</f><f>VBTYP_N</f><f>RFMNG</f><f>VBTYP_V</f><f>PLMIN</f><f>ERDAT</f><f>ERZET</f><f>MATNR</f><f>BWART</f><f>AEDAT</f></fs><wc><w><f>VBTYP_N</f><o>0</o><l>R</l><h></h></w><w><f>VBTYP_N</f><o>0</o><l>i</l><h></h></w><w><f>VBTYP_N</f><o>0</o><l>h</l><h></h></w></wc></t></ts><js><jc><pt><pa>T00001</pa><pf>VBELN</pf></pt><ct><ca>T00002</ca><cf>VBELN</cf></ct></jc><jc><pt><pa>T00001</pa><pf>VBELN</pf></pt><ct><ca>T00003</ca><cf>VBELN</cf></ct></jc><jc><pt><pa>T00002</pa><pf>VBELN</pf></pt><ct><ca>T00004</ca><cf>VBELV</cf></ct></jc><jc><pt><pa>T00002</pa><pf>POSNR</pf></pt><ct><ca>T00004</ca><cf>POSNV</cf></ct></jc></js></q>
+^FORMAT   IngresosPendientes                                                  IngresosPendientes                                                "" "IngresosPendientes.fil" 0 ASCII 
+[PARENT_FOLDER_ID] 1593534508
+[RETRIEVE] 0
+[REFRESH] SAP SOURCE "SAP AGENT" <q version="7.5"><s>0</s><d>PRD_-_Productivo               </d><u>macabrer    </u><c>300</c><lg>ES</lg><cf>IngresosPendientes.fil</cf><sf>                                                                                                                                                                                                                                                               </sf><jcount>        </jcount><jname>                                </jname><dl>212 </dl><m>0</m><ws>0</ws><jw>0</jw><r>500</r><ar>1</ar><e>500</e><ts><t><n>EKKO</n><a>T00001</a><td>Cabecera del documento de compras</td><tt>1</tt><fs><f>EBELN</f><f>BUKRS</f><f>BSTYP</f><f>BSART</f><f>AEDAT</f><f>LIFNR</f><f>FRGZU</f><f>PROCSTAT</f></fs><wc><w><f>BSART</f><o>0</o><l>ZPNA</l><h></h></w><w><f>BSART</f><o>0</o><l>ZIMP</l><h></h></w><w><f>BSART</f><o>0</o><l>ZPBC</l><h></h></w><w><f>BSART</f><o>0</o><l>ZPBI</l><h></h></w><w><f>BSART</f><o>0</o><l>ZPBL</l><h></h></w><w><f>BSART</f><o>0</o><l>ZPCO</l><h></h></w></wc></t><t><n>EKPO</n><a>T00002</a><td>Posición del documento de compras</td><tt>1</tt><fs><f>EBELN</f><f>EBELP</f><f>TXZ01</f><f>MATNR</f><f>BUKRS</f><f>WERKS</f><f>LGORT</f><f>MATKL</f><f>MENGE</f><f>BSTAE</f><f>MTART</f></fs><wc><w><f>LOEKZ</f><o>1</o><l>L</l><h></h></w></wc></t><t><n>EKET</n><a>T00003</a><td>Repartos del plan de entregas</td><tt>1</tt><fs><f>EBELN</f><f>EBELP</f><f>ETENR</f><f>EINDT</f><f>WEMNG</f></fs><wc></wc></t></ts><js><jc><pt><pa>T00001</pa><pf>EBELN</pf></pt><ct><ca>T00002</ca><cf>EBELN</cf></ct></jc><jc><pt><pa>T00002</pa><pf>EBELN</pf></pt><ct><ca>T00003</ca><cf>EBELN</cf></ct></jc><jc><pt><pa>T00002</pa><pf>EBELP</pf></pt><ct><ca>T00003</ca><cf>EBELP</cf></ct></jc></js></q>
+^FORMAT   DatosAlmacenCentroM                                                 DatosAlmacenCentroM                                               "" "DatosAlmacenCentroM.FIL" 0 ASCII 
+[PARENT_FOLDER_ID] 1593534508
+~.17/02/2022   18:40:06 DatosAlmacen EXTRACT FIELDS Centros.T001W_BZIRK AS "Zona" Centros.T001W_WERKS AS "Centro" Centros.T001W_NAME1 AS "Nombre" Centros.T001W_VLFKZ AS "Tipo" Centros.Considerar AS "Considerar" DatosMaterial.MARA_MATNR AS "Material" DatosMaterial.MAKT_MAKTX AS "Descripcion" DatosMaterial.MARA_MTART AS "TipoMat" DatosMaterial.Rubro AS "Rubro" DatosMaterial.RubroDesc AS "RubroDesc" DatosMaterial.SubRubro AS "SubRubro" DatosMaterial.SubRubroDesc AS "SubRubroDesc" DatosMaterial.Grupo AS "Grupo" DatosMaterial.GrupoDesc AS "GrupoDesc" Almacen LibreUtil Bloqueado CtrlCalidad Transito Traslado IF BETWEEN(MARD_WERKS;"M000";"M999") AND MATCH(DatosMaterial.MARA_MTART;"ZPRO";"ZBLA";"ZPCO";"ZPVV")  TO "DatosAlmacenCentroM"
+~Entrada: Registros:51509       Total de control:0                    
+~Salida: Registros:43975       Total de control:0                    
+^FORMAT   DatosCentroCentroM                                                  DatosCentroCentroM                                                "" "DatosCentroCentroM.FIL" 0 ASCII 
+[PARENT_FOLDER_ID] 1593534508
+~.17/02/2022   18:40:06 DatosCentro EXTRACT FIELDS Centros.T001W_BZIRK AS "Zona" Centros.T001W_WERKS AS "Centro" Centros.T001W_NAME1 AS "Nombre" Centros.T001W_VLFKZ AS "Tipo" Centros.Considerar AS "Considerar" DatosMaterial.MARA_MATNR AS "Material" DatosMaterial.MAKT_MAKTX AS "Descripcion" DatosMaterial.MARA_MTART AS "TipoMat" DatosMaterial.Rubro AS "Rubro" DatosMaterial.RubroDesc AS "RubroDesc" DatosMaterial.SubRubro AS "SubRubro" DatosMaterial.SubRubroDesc AS "SubRubroDesc" DatosMaterial.Grupo AS "Grupo" DatosMaterial.GrupoDesc AS "GrupoDesc" Almacen LibreUtil Bloqueado CtrlCalidad Transito Traslado IF BETWEEN(MARC_WERKS;"M000";"M999") AND MATCH(DatosMaterial.MARA_MTART;"ZPRO";"ZBLA";"ZPCO";"ZPVV") TO "DatosCentroCentroM"
+~Entrada: Registros:5069        Total de control:0                    
+~Salida: Registros:2367        Total de control:0                    
+^FORMAT   Stock                                                               Stock                                                             "" "Stock.FIL" 0 ASCII 
+[PARENT_FOLDER_ID] 1593534508
+~.17/02/2022   18:40:06 DatosAlmacen EXTRACT FIELDS Centros.T001W_BZIRK AS "Zona" Centros.T001W_WERKS AS "Centro" Centros.T001W_NAME1 AS "Nombre" Centros.T001W_VLFKZ AS "Tipo" Centros.Considerar AS "Considerar" DatosMaterial.MARA_MATNR AS "Material" DatosMaterial.MAKT_MAKTX AS "Descripcion" DatosMaterial.MARA_MTART AS "TipoMat" DatosMaterial.Rubro AS "Rubro" DatosMaterial.RubroDesc AS "RubroDesc" DatosMaterial.SubRubro AS "SubRubro" DatosMaterial.SubRubroDesc AS "SubRubroDesc" DatosMaterial.Grupo AS "Grupo" DatosMaterial.GrupoDesc AS "GrupoDesc" Almacen LibreUtil Bloqueado CtrlCalidad Transito Traslado IF BETWEEN(MARD_WERKS;"M000";"M999") AND MATCH(DatosMaterial.MARA_MTART;"ZPRO";"ZBLA";"ZPCO";"ZPVV")  TO "DatosAlmacenCentroM"
+~Entrada: Registros:51509       Total de control:0                    
+~Salida: Registros:43975       Total de control:0                    
+~.17/02/2022   18:40:07 DatosAlmacenCentroM EXTRACT FIELDS Zona Centro Nombre Tipo Considerar Material Descripcion TipoMat Rubro RubroDesc SubRubro SubRubroDesc Grupo GrupoDesc Almacen LibreUtil Bloqueado CtrlCalidad Transito Traslado TO "Stock"
+~Entrada: Registros:43975       Total de control:0                    
+~Salida: Registros:43975       Total de control:0                    
+~.17/02/2022   18:40:07 DatosCentroCentroM EXTRACT FIELDS Zona Centro Nombre Tipo Considerar Material Descripcion TipoMat Rubro RubroDesc SubRubro SubRubroDesc Grupo GrupoDesc Almacen LibreUtil Bloqueado CtrlCalidad Transito Traslado TO "Stock" APPEND
+~Entrada: Registros:2367        Total de control:0                    
+~Salida: Registros:2367        Total de control:0                    
+^INDEX    IxClaveStock                                                        Stock                                                             "" "IxClaveStock.INX" 
+*INDEX ON CLAVE TO "IXCLAVESTOCK"
+^FORMAT   EntregasPendientesCRUZ                                              EntregasPendientesCRUZ                                            "" "EntregasPendientesCRUZ.FIL" 0 ASCII 
+[PARENT_FOLDER_ID] 1593534508
+~.17/02/2022   18:40:07 EntregasPendientes CROSSTAB ON Origen Almacen Material COLUMNS Cliente SUBTOTAL Cantidad TO "EntregasPendientesCRUZ.FIL" OPEN
+~Entrada: Registros:8591        Total de control:0                    
+~Salida: Registros:3664        Total de control:0                    
+^FORMAT   EntregasPendientesCentroM                                           EntregasPendientesCentroM                                         "" "EntregasPendientesCentroM.FIL" 0 ASCII 
+[PARENT_FOLDER_ID] 1593534508
+~.17/02/2022   18:40:07 EntregasPendientes CROSSTAB ON Origen Almacen Material COLUMNS Cliente SUBTOTAL Cantidad TO "EntregasPendientesCRUZ.FIL" OPEN
+~Entrada: Registros:8591        Total de control:0                    
+~Salida: Registros:3664        Total de control:0                    
+~.17/02/2022   18:40:08 EntregasPendientesCRUZ EXTRACT FIELDS Centros.T001W_BZIRK AS "Zona" Centros.T001W_WERKS AS "Centro" Centros.T001W_NAME1 AS "Nombre" Centros.T001W_VLFKZ AS "Tipo" Centros.Considerar AS "Considerar" DatosMaterial.MARA_MATNR AS "Material" DatosMaterial.MAKT_MAKTX AS "Descripcion" DatosMaterial.MARA_MTART AS "TipoMat" DatosMaterial.Rubro AS "Rubro" DatosMaterial.RubroDesc AS "RubroDesc" DatosMaterial.SubRubro AS "SubRubro" DatosMaterial.SubRubroDesc AS "SubRubroDesc" DatosMaterial.Grupo AS "Grupo" DatosMaterial.GrupoDesc AS "GrupoDesc" Almacen DEC(Cantidad_Interno;0) AS "CantCliInt" DEC(Cantidad_Externo;0) AS "CantCliExt" DEC(Total;0) AS "Total"  IF BETWEEN(Origen;"M000";"M999") AND MATCH(DatosMaterial.MARA_MTART;"ZPRO";"ZBLA";"ZPCO";"ZPVV") TO "EntregasPendientesCentroM"
+~Entrada: Registros:3664        Total de control:0                    
+~Salida: Registros:2896        Total de control:0                    
+^INDEX    IxClaveEntPendientes                                                EntregasPendientesCentroM                                         "" "IxClaveEntPendientes.INX" 
+*INDEX ON CLAVE TO "IXCLAVEENTPENDIENTES"
+^FORMAT   EntregasACentros_TMP                                                EntregasACentros_TMP                                              "" "EntregasACentros_TMP.FIL" 0 ASCII 
+[PARENT_FOLDER_ID] 1593534508
+~.17/02/2022   18:40:08 EntregasPendientes EXTRACT FIELDS VBUK_VBELN VBUK_WBSTK VBUP_VBELN VBUP_POSNR VBUP_WBSTA LIKP_VBELN LIKP_ERDAT LIKP_VSTEL LIKP_LFART LIKP_WADAT LIKP_KUNNR KNA1_KUNNR KNA1_NAME1 KNA1_NAME2 KNA1_SORTL KNA1_KTOKD LIPS_VBELN LIPS_POSNR LIPS_ERDAT LIPS_MATNR LIPS_MATKL LIPS_WERKS LIPS_LGORT LIPS_LFIMG Almacen Cantidad Cliente Destinatario Material Origen IF Cliente = "Interno" AND Centros.Considerar = "SI" TO "EntregasACentros_TMP"
+~Entrada: Registros:8591        Total de control:0                    
+~Salida: Registros:4308        Total de control:0                    
+^FORMAT   EntregasACentrosCRUZ                                                EntregasACentrosCRUZ                                              "" "EntregasACentrosCRUZ.FIL" 0 ASCII 
+[PARENT_FOLDER_ID] 1593534508
+~.17/02/2022   18:40:08 EntregasPendientes EXTRACT FIELDS VBUK_VBELN VBUK_WBSTK VBUP_VBELN VBUP_POSNR VBUP_WBSTA LIKP_VBELN LIKP_ERDAT LIKP_VSTEL LIKP_LFART LIKP_WADAT LIKP_KUNNR KNA1_KUNNR KNA1_NAME1 KNA1_NAME2 KNA1_SORTL KNA1_KTOKD LIPS_VBELN LIPS_POSNR LIPS_ERDAT LIPS_MATNR LIPS_MATKL LIPS_WERKS LIPS_LGORT LIPS_LFIMG Almacen Cantidad Cliente Destinatario Material Origen IF Cliente = "Interno" AND Centros.Considerar = "SI" TO "EntregasACentros_TMP"
+~Entrada: Registros:8591        Total de control:0                    
+~Salida: Registros:4308        Total de control:0                    
+~.17/02/2022   18:40:08 EntregasACentros_TMP CROSSTAB ON Destino Almacen Material COLUMNS Cliente SUBTOTAL Cantidad TO "EntregasACentrosCRUZ.FIL" OPEN
+~Entrada: Registros:4308        Total de control:0                    
+~Salida: Registros:3938        Total de control:0                    
+^FORMAT   EntregasPendientesACentroM                                          EntregasPendientesACentroM                                        "" "EntregasPendientesACentroM.FIL" 0 ASCII 
+[PARENT_FOLDER_ID] 1593534508
+~.17/02/2022   18:40:08 EntregasPendientes EXTRACT FIELDS VBUK_VBELN VBUK_WBSTK VBUP_VBELN VBUP_POSNR VBUP_WBSTA LIKP_VBELN LIKP_ERDAT LIKP_VSTEL LIKP_LFART LIKP_WADAT LIKP_KUNNR KNA1_KUNNR KNA1_NAME1 KNA1_NAME2 KNA1_SORTL KNA1_KTOKD LIPS_VBELN LIPS_POSNR LIPS_ERDAT LIPS_MATNR LIPS_MATKL LIPS_WERKS LIPS_LGORT LIPS_LFIMG Almacen Cantidad Cliente Destinatario Material Origen IF Cliente = "Interno" AND Centros.Considerar = "SI" TO "EntregasACentros_TMP"
+~Entrada: Registros:8591        Total de control:0                    
+~Salida: Registros:4308        Total de control:0                    
+~.17/02/2022   18:40:08 EntregasACentros_TMP CROSSTAB ON Destino Almacen Material COLUMNS Cliente SUBTOTAL Cantidad TO "EntregasACentrosCRUZ.FIL" OPEN
+~Entrada: Registros:4308        Total de control:0                    
+~Salida: Registros:3938        Total de control:0                    
+~.17/02/2022   18:40:08 EntregasACentrosCRUZ EXTRACT FIELDS Centros.T001W_BZIRK AS "Zona" Centros.T001W_WERKS AS "Centro" Centros.T001W_NAME1 AS "Nombre" Centros.T001W_VLFKZ AS "Tipo" Centros.Considerar AS "Considerar" DatosMaterial.MARA_MATNR AS "Material" DatosMaterial.MAKT_MAKTX AS "Descripcion" DatosMaterial.MARA_MTART AS "TipoMat" DatosMaterial.Rubro AS "Rubro" DatosMaterial.RubroDesc AS "RubroDesc" DatosMaterial.SubRubro AS "SubRubro" DatosMaterial.SubRubroDesc AS "SubRubroDesc" DatosMaterial.Grupo AS "Grupo" DatosMaterial.GrupoDesc AS "GrupoDesc" Almacen DEC(Cantidad_Interno;0) AS "EntPendACentro" IF BETWEEN(Destino;"M000";"M999") AND MATCH(DatosMaterial.MARA_MTART;"ZPRO";"ZBLA";"ZPCO";"ZPVV") TO "EntregasPendientesACentroM"
+~Entrada: Registros:3938        Total de control:0                    
+~Salida: Registros:3771        Total de control:0                    
+^INDEX    IxClaveEntPendientesACentro                                         EntregasPendientesACentroM                                        "" "IxClaveEntPendientesACentro.INX" 
+*INDEX ON CLAVE TO "IXCLAVEENTPENDIENTESACENTRO"
+^FORMAT   IngresosPendientesFinal                                             IngresosPendientesFinal                                           "" "IngresosPendientesFinal.FIL" 0 ASCII 
+[PARENT_FOLDER_ID] 1593534508
+~.17/02/2022   18:40:08 IngresosPendientes EXTRACT FIELDS EKKO_EBELN AS "Pedido" EKKO_BUKRS AS "Sociedad" EKKO_BSTYP AS "TipoDoc" EKKO_BSART AS "ClasePedido" EKKO_AEDAT AS "FePedido" EKET_EINDT AS "FeEntrega" EKKO_LIFNR AS "Proveedor" EKKO_FRGZU AS "EstLib" EKKO_PROCSTAT AS "StatusTratam" EKPO_EBELP AS "Pos" EKPO_MTART AS "TipoArt" EKPO_MATNR AS "Material" EKPO_TXZ01 AS "Descripcion" EKPO_MATKL AS "Grupo" EKPO_WERKS AS "Centro" EKPO_LGORT AS "Almacen" EKPO_MENGE AS "CantPedido" EKET_WEMNG AS "CantEntrada" CantPendiente EKPO_BSTAE AS "ControlConf" EKET_ETENR AS "CantReparto" IF CantPendiente > 0 TO "IngresosPendientesFinal"
+~Entrada: Registros:65560       Total de control:0                    
+~Salida: Registros:511         Total de control:0                    
+^FORMAT   IngresosPendientesCentroM                                           IngresosPendientesCentroM                                         "" "IngresosPendientesCentroM.FIL" 0 ASCII 
+[PARENT_FOLDER_ID] 1593534508
+~.17/02/2022   18:40:08 IngresosPendientes EXTRACT FIELDS EKKO_EBELN AS "Pedido" EKKO_BUKRS AS "Sociedad" EKKO_BSTYP AS "TipoDoc" EKKO_BSART AS "ClasePedido" EKKO_AEDAT AS "FePedido" EKET_EINDT AS "FeEntrega" EKKO_LIFNR AS "Proveedor" EKKO_FRGZU AS "EstLib" EKKO_PROCSTAT AS "StatusTratam" EKPO_EBELP AS "Pos" EKPO_MTART AS "TipoArt" EKPO_MATNR AS "Material" EKPO_TXZ01 AS "Descripcion" EKPO_MATKL AS "Grupo" EKPO_WERKS AS "Centro" EKPO_LGORT AS "Almacen" EKPO_MENGE AS "CantPedido" EKET_WEMNG AS "CantEntrada" CantPendiente EKPO_BSTAE AS "ControlConf" EKET_ETENR AS "CantReparto" IF CantPendiente > 0 TO "IngresosPendientesFinal"
+~Entrada: Registros:65560       Total de control:0                    
+~Salida: Registros:511         Total de control:0                    
+~.17/02/2022   18:40:09 IngresosPendientesFinal EXTRACT FIELDS Centros.T001W_BZIRK AS "Zona" Centros.T001W_WERKS AS "Centro" Centros.T001W_NAME1 AS "Nombre" Centros.T001W_VLFKZ AS "Tipo" Centros.Considerar AS "Considerar" DatosMaterial.MARA_MATNR AS "Material" DatosMaterial.MAKT_MAKTX AS "Descripcion" DatosMaterial.MARA_MTART AS "TipoMat" DatosMaterial.Rubro AS "Rubro" DatosMaterial.RubroDesc AS "RubroDesc" DatosMaterial.SubRubro AS "SubRubro" DatosMaterial.SubRubroDesc AS "SubRubroDesc" DatosMaterial.Grupo AS "Grupo" DatosMaterial.GrupoDesc AS "GrupoDesc" Almacen EntregaPlanificada CantPendiente IF BETWEEN(Centro;"M000";"M999") AND MATCH(DatosMaterial.MARA_MTART;"ZPRO";"ZBLA";"ZPCO";"ZPVV") TO "IngresosPendientesCentroM"
+~Entrada: Registros:511         Total de control:0                    
+~Salida: Registros:414         Total de control:0                    
+^FORMAT   IngresosPendientesCentroMCRUZ                                       IngresosPendientesCentroMCRUZ                                     "" "IngresosPendientesCentroMCRUZ.FIL" 0 ASCII 
+[PARENT_FOLDER_ID] 1593534508
+~.17/02/2022   18:40:08 IngresosPendientes EXTRACT FIELDS EKKO_EBELN AS "Pedido" EKKO_BUKRS AS "Sociedad" EKKO_BSTYP AS "TipoDoc" EKKO_BSART AS "ClasePedido" EKKO_AEDAT AS "FePedido" EKET_EINDT AS "FeEntrega" EKKO_LIFNR AS "Proveedor" EKKO_FRGZU AS "EstLib" EKKO_PROCSTAT AS "StatusTratam" EKPO_EBELP AS "Pos" EKPO_MTART AS "TipoArt" EKPO_MATNR AS "Material" EKPO_TXZ01 AS "Descripcion" EKPO_MATKL AS "Grupo" EKPO_WERKS AS "Centro" EKPO_LGORT AS "Almacen" EKPO_MENGE AS "CantPedido" EKET_WEMNG AS "CantEntrada" CantPendiente EKPO_BSTAE AS "ControlConf" EKET_ETENR AS "CantReparto" IF CantPendiente > 0 TO "IngresosPendientesFinal"
+~Entrada: Registros:65560       Total de control:0                    
+~Salida: Registros:511         Total de control:0                    
+~.17/02/2022   18:40:09 IngresosPendientesFinal EXTRACT FIELDS Centros.T001W_BZIRK AS "Zona" Centros.T001W_WERKS AS "Centro" Centros.T001W_NAME1 AS "Nombre" Centros.T001W_VLFKZ AS "Tipo" Centros.Considerar AS "Considerar" DatosMaterial.MARA_MATNR AS "Material" DatosMaterial.MAKT_MAKTX AS "Descripcion" DatosMaterial.MARA_MTART AS "TipoMat" DatosMaterial.Rubro AS "Rubro" DatosMaterial.RubroDesc AS "RubroDesc" DatosMaterial.SubRubro AS "SubRubro" DatosMaterial.SubRubroDesc AS "SubRubroDesc" DatosMaterial.Grupo AS "Grupo" DatosMaterial.GrupoDesc AS "GrupoDesc" Almacen EntregaPlanificada CantPendiente IF BETWEEN(Centro;"M000";"M999") AND MATCH(DatosMaterial.MARA_MTART;"ZPRO";"ZBLA";"ZPCO";"ZPVV") TO "IngresosPendientesCentroM"
+~Entrada: Registros:511         Total de control:0                    
+~Salida: Registros:414         Total de control:0                    
+~.17/02/2022   18:40:09 IngresosPendientesCentroM CROSSTAB ON Zona Centro Nombre Tipo Considerar Material Descripcion TipoMat Rubro RubroDesc SubRubro SubRubroDesc Grupo GrupoDesc Almacen COLUMNS EntregaPlanificada SUBTOTAL CantPendiente TO "IngresosPendientesCentroMCRUZ.FIL" OPEN
+~Entrada: Registros:414         Total de control:0                    
+~Salida: Registros:372         Total de control:0                    
+^INDEX    IxClaveIngPendientes                                                IngresosPendientesCentroMCRUZ                                     "" "IxClaveIngPendientes.INX" 
+*INDEX ON CLAVE TO "IXCLAVEINGPENDIENTES"
+^FORMAT   TransitoTrasladoAlmOrigen                                           TransitoTrasladoAlmOrigen                                         "" "TransitoTrasladoAlmOrigen.FIL" 0 ASCII 
+[PARENT_FOLDER_ID] 1593534508
+~.17/02/2022   18:40:10 TransitoyTraslado EXTRACT FIELDS Centros.T001W_BZIRK AS "Zona" Centros.T001W_WERKS AS "Centro" Centros.T001W_NAME1 AS "Nombre" Centros.T001W_VLFKZ AS "Tipo" Centros.Considerar AS "Considerar" DatosMaterial.MARA_MATNR AS "Material" DatosMaterial.MAKT_MAKTX AS "Descripcion" DatosMaterial.MARA_MTART AS "TipoMat" DatosMaterial.Rubro AS "Rubro" DatosMaterial.RubroDesc AS "RubroDesc" DatosMaterial.SubRubro AS "SubRubro" DatosMaterial.SubRubroDesc AS "SubRubroDesc" DatosMaterial.Grupo AS "Grupo" DatosMaterial.GrupoDesc AS "GrupoDesc" LIKP_VBELN AS "Entrega" LIPS_POSNR AS "Posicion" LIKP_ERDAT AS "FeCreacion" ("M"+SUBSTR(LIKP_VSTEL;2;3)) AS "Origen" Destino LIKP_VSTEL AS "Expedicion" LIKP_LFART AS "ClaseEnt" LIKP_WADAT AS "FePrevista" LIKP_LFDAT AS "FeEntrega" LIKP_KUNNR AS "Destinatario" LIKP_WADAT_IST AS "FeMovReal"  LIPS_MATNR AS "Material" LIPS_LGORT AS "Almacen" LIPS_LGMNG AS "CantEntrega" LIPS_ARKTX AS "TextoMaterial" VBFA_VBELN AS "DocSig" VBFA_POSNN AS "PosDocSig" VBFA_VBTYP_N AS "TipoDocSig" VBFA_RFMNG AS "Cantidad" VBFA_PLMIN AS "Signo" VBFA_ERDAT AS "FeCreDocSig" VBFA_BWART AS "Mov" VBFA_AEDAT AS "FeModif" IF BETWEEN(Destino;"M000";"M999") AND MATCH(DatosMaterial.MARA_MTART;"ZPRO";"ZBLA";"ZPCO";"ZPVV") TO "TransitoTrasladoAlmOrigen"
+~Entrada: Registros:18255       Total de control:0                    
+~Salida: Registros:17515       Total de control:0                    
+^FORMAT   EntregasIngresadas                                                  EntregasIngresadas                                                "" "EntregasIngresadas.FIL" 0 ASCII 
+[PARENT_FOLDER_ID] 1593534508
+~.17/02/2022   18:40:10 TransitoyTraslado EXTRACT FIELDS Centros.T001W_BZIRK AS "Zona" Centros.T001W_WERKS AS "Centro" Centros.T001W_NAME1 AS "Nombre" Centros.T001W_VLFKZ AS "Tipo" Centros.Considerar AS "Considerar" DatosMaterial.MARA_MATNR AS "Material" DatosMaterial.MAKT_MAKTX AS "Descripcion" DatosMaterial.MARA_MTART AS "TipoMat" DatosMaterial.Rubro AS "Rubro" DatosMaterial.RubroDesc AS "RubroDesc" DatosMaterial.SubRubro AS "SubRubro" DatosMaterial.SubRubroDesc AS "SubRubroDesc" DatosMaterial.Grupo AS "Grupo" DatosMaterial.GrupoDesc AS "GrupoDesc" LIKP_VBELN AS "Entrega" LIPS_POSNR AS "Posicion" LIKP_ERDAT AS "FeCreacion" ("M"+SUBSTR(LIKP_VSTEL;2;3)) AS "Origen" Destino LIKP_VSTEL AS "Expedicion" LIKP_LFART AS "ClaseEnt" LIKP_WADAT AS "FePrevista" LIKP_LFDAT AS "FeEntrega" LIKP_KUNNR AS "Destinatario" LIKP_WADAT_IST AS "FeMovReal"  LIPS_MATNR AS "Material" LIPS_LGORT AS "Almacen" LIPS_LGMNG AS "CantEntrega" LIPS_ARKTX AS "TextoMaterial" VBFA_VBELN AS "DocSig" VBFA_POSNN AS "PosDocSig" VBFA_VBTYP_N AS "TipoDocSig" VBFA_RFMNG AS "Cantidad" VBFA_PLMIN AS "Signo" VBFA_ERDAT AS "FeCreDocSig" VBFA_BWART AS "Mov" VBFA_AEDAT AS "FeModif" IF BETWEEN(Destino;"M000";"M999") AND MATCH(DatosMaterial.MARA_MTART;"ZPRO";"ZBLA";"ZPCO";"ZPVV") TO "TransitoTrasladoAlmOrigen"
+~Entrada: Registros:18255       Total de control:0                    
+~Salida: Registros:17515       Total de control:0                    
+~.17/02/2022   18:40:10 TransitoTrasladoAlmOrigen SUMMARIZE ON Entrega Posicion Centro Almacen Material SUBTOTAL CantConSigno OTHER Zona Centro Nombre Tipo Considerar Material Descripcion TipoMat Rubro RubroDesc SubRubro SubRubroDesc Grupo GrupoDesc Origen ClaseEnt Almacen IF MATCH(TipoDocSig;"i") TO "EntregasIngresadas.FIL" OPEN PRESORT
+~Entrada: Registros:17515       Total de control:0                    
+~Salida: Registros:8198        Total de control:0                    
+^INDEX    IxClaveEntIngresadas                                                EntregasIngresadas                                                "" "IxClaveEntIngresadas.INX" 
+*INDEX ON CLAVE TO "IXCLAVEENTINGRESADAS"
+^FORMAT   EntregasContabilizadas                                              EntregasContabilizadas                                            "" "EntregasContabilizadas.FIL" 0 ASCII 
+[PARENT_FOLDER_ID] 1593534508
+~.17/02/2022   18:40:10 TransitoyTraslado EXTRACT FIELDS Centros.T001W_BZIRK AS "Zona" Centros.T001W_WERKS AS "Centro" Centros.T001W_NAME1 AS "Nombre" Centros.T001W_VLFKZ AS "Tipo" Centros.Considerar AS "Considerar" DatosMaterial.MARA_MATNR AS "Material" DatosMaterial.MAKT_MAKTX AS "Descripcion" DatosMaterial.MARA_MTART AS "TipoMat" DatosMaterial.Rubro AS "Rubro" DatosMaterial.RubroDesc AS "RubroDesc" DatosMaterial.SubRubro AS "SubRubro" DatosMaterial.SubRubroDesc AS "SubRubroDesc" DatosMaterial.Grupo AS "Grupo" DatosMaterial.GrupoDesc AS "GrupoDesc" LIKP_VBELN AS "Entrega" LIPS_POSNR AS "Posicion" LIKP_ERDAT AS "FeCreacion" ("M"+SUBSTR(LIKP_VSTEL;2;3)) AS "Origen" Destino LIKP_VSTEL AS "Expedicion" LIKP_LFART AS "ClaseEnt" LIKP_WADAT AS "FePrevista" LIKP_LFDAT AS "FeEntrega" LIKP_KUNNR AS "Destinatario" LIKP_WADAT_IST AS "FeMovReal"  LIPS_MATNR AS "Material" LIPS_LGORT AS "Almacen" LIPS_LGMNG AS "CantEntrega" LIPS_ARKTX AS "TextoMaterial" VBFA_VBELN AS "DocSig" VBFA_POSNN AS "PosDocSig" VBFA_VBTYP_N AS "TipoDocSig" VBFA_RFMNG AS "Cantidad" VBFA_PLMIN AS "Signo" VBFA_ERDAT AS "FeCreDocSig" VBFA_BWART AS "Mov" VBFA_AEDAT AS "FeModif" IF BETWEEN(Destino;"M000";"M999") AND MATCH(DatosMaterial.MARA_MTART;"ZPRO";"ZBLA";"ZPCO";"ZPVV") TO "TransitoTrasladoAlmOrigen"
+~Entrada: Registros:18255       Total de control:0                    
+~Salida: Registros:17515       Total de control:0                    
+~.17/02/2022   18:40:10 TransitoTrasladoAlmOrigen SUMMARIZE ON Entrega Posicion Centro Almacen Material SUBTOTAL CantConSigno OTHER Zona Centro Nombre Tipo Considerar Material Descripcion TipoMat Rubro RubroDesc SubRubro SubRubroDesc Grupo GrupoDesc Origen ClaseEnt Almacen IF MATCH(TipoDocSig;"R";"h") TO "EntregasContabilizadas.FIL" OPEN PRESORT
+~Entrada: Registros:17515       Total de control:0                    
+~Salida: Registros:9219        Total de control:0                    
+^FORMAT   TransitoTrasladoCentroM_TEMP                                        TransitoTrasladoCentroM_TEMP                                      "" "TransitoTrasladoCentroM_TEMP.FIL" 0 ASCII 
+[PARENT_FOLDER_ID] 1593534508
+~.17/02/2022   18:40:10 TransitoyTraslado EXTRACT FIELDS Centros.T001W_BZIRK AS "Zona" Centros.T001W_WERKS AS "Centro" Centros.T001W_NAME1 AS "Nombre" Centros.T001W_VLFKZ AS "Tipo" Centros.Considerar AS "Considerar" DatosMaterial.MARA_MATNR AS "Material" DatosMaterial.MAKT_MAKTX AS "Descripcion" DatosMaterial.MARA_MTART AS "TipoMat" DatosMaterial.Rubro AS "Rubro" DatosMaterial.RubroDesc AS "RubroDesc" DatosMaterial.SubRubro AS "SubRubro" DatosMaterial.SubRubroDesc AS "SubRubroDesc" DatosMaterial.Grupo AS "Grupo" DatosMaterial.GrupoDesc AS "GrupoDesc" LIKP_VBELN AS "Entrega" LIPS_POSNR AS "Posicion" LIKP_ERDAT AS "FeCreacion" ("M"+SUBSTR(LIKP_VSTEL;2;3)) AS "Origen" Destino LIKP_VSTEL AS "Expedicion" LIKP_LFART AS "ClaseEnt" LIKP_WADAT AS "FePrevista" LIKP_LFDAT AS "FeEntrega" LIKP_KUNNR AS "Destinatario" LIKP_WADAT_IST AS "FeMovReal"  LIPS_MATNR AS "Material" LIPS_LGORT AS "Almacen" LIPS_LGMNG AS "CantEntrega" LIPS_ARKTX AS "TextoMaterial" VBFA_VBELN AS "DocSig" VBFA_POSNN AS "PosDocSig" VBFA_VBTYP_N AS "TipoDocSig" VBFA_RFMNG AS "Cantidad" VBFA_PLMIN AS "Signo" VBFA_ERDAT AS "FeCreDocSig" VBFA_BWART AS "Mov" VBFA_AEDAT AS "FeModif" IF BETWEEN(Destino;"M000";"M999") AND MATCH(DatosMaterial.MARA_MTART;"ZPRO";"ZBLA";"ZPCO";"ZPVV") TO "TransitoTrasladoAlmOrigen"
+~Entrada: Registros:18255       Total de control:0                    
+~Salida: Registros:17515       Total de control:0                    
+~.17/02/2022   18:40:10 TransitoTrasladoAlmOrigen SUMMARIZE ON Entrega Posicion Centro Almacen Material SUBTOTAL CantConSigno OTHER Zona Centro Nombre Tipo Considerar Material Descripcion TipoMat Rubro RubroDesc SubRubro SubRubroDesc Grupo GrupoDesc Origen ClaseEnt Almacen IF MATCH(TipoDocSig;"R";"h") TO "EntregasContabilizadas.FIL" OPEN PRESORT
+~Entrada: Registros:17515       Total de control:0                    
+~Salida: Registros:9219        Total de control:0                    
+~.17/02/2022   18:40:11 EntregasContabilizadas EXTRACT FIELDS Zona Centro Nombre Tipo Considerar Material Descripcion TipoMat Rubro RubroDesc SubRubro SubRubroDesc Grupo GrupoDesc Almacen Entrega Posicion TransitoTraslado IF TransitoTraslado > 0 TO "TransitoTrasladoCentroM_TEMP"
+~Entrada: Registros:9219        Total de control:0                    
+~Salida: Registros:1032        Total de control:0                    
+^FORMAT   TransitoTrasladoCentroM                                             TransitoTrasladoCentroM                                           "" "TransitoTrasladoCentroM.FIL" 0 ASCII 
+[PARENT_FOLDER_ID] 1593534508
+~.17/02/2022   18:40:10 TransitoyTraslado EXTRACT FIELDS Centros.T001W_BZIRK AS "Zona" Centros.T001W_WERKS AS "Centro" Centros.T001W_NAME1 AS "Nombre" Centros.T001W_VLFKZ AS "Tipo" Centros.Considerar AS "Considerar" DatosMaterial.MARA_MATNR AS "Material" DatosMaterial.MAKT_MAKTX AS "Descripcion" DatosMaterial.MARA_MTART AS "TipoMat" DatosMaterial.Rubro AS "Rubro" DatosMaterial.RubroDesc AS "RubroDesc" DatosMaterial.SubRubro AS "SubRubro" DatosMaterial.SubRubroDesc AS "SubRubroDesc" DatosMaterial.Grupo AS "Grupo" DatosMaterial.GrupoDesc AS "GrupoDesc" LIKP_VBELN AS "Entrega" LIPS_POSNR AS "Posicion" LIKP_ERDAT AS "FeCreacion" ("M"+SUBSTR(LIKP_VSTEL;2;3)) AS "Origen" Destino LIKP_VSTEL AS "Expedicion" LIKP_LFART AS "ClaseEnt" LIKP_WADAT AS "FePrevista" LIKP_LFDAT AS "FeEntrega" LIKP_KUNNR AS "Destinatario" LIKP_WADAT_IST AS "FeMovReal"  LIPS_MATNR AS "Material" LIPS_LGORT AS "Almacen" LIPS_LGMNG AS "CantEntrega" LIPS_ARKTX AS "TextoMaterial" VBFA_VBELN AS "DocSig" VBFA_POSNN AS "PosDocSig" VBFA_VBTYP_N AS "TipoDocSig" VBFA_RFMNG AS "Cantidad" VBFA_PLMIN AS "Signo" VBFA_ERDAT AS "FeCreDocSig" VBFA_BWART AS "Mov" VBFA_AEDAT AS "FeModif" IF BETWEEN(Destino;"M000";"M999") AND MATCH(DatosMaterial.MARA_MTART;"ZPRO";"ZBLA";"ZPCO";"ZPVV") TO "TransitoTrasladoAlmOrigen"
+~Entrada: Registros:18255       Total de control:0                    
+~Salida: Registros:17515       Total de control:0                    
+~.17/02/2022   18:40:10 TransitoTrasladoAlmOrigen SUMMARIZE ON Entrega Posicion Centro Almacen Material SUBTOTAL CantConSigno OTHER Zona Centro Nombre Tipo Considerar Material Descripcion TipoMat Rubro RubroDesc SubRubro SubRubroDesc Grupo GrupoDesc Origen ClaseEnt Almacen IF MATCH(TipoDocSig;"R";"h") TO "EntregasContabilizadas.FIL" OPEN PRESORT
+~Entrada: Registros:17515       Total de control:0                    
+~Salida: Registros:9219        Total de control:0                    
+~.17/02/2022   18:40:11 EntregasContabilizadas EXTRACT FIELDS Zona Centro Nombre Tipo Considerar Material Descripcion TipoMat Rubro RubroDesc SubRubro SubRubroDesc Grupo GrupoDesc Almacen Entrega Posicion TransitoTraslado IF TransitoTraslado > 0 TO "TransitoTrasladoCentroM_TEMP"
+~Entrada: Registros:9219        Total de control:0                    
+~Salida: Registros:1032        Total de control:0                    
+~.17/02/2022   18:40:11 TransitoTrasladoCentroM_TEMP SUMMARIZE ON Centro Almacen Material SUBTOTAL TransitoTraslado OTHER Zona Centro Nombre Tipo Considerar Material Descripcion TipoMat Rubro RubroDesc SubRubro SubRubroDesc Grupo GrupoDesc Almacen TO "TransitoTrasladoCentroM.FIL" OPEN PRESORT
+~Entrada: Registros:1032        Total de control:0                    
+~Salida: Registros:935         Total de control:0                    
+^INDEX    IxClaveTransitoTraslado                                             TransitoTrasladoCentroM                                           "" "IxClaveTransitoTraslado.INX" 
+*INDEX ON CLAVE TO "IXCLAVETRANSITOTRASLADO"
+^FORMAT   EntregasPendientesSinStock                                          EntregasPendientesSinStock                                        "" "EntregasPendientesSinStock.FIL" 0 ASCII 
+[PARENT_FOLDER_ID] 1593534508
+~.17/02/2022   18:40:07 EntregasPendientes CROSSTAB ON Origen Almacen Material COLUMNS Cliente SUBTOTAL Cantidad TO "EntregasPendientesCRUZ.FIL" OPEN
+~Entrada: Registros:8591        Total de control:0                    
+~Salida: Registros:3664        Total de control:0                    
+~.17/02/2022   18:40:08 EntregasPendientesCRUZ EXTRACT FIELDS Centros.T001W_BZIRK AS "Zona" Centros.T001W_WERKS AS "Centro" Centros.T001W_NAME1 AS "Nombre" Centros.T001W_VLFKZ AS "Tipo" Centros.Considerar AS "Considerar" DatosMaterial.MARA_MATNR AS "Material" DatosMaterial.MAKT_MAKTX AS "Descripcion" DatosMaterial.MARA_MTART AS "TipoMat" DatosMaterial.Rubro AS "Rubro" DatosMaterial.RubroDesc AS "RubroDesc" DatosMaterial.SubRubro AS "SubRubro" DatosMaterial.SubRubroDesc AS "SubRubroDesc" DatosMaterial.Grupo AS "Grupo" DatosMaterial.GrupoDesc AS "GrupoDesc" Almacen DEC(Cantidad_Interno;0) AS "CantCliInt" DEC(Cantidad_Externo;0) AS "CantCliExt" DEC(Total;0) AS "Total"  IF BETWEEN(Origen;"M000";"M999") AND MATCH(DatosMaterial.MARA_MTART;"ZPRO";"ZBLA";"ZPCO";"ZPVV") TO "EntregasPendientesCentroM"
+~Entrada: Registros:3664        Total de control:0                    
+~Salida: Registros:2896        Total de control:0                    
+~.17/02/2022   18:40:11 EntregasPendientesCentroM EXTRACT FIELDS Zona Centro Nombre Tipo Considerar VALUE(Material;0) AS "Material" Descripcion TipoMat Rubro RubroDesc SubRubro SubRubroDesc Grupo GrupoDesc Almacen CantCliInt AS "EntPendCliInt" CantCliExt AS "EntPendCliExt" Total AS "EntPendTot" IF Stock.Clave = " " TO "EntregasPendientesSinStock"
+~Entrada: Registros:2896        Total de control:0                    
+~Salida: Registros:1059        Total de control:0                    
+^FORMAT   EntregasPendientesACentroSinStock                                   EntregasPendientesACentroSinStock                                 "" "EntregasPendientesACentroSinStock.FIL" 0 ASCII 
+[PARENT_FOLDER_ID] 1593534508
+~.17/02/2022   18:40:08 EntregasPendientes EXTRACT FIELDS VBUK_VBELN VBUK_WBSTK VBUP_VBELN VBUP_POSNR VBUP_WBSTA LIKP_VBELN LIKP_ERDAT LIKP_VSTEL LIKP_LFART LIKP_WADAT LIKP_KUNNR KNA1_KUNNR KNA1_NAME1 KNA1_NAME2 KNA1_SORTL KNA1_KTOKD LIPS_VBELN LIPS_POSNR LIPS_ERDAT LIPS_MATNR LIPS_MATKL LIPS_WERKS LIPS_LGORT LIPS_LFIMG Almacen Cantidad Cliente Destinatario Material Origen IF Cliente = "Interno" AND Centros.Considerar = "SI" TO "EntregasACentros_TMP"
+~Entrada: Registros:8591        Total de control:0                    
+~Salida: Registros:4308        Total de control:0                    
+~.17/02/2022   18:40:08 EntregasACentros_TMP CROSSTAB ON Destino Almacen Material COLUMNS Cliente SUBTOTAL Cantidad TO "EntregasACentrosCRUZ.FIL" OPEN
+~Entrada: Registros:4308        Total de control:0                    
+~Salida: Registros:3938        Total de control:0                    
+~.17/02/2022   18:40:08 EntregasACentrosCRUZ EXTRACT FIELDS Centros.T001W_BZIRK AS "Zona" Centros.T001W_WERKS AS "Centro" Centros.T001W_NAME1 AS "Nombre" Centros.T001W_VLFKZ AS "Tipo" Centros.Considerar AS "Considerar" DatosMaterial.MARA_MATNR AS "Material" DatosMaterial.MAKT_MAKTX AS "Descripcion" DatosMaterial.MARA_MTART AS "TipoMat" DatosMaterial.Rubro AS "Rubro" DatosMaterial.RubroDesc AS "RubroDesc" DatosMaterial.SubRubro AS "SubRubro" DatosMaterial.SubRubroDesc AS "SubRubroDesc" DatosMaterial.Grupo AS "Grupo" DatosMaterial.GrupoDesc AS "GrupoDesc" Almacen DEC(Cantidad_Interno;0) AS "EntPendACentro" IF BETWEEN(Destino;"M000";"M999") AND MATCH(DatosMaterial.MARA_MTART;"ZPRO";"ZBLA";"ZPCO";"ZPVV") TO "EntregasPendientesACentroM"
+~Entrada: Registros:3938        Total de control:0                    
+~Salida: Registros:3771        Total de control:0                    
+~.17/02/2022   18:40:11 EntregasPendientesACentroM EXTRACT FIELDS Zona Centro Nombre Tipo Considerar VALUE(Material;0) AS "Material" Descripcion TipoMat Rubro RubroDesc SubRubro SubRubroDesc Grupo GrupoDesc Almacen EntPendACentro IF Stock.Clave = " " TO "EntregasPendientesACentroSinStock"
+~Entrada: Registros:3771        Total de control:0                    
+~Salida: Registros:2803        Total de control:0                    
+^FORMAT   IngresosPendientesSinStock                                          IngresosPendientesSinStock                                        "" "IngresosPendientesSinStock.FIL" 0 ASCII 
+[PARENT_FOLDER_ID] 1593534508
+~.17/02/2022   18:40:08 IngresosPendientes EXTRACT FIELDS EKKO_EBELN AS "Pedido" EKKO_BUKRS AS "Sociedad" EKKO_BSTYP AS "TipoDoc" EKKO_BSART AS "ClasePedido" EKKO_AEDAT AS "FePedido" EKET_EINDT AS "FeEntrega" EKKO_LIFNR AS "Proveedor" EKKO_FRGZU AS "EstLib" EKKO_PROCSTAT AS "StatusTratam" EKPO_EBELP AS "Pos" EKPO_MTART AS "TipoArt" EKPO_MATNR AS "Material" EKPO_TXZ01 AS "Descripcion" EKPO_MATKL AS "Grupo" EKPO_WERKS AS "Centro" EKPO_LGORT AS "Almacen" EKPO_MENGE AS "CantPedido" EKET_WEMNG AS "CantEntrada" CantPendiente EKPO_BSTAE AS "ControlConf" EKET_ETENR AS "CantReparto" IF CantPendiente > 0 TO "IngresosPendientesFinal"
+~Entrada: Registros:65560       Total de control:0                    
+~Salida: Registros:511         Total de control:0                    
+~.17/02/2022   18:40:09 IngresosPendientesFinal EXTRACT FIELDS Centros.T001W_BZIRK AS "Zona" Centros.T001W_WERKS AS "Centro" Centros.T001W_NAME1 AS "Nombre" Centros.T001W_VLFKZ AS "Tipo" Centros.Considerar AS "Considerar" DatosMaterial.MARA_MATNR AS "Material" DatosMaterial.MAKT_MAKTX AS "Descripcion" DatosMaterial.MARA_MTART AS "TipoMat" DatosMaterial.Rubro AS "Rubro" DatosMaterial.RubroDesc AS "RubroDesc" DatosMaterial.SubRubro AS "SubRubro" DatosMaterial.SubRubroDesc AS "SubRubroDesc" DatosMaterial.Grupo AS "Grupo" DatosMaterial.GrupoDesc AS "GrupoDesc" Almacen EntregaPlanificada CantPendiente IF BETWEEN(Centro;"M000";"M999") AND MATCH(DatosMaterial.MARA_MTART;"ZPRO";"ZBLA";"ZPCO";"ZPVV") TO "IngresosPendientesCentroM"
+~Entrada: Registros:511         Total de control:0                    
+~Salida: Registros:414         Total de control:0                    
+~.17/02/2022   18:40:09 IngresosPendientesCentroM CROSSTAB ON Zona Centro Nombre Tipo Considerar Material Descripcion TipoMat Rubro RubroDesc SubRubro SubRubroDesc Grupo GrupoDesc Almacen COLUMNS EntregaPlanificada SUBTOTAL CantPendiente TO "IngresosPendientesCentroMCRUZ.FIL" OPEN
+~Entrada: Registros:414         Total de control:0                    
+~Salida: Registros:372         Total de control:0                    
+~.17/02/2022   18:40:11 IngresosPendientesCentroMCRUZ EXTRACT FIELDS Zona Centro Nombre Tipo Considerar VALUE(Material;0) AS "Material" Descripcion TipoMat Rubro RubroDesc SubRubro SubRubroDesc Grupo GrupoDesc Almacen Antes30Dias AS "IngPlanifAntes30Dias" Ult30Dias AS "IngPlanifUlt30Dias" Prox30Dias AS "IngPlanifProx30Dias" Desp30Dias AS "IngPlanifDesp30Dias" IF Stock.Clave = " " TO "IngresosPendientesSinStock"
+~Entrada: Registros:372         Total de control:0                    
+~Salida: Registros:222         Total de control:0                    
+^FORMAT   TransitoTrasladoSinStock                                            TransitoTrasladoSinStock                                          "" "TransitoTrasladoSinStock.FIL" 0 ASCII 
+[PARENT_FOLDER_ID] 1593534508
+~.17/02/2022   18:40:10 TransitoyTraslado EXTRACT FIELDS Centros.T001W_BZIRK AS "Zona" Centros.T001W_WERKS AS "Centro" Centros.T001W_NAME1 AS "Nombre" Centros.T001W_VLFKZ AS "Tipo" Centros.Considerar AS "Considerar" DatosMaterial.MARA_MATNR AS "Material" DatosMaterial.MAKT_MAKTX AS "Descripcion" DatosMaterial.MARA_MTART AS "TipoMat" DatosMaterial.Rubro AS "Rubro" DatosMaterial.RubroDesc AS "RubroDesc" DatosMaterial.SubRubro AS "SubRubro" DatosMaterial.SubRubroDesc AS "SubRubroDesc" DatosMaterial.Grupo AS "Grupo" DatosMaterial.GrupoDesc AS "GrupoDesc" LIKP_VBELN AS "Entrega" LIPS_POSNR AS "Posicion" LIKP_ERDAT AS "FeCreacion" ("M"+SUBSTR(LIKP_VSTEL;2;3)) AS "Origen" Destino LIKP_VSTEL AS "Expedicion" LIKP_LFART AS "ClaseEnt" LIKP_WADAT AS "FePrevista" LIKP_LFDAT AS "FeEntrega" LIKP_KUNNR AS "Destinatario" LIKP_WADAT_IST AS "FeMovReal"  LIPS_MATNR AS "Material" LIPS_LGORT AS "Almacen" LIPS_LGMNG AS "CantEntrega" LIPS_ARKTX AS "TextoMaterial" VBFA_VBELN AS "DocSig" VBFA_POSNN AS "PosDocSig" VBFA_VBTYP_N AS "TipoDocSig" VBFA_RFMNG AS "Cantidad" VBFA_PLMIN AS "Signo" VBFA_ERDAT AS "FeCreDocSig" VBFA_BWART AS "Mov" VBFA_AEDAT AS "FeModif" IF BETWEEN(Destino;"M000";"M999") AND MATCH(DatosMaterial.MARA_MTART;"ZPRO";"ZBLA";"ZPCO";"ZPVV") TO "TransitoTrasladoAlmOrigen"
+~Entrada: Registros:18255       Total de control:0                    
+~Salida: Registros:17515       Total de control:0                    
+~.17/02/2022   18:40:10 TransitoTrasladoAlmOrigen SUMMARIZE ON Entrega Posicion Centro Almacen Material SUBTOTAL CantConSigno OTHER Zona Centro Nombre Tipo Considerar Material Descripcion TipoMat Rubro RubroDesc SubRubro SubRubroDesc Grupo GrupoDesc Origen ClaseEnt Almacen IF MATCH(TipoDocSig;"R";"h") TO "EntregasContabilizadas.FIL" OPEN PRESORT
+~Entrada: Registros:17515       Total de control:0                    
+~Salida: Registros:9219        Total de control:0                    
+~.17/02/2022   18:40:11 EntregasContabilizadas EXTRACT FIELDS Zona Centro Nombre Tipo Considerar Material Descripcion TipoMat Rubro RubroDesc SubRubro SubRubroDesc Grupo GrupoDesc Almacen Entrega Posicion TransitoTraslado IF TransitoTraslado > 0 TO "TransitoTrasladoCentroM_TEMP"
+~Entrada: Registros:9219        Total de control:0                    
+~Salida: Registros:1032        Total de control:0                    
+~.17/02/2022   18:40:11 TransitoTrasladoCentroM_TEMP SUMMARIZE ON Centro Almacen Material SUBTOTAL TransitoTraslado OTHER Zona Centro Nombre Tipo Considerar Material Descripcion TipoMat Rubro RubroDesc SubRubro SubRubroDesc Grupo GrupoDesc Almacen TO "TransitoTrasladoCentroM.FIL" OPEN PRESORT
+~Entrada: Registros:1032        Total de control:0                    
+~Salida: Registros:935         Total de control:0                    
+~.17/02/2022   18:40:11 TransitoTrasladoCentroM EXTRACT FIELDS Zona Centro Nombre Tipo Considerar VALUE(Material;0) AS "Material" Descripcion TipoMat Rubro RubroDesc SubRubro SubRubroDesc Grupo GrupoDesc Almacen TransitoTraslado AS "TransYTrasDeAlmOrig" IF Stock.Clave = " " TO "TransitoTrasladoSinStock"
+~Entrada: Registros:935         Total de control:0                    
+~Salida: Registros:567         Total de control:0                    
+^FORMAT   SituacionGeneralStockRES                                            SituacionGeneralStockRES                                          "" "SituacionGeneralStockRES.FIL" 0 ASCII 
+[PARENT_FOLDER_ID] 1593534508
+~.17/02/2022   18:40:06 DatosAlmacen EXTRACT FIELDS Centros.T001W_BZIRK AS "Zona" Centros.T001W_WERKS AS "Centro" Centros.T001W_NAME1 AS "Nombre" Centros.T001W_VLFKZ AS "Tipo" Centros.Considerar AS "Considerar" DatosMaterial.MARA_MATNR AS "Material" DatosMaterial.MAKT_MAKTX AS "Descripcion" DatosMaterial.MARA_MTART AS "TipoMat" DatosMaterial.Rubro AS "Rubro" DatosMaterial.RubroDesc AS "RubroDesc" DatosMaterial.SubRubro AS "SubRubro" DatosMaterial.SubRubroDesc AS "SubRubroDesc" DatosMaterial.Grupo AS "Grupo" DatosMaterial.GrupoDesc AS "GrupoDesc" Almacen LibreUtil Bloqueado CtrlCalidad Transito Traslado IF BETWEEN(MARD_WERKS;"M000";"M999") AND MATCH(DatosMaterial.MARA_MTART;"ZPRO";"ZBLA";"ZPCO";"ZPVV")  TO "DatosAlmacenCentroM"
+~Entrada: Registros:51509       Total de control:0                    
+~Salida: Registros:43975       Total de control:0                    
+~.17/02/2022   18:40:07 DatosAlmacenCentroM EXTRACT FIELDS Zona Centro Nombre Tipo Considerar Material Descripcion TipoMat Rubro RubroDesc SubRubro SubRubroDesc Grupo GrupoDesc Almacen LibreUtil Bloqueado CtrlCalidad Transito Traslado TO "Stock"
+~Entrada: Registros:43975       Total de control:0                    
+~Salida: Registros:43975       Total de control:0                    
+~.17/02/2022   18:40:07 DatosCentroCentroM EXTRACT FIELDS Zona Centro Nombre Tipo Considerar Material Descripcion TipoMat Rubro RubroDesc SubRubro SubRubroDesc Grupo GrupoDesc Almacen LibreUtil Bloqueado CtrlCalidad Transito Traslado TO "Stock" APPEND
+~Entrada: Registros:2367        Total de control:0                    
+~Salida: Registros:2367        Total de control:0                    
+~.17/02/2022   18:40:17 Stock EXTRACT FIELDS Zona Centro Nombre Tipo Considerar VALUE(Material;0) AS "Material" Descripcion TipoMat Rubro RubroDesc SubRubro SubRubroDesc Grupo GrupoDesc Almacen LibreUtil Bloqueado CtrlCalidad Transito Traslado EntregasPendientesACentroM.EntPendACentro AS "EntPendACentro" TransitoTrasladoCentroM.TransitoTraslado AS "TransYTrasDeAlmOrig" EntregasPendientesCentroM.CantCliInt AS "EntPendCliInt" EntregasPendientesCentroM.CantCliExt AS "EntPendCliExt" EntregasPendientesCentroM.Total AS "EntPendTot" IngresosPendientesCentroMCRUZ.Antes30Dias AS "IngPlanifAntes30Dias" IngresosPendientesCentroMCRUZ.Ult30Dias AS "IngPlanifUlt30Dias" IngresosPendientesCentroMCRUZ.Prox30Dias AS "IngPlanifProx30Dias" IngresosPendientesCentroMCRUZ.Desp30Dias AS "IngPlanifDesp30Dias" TO "SituacionGeneralStock"
+~Entrada: Registros:46342       Total de control:0                    
+~Salida: Registros:46342       Total de control:0                    
+~.17/02/2022   18:40:17 EntregasPendientesSinStock EXTRACT FIELDS Zona Centro Nombre Tipo Considerar Material Descripcion TipoMat Rubro RubroDesc SubRubro SubRubroDesc Grupo GrupoDesc Almacen LibreUtil Bloqueado CtrlCalidad Transito Traslado EntPendACentro TransYTrasDeAlmOrig EntPendCliInt EntPendCliExt EntPendTot IngPlanifAntes30Dias IngPlanifUlt30Dias IngPlanifProx30Dias IngPlanifDesp30Dias  TO "SituacionGeneralStock" OPEN APPEND
+~Entrada: Registros:1059        Total de control:0                    
+~Salida: Registros:1059        Total de control:0                    
+~.17/02/2022   18:40:17 EntregasPendientesACentroSinStock EXTRACT FIELDS Zona Centro Nombre Tipo Considerar Material Descripcion TipoMat Rubro RubroDesc SubRubro SubRubroDesc Grupo GrupoDesc Almacen LibreUtil Bloqueado CtrlCalidad Transito Traslado EntPendACentro TransYTrasDeAlmOrig EntPendCliInt EntPendCliExt EntPendTot IngPlanifAntes30Dias IngPlanifUlt30Dias IngPlanifProx30Dias IngPlanifDesp30Dias  TO "SituacionGeneralStock" OPEN APPEND
+~Entrada: Registros:2803        Total de control:0                    
+~Salida: Registros:2803        Total de control:0                    
+~.17/02/2022   18:40:17 IngresosPendientesSinStock EXTRACT FIELDS Zona Centro Nombre Tipo Considerar Material Descripcion TipoMat Rubro RubroDesc SubRubro SubRubroDesc Grupo GrupoDesc Almacen LibreUtil Bloqueado CtrlCalidad Transito Traslado EntPendACentro TransYTrasDeAlmOrig EntPendCliInt EntPendCliExt EntPendTot IngPlanifAntes30Dias IngPlanifUlt30Dias IngPlanifProx30Dias IngPlanifDesp30Dias  TO "SituacionGeneralStock" OPEN APPEND
+~Entrada: Registros:222         Total de control:0                    
+~Salida: Registros:222         Total de control:0                    
+~.17/02/2022   18:40:17 TransitoTrasladoSinStock EXTRACT FIELDS Zona Centro Nombre Tipo Considerar Material Descripcion TipoMat Rubro RubroDesc SubRubro SubRubroDesc Grupo GrupoDesc Almacen LibreUtil Bloqueado CtrlCalidad Transito Traslado EntPendACentro TransYTrasDeAlmOrig EntPendCliInt EntPendCliExt EntPendTot IngPlanifAntes30Dias IngPlanifUlt30Dias IngPlanifProx30Dias IngPlanifDesp30Dias  TO "SituacionGeneralStock" OPEN APPEND
+~Entrada: Registros:567         Total de control:0                    
+~Salida: Registros:567         Total de control:0                    
+~.17/02/2022   18:40:18 SituacionGeneralStock SUMMARIZE ON Centro Material Almacen SUBTOTAL LibreUtil Bloqueado CtrlCalidad Transito Traslado EntPendACentro TransYTrasDeAlmOrig EntPendCliInt EntPendCliExt EntPendTot IngPlanifAntes30Dias IngPlanifUlt30Dias IngPlanifProx30Dias IngPlanifDesp30Dias OTHER Zona Centro Nombre Tipo Considerar Descripcion TipoMat Rubro RubroDesc SubRubro SubRubroDesc Grupo GrupoDesc Almacen TO "SituacionGeneralStockRES.FIL" OPEN PRESORT
+~Entrada: Registros:50993       Total de control:0                    
+~Salida: Registros:50782       Total de control:0                    
+^FORMAT   SituacionGeneralStockORD                                            SituacionGeneralStockORD                                          "" "SituacionGeneralStockORD.FIL" 0 ASCII 
+[PARENT_FOLDER_ID] 1593534508
+~.17/02/2022   18:40:06 DatosAlmacen EXTRACT FIELDS Centros.T001W_BZIRK AS "Zona" Centros.T001W_WERKS AS "Centro" Centros.T001W_NAME1 AS "Nombre" Centros.T001W_VLFKZ AS "Tipo" Centros.Considerar AS "Considerar" DatosMaterial.MARA_MATNR AS "Material" DatosMaterial.MAKT_MAKTX AS "Descripcion" DatosMaterial.MARA_MTART AS "TipoMat" DatosMaterial.Rubro AS "Rubro" DatosMaterial.RubroDesc AS "RubroDesc" DatosMaterial.SubRubro AS "SubRubro" DatosMaterial.SubRubroDesc AS "SubRubroDesc" DatosMaterial.Grupo AS "Grupo" DatosMaterial.GrupoDesc AS "GrupoDesc" Almacen LibreUtil Bloqueado CtrlCalidad Transito Traslado IF BETWEEN(MARD_WERKS;"M000";"M999") AND MATCH(DatosMaterial.MARA_MTART;"ZPRO";"ZBLA";"ZPCO";"ZPVV")  TO "DatosAlmacenCentroM"
+~Entrada: Registros:51509       Total de control:0                    
+~Salida: Registros:43975       Total de control:0                    
+~.17/02/2022   18:40:07 DatosAlmacenCentroM EXTRACT FIELDS Zona Centro Nombre Tipo Considerar Material Descripcion TipoMat Rubro RubroDesc SubRubro SubRubroDesc Grupo GrupoDesc Almacen LibreUtil Bloqueado CtrlCalidad Transito Traslado TO "Stock"
+~Entrada: Registros:43975       Total de control:0                    
+~Salida: Registros:43975       Total de control:0                    
+~.17/02/2022   18:40:07 DatosCentroCentroM EXTRACT FIELDS Zona Centro Nombre Tipo Considerar Material Descripcion TipoMat Rubro RubroDesc SubRubro SubRubroDesc Grupo GrupoDesc Almacen LibreUtil Bloqueado CtrlCalidad Transito Traslado TO "Stock" APPEND
+~Entrada: Registros:2367        Total de control:0                    
+~Salida: Registros:2367        Total de control:0                    
+~.17/02/2022   18:40:17 Stock EXTRACT FIELDS Zona Centro Nombre Tipo Considerar VALUE(Material;0) AS "Material" Descripcion TipoMat Rubro RubroDesc SubRubro SubRubroDesc Grupo GrupoDesc Almacen LibreUtil Bloqueado CtrlCalidad Transito Traslado EntregasPendientesACentroM.EntPendACentro AS "EntPendACentro" TransitoTrasladoCentroM.TransitoTraslado AS "TransYTrasDeAlmOrig" EntregasPendientesCentroM.CantCliInt AS "EntPendCliInt" EntregasPendientesCentroM.CantCliExt AS "EntPendCliExt" EntregasPendientesCentroM.Total AS "EntPendTot" IngresosPendientesCentroMCRUZ.Antes30Dias AS "IngPlanifAntes30Dias" IngresosPendientesCentroMCRUZ.Ult30Dias AS "IngPlanifUlt30Dias" IngresosPendientesCentroMCRUZ.Prox30Dias AS "IngPlanifProx30Dias" IngresosPendientesCentroMCRUZ.Desp30Dias AS "IngPlanifDesp30Dias" TO "SituacionGeneralStock"
+~Entrada: Registros:46342       Total de control:0                    
+~Salida: Registros:46342       Total de control:0                    
+~.17/02/2022   18:40:17 EntregasPendientesSinStock EXTRACT FIELDS Zona Centro Nombre Tipo Considerar Material Descripcion TipoMat Rubro RubroDesc SubRubro SubRubroDesc Grupo GrupoDesc Almacen LibreUtil Bloqueado CtrlCalidad Transito Traslado EntPendACentro TransYTrasDeAlmOrig EntPendCliInt EntPendCliExt EntPendTot IngPlanifAntes30Dias IngPlanifUlt30Dias IngPlanifProx30Dias IngPlanifDesp30Dias  TO "SituacionGeneralStock" OPEN APPEND
+~Entrada: Registros:1059        Total de control:0                    
+~Salida: Registros:1059        Total de control:0                    
+~.17/02/2022   18:40:17 EntregasPendientesACentroSinStock EXTRACT FIELDS Zona Centro Nombre Tipo Considerar Material Descripcion TipoMat Rubro RubroDesc SubRubro SubRubroDesc Grupo GrupoDesc Almacen LibreUtil Bloqueado CtrlCalidad Transito Traslado EntPendACentro TransYTrasDeAlmOrig EntPendCliInt EntPendCliExt EntPendTot IngPlanifAntes30Dias IngPlanifUlt30Dias IngPlanifProx30Dias IngPlanifDesp30Dias  TO "SituacionGeneralStock" OPEN APPEND
+~Entrada: Registros:2803        Total de control:0                    
+~Salida: Registros:2803        Total de control:0                    
+~.17/02/2022   18:40:17 IngresosPendientesSinStock EXTRACT FIELDS Zona Centro Nombre Tipo Considerar Material Descripcion TipoMat Rubro RubroDesc SubRubro SubRubroDesc Grupo GrupoDesc Almacen LibreUtil Bloqueado CtrlCalidad Transito Traslado EntPendACentro TransYTrasDeAlmOrig EntPendCliInt EntPendCliExt EntPendTot IngPlanifAntes30Dias IngPlanifUlt30Dias IngPlanifProx30Dias IngPlanifDesp30Dias  TO "SituacionGeneralStock" OPEN APPEND
+~Entrada: Registros:222         Total de control:0                    
+~Salida: Registros:222         Total de control:0                    
+~.17/02/2022   18:40:17 TransitoTrasladoSinStock EXTRACT FIELDS Zona Centro Nombre Tipo Considerar Material Descripcion TipoMat Rubro RubroDesc SubRubro SubRubroDesc Grupo GrupoDesc Almacen LibreUtil Bloqueado CtrlCalidad Transito Traslado EntPendACentro TransYTrasDeAlmOrig EntPendCliInt EntPendCliExt EntPendTot IngPlanifAntes30Dias IngPlanifUlt30Dias IngPlanifProx30Dias IngPlanifDesp30Dias  TO "SituacionGeneralStock" OPEN APPEND
+~Entrada: Registros:567         Total de control:0                    
+~Salida: Registros:567         Total de control:0                    
+~.17/02/2022   18:40:18 SituacionGeneralStock SUMMARIZE ON Centro Material Almacen SUBTOTAL LibreUtil Bloqueado CtrlCalidad Transito Traslado EntPendACentro TransYTrasDeAlmOrig EntPendCliInt EntPendCliExt EntPendTot IngPlanifAntes30Dias IngPlanifUlt30Dias IngPlanifProx30Dias IngPlanifDesp30Dias OTHER Zona Centro Nombre Tipo Considerar Descripcion TipoMat Rubro RubroDesc SubRubro SubRubroDesc Grupo GrupoDesc Almacen TO "SituacionGeneralStockRES.FIL" OPEN PRESORT
+~Entrada: Registros:50993       Total de control:0                    
+~Salida: Registros:50782       Total de control:0                    
+~.17/02/2022   18:40:18 SituacionGeneralStockRES SORT ON Rubro SubRubro Grupo Almacen Zona Centro Material TipoMat IF Considerar = "SI" TO "SituacionGeneralStockORD"
+~Entrada: Registros:50782       Total de control:0                    
+~Salida: Registros:48332       Total de control:0                    
+^REPORT   Vista_predeterminada                                                SituacionGeneralStock                                             D,T.
+[SKIP] 0
+[TLINES] 1
+[RLINES] 1
+[LINE] 1
+Zona                 WIDTH 8 PICTURE ""
+[LINE] 1
+Centro               WIDTH 8 PICTURE ""
+[LINE] 1
+Nombre               WIDTH 16 PICTURE ""
+[LINE] 1
+Tipo                 WIDTH 6 PICTURE ""
+[LINE] 1
+Material             WIDTH 9 PICTURE ""
+[LINE] 1
+Descripcion          WIDTH 36 PICTURE ""
+[LINE] 1
+TipoMat              WIDTH 9 PICTURE ""
+[LINE] 1
+Rubro                WIDTH 8 PICTURE ""
+[LINE] 1
+RubroDesc            WIDTH 11 PICTURE ""
+[LINE] 1
+SubRubro             WIDTH 10 PICTURE ""
+[LINE] 1
+SubRubroDesc         WIDTH 23 PICTURE ""
+[LINE] 1
+Grupo                WIDTH 11 PICTURE ""
+[LINE] 1
+GrupoDesc            WIDTH 16 PICTURE ""
+[LINE] 1
+Almacen              WIDTH 9 PICTURE ""
+[LINE] 1
+LibreUtil            WIDTH 9 PICTURE ""
+[LINE] 1
+Bloqueado            WIDTH 11 PICTURE ""
+[LINE] 1
+CtrlCalidad          WIDTH 11 PICTURE ""
+[LINE] 1
+Transito             WIDTH 9 PICTURE ""
+[LINE] 1
+Traslado             WIDTH 9 PICTURE ""
+[LINE] 1
+EntPendACentro       WIDTH 14 PICTURE ""
+[LINE] 1
+TransYTrasDeAlmOrig  WIDTH 18 PICTURE ""
+[LINE] 1
+EntPendCliInt        WIDTH 12 PICTURE ""
+[LINE] 1
+EntPendCliExt        WIDTH 13 PICTURE ""
+[LINE] 1
+EntPendTot           WIDTH 11 PICTURE ""
+[LINE] 1
+DisponibleVtaCentro  WIDTH 17 PICTURE ""
+[LINE] 1
+DisponibleVtaEmpresa WIDTH 18 PICTURE ""
+[LINE] 1
+DisponibleAlmCentro  WIDTH 18 PICTURE ""
+[LINE] 1
+DisponibleAlmEmpresa WIDTH 19 PICTURE ""
+[LINE] 1
+IngPlanifAntes30Dias WIDTH 17 PICTURE ""
+[LINE] 1
+IngPlanifUlt30Dias   WIDTH 16 PICTURE ""
+[LINE] 1
+IngPlanifProx30Dias  WIDTH 17 PICTURE ""
+[LINE] 1
+IngPlanifDesp30Dias  WIDTH 17 PICTURE ""
+^BATCH    S01_Inicializar                                                     
+[PARENT_FOLDER_ID] 1593534819
+SET SAFETY OFF
+
+SET FOLDER /Tablas
+
+OPEN Datos
+LOCATE RECORD 1
+
+v_Usuario = ALLTRIM(Usu_SAP)
+
+SET ECHO NONE
+SET PASSWORD 1 TO ALLTRIM(Cl_SAP)
+SET ECHO ON
+
+v_hoy = DOW(TODAY())
+v_FeHoy = TODAY()
+
+v_ayer = DATE(TODAY() - 0)
+v_des = DATE(TODAY() - 14)
+v_has = DATE(TODAY() - 0)
+
+v_Desde = SUBSTR(v_des;7;4)+SUBSTR(v_des;4;2)+SUBSTR(v_des;1;2)
+v_Hasta = SUBSTR(v_has;7;4)+SUBSTR(v_has;4;2)+SUBSTR(v_has;1;2)
+
+Nom = SUBSTR(v_ayer;1;2)+SUBSTR(v_ayer;4;2)+SUBSTR(v_ayer;7;4)
+Nom = SUBSTR(v_ayer;7;4)+"_"+SUBSTR(v_ayer;4;2)+"_"+SUBSTR(v_ayer;1;2)
+
+vDirectorio = "T:"
+vDirectorio = "\\srvfs01\STOCK_CURVA"
+
+vDirectorioHistorico = "\\srvfs01\FILESERVER\AREAS\AUDITORIA_OPERACIONES\Miguel\HistoricoStock"
+
+COMM
+\\srvfs01\STOCK_CURVA
+
+COMM
+Prueba
+v_Desde = "20200311"
+v_Hasta = "20200311"
+
+
+SET SAFETY ON
+
+
+SET SAFETY ON
+^FORMAT   SituacionGeneralStock                                               SituacionGeneralStock                                             "" "SituacionGeneralStock.FIL" 0 ASCII 
+[PARENT_FOLDER_ID] 1593534508
+~.17/02/2022   18:40:06 DatosAlmacen EXTRACT FIELDS Centros.T001W_BZIRK AS "Zona" Centros.T001W_WERKS AS "Centro" Centros.T001W_NAME1 AS "Nombre" Centros.T001W_VLFKZ AS "Tipo" Centros.Considerar AS "Considerar" DatosMaterial.MARA_MATNR AS "Material" DatosMaterial.MAKT_MAKTX AS "Descripcion" DatosMaterial.MARA_MTART AS "TipoMat" DatosMaterial.Rubro AS "Rubro" DatosMaterial.RubroDesc AS "RubroDesc" DatosMaterial.SubRubro AS "SubRubro" DatosMaterial.SubRubroDesc AS "SubRubroDesc" DatosMaterial.Grupo AS "Grupo" DatosMaterial.GrupoDesc AS "GrupoDesc" Almacen LibreUtil Bloqueado CtrlCalidad Transito Traslado IF BETWEEN(MARD_WERKS;"M000";"M999") AND MATCH(DatosMaterial.MARA_MTART;"ZPRO";"ZBLA";"ZPCO";"ZPVV")  TO "DatosAlmacenCentroM"
+~Entrada: Registros:51509       Total de control:0                    
+~Salida: Registros:43975       Total de control:0                    
+~.17/02/2022   18:40:07 DatosAlmacenCentroM EXTRACT FIELDS Zona Centro Nombre Tipo Considerar Material Descripcion TipoMat Rubro RubroDesc SubRubro SubRubroDesc Grupo GrupoDesc Almacen LibreUtil Bloqueado CtrlCalidad Transito Traslado TO "Stock"
+~Entrada: Registros:43975       Total de control:0                    
+~Salida: Registros:43975       Total de control:0                    
+~.17/02/2022   18:40:07 DatosCentroCentroM EXTRACT FIELDS Zona Centro Nombre Tipo Considerar Material Descripcion TipoMat Rubro RubroDesc SubRubro SubRubroDesc Grupo GrupoDesc Almacen LibreUtil Bloqueado CtrlCalidad Transito Traslado TO "Stock" APPEND
+~Entrada: Registros:2367        Total de control:0                    
+~Salida: Registros:2367        Total de control:0                    
+~.17/02/2022   18:40:17 Stock EXTRACT FIELDS Zona Centro Nombre Tipo Considerar VALUE(Material;0) AS "Material" Descripcion TipoMat Rubro RubroDesc SubRubro SubRubroDesc Grupo GrupoDesc Almacen LibreUtil Bloqueado CtrlCalidad Transito Traslado EntregasPendientesACentroM.EntPendACentro AS "EntPendACentro" TransitoTrasladoCentroM.TransitoTraslado AS "TransYTrasDeAlmOrig" EntregasPendientesCentroM.CantCliInt AS "EntPendCliInt" EntregasPendientesCentroM.CantCliExt AS "EntPendCliExt" EntregasPendientesCentroM.Total AS "EntPendTot" IngresosPendientesCentroMCRUZ.Antes30Dias AS "IngPlanifAntes30Dias" IngresosPendientesCentroMCRUZ.Ult30Dias AS "IngPlanifUlt30Dias" IngresosPendientesCentroMCRUZ.Prox30Dias AS "IngPlanifProx30Dias" IngresosPendientesCentroMCRUZ.Desp30Dias AS "IngPlanifDesp30Dias" TO "SituacionGeneralStock"
+~Entrada: Registros:46342       Total de control:0                    
+~Salida: Registros:46342       Total de control:0                    
+~.17/02/2022   18:40:17 EntregasPendientesSinStock EXTRACT FIELDS Zona Centro Nombre Tipo Considerar Material Descripcion TipoMat Rubro RubroDesc SubRubro SubRubroDesc Grupo GrupoDesc Almacen LibreUtil Bloqueado CtrlCalidad Transito Traslado EntPendACentro TransYTrasDeAlmOrig EntPendCliInt EntPendCliExt EntPendTot IngPlanifAntes30Dias IngPlanifUlt30Dias IngPlanifProx30Dias IngPlanifDesp30Dias  TO "SituacionGeneralStock" OPEN APPEND
+~Entrada: Registros:1059        Total de control:0                    
+~Salida: Registros:1059        Total de control:0                    
+~.17/02/2022   18:40:17 EntregasPendientesACentroSinStock EXTRACT FIELDS Zona Centro Nombre Tipo Considerar Material Descripcion TipoMat Rubro RubroDesc SubRubro SubRubroDesc Grupo GrupoDesc Almacen LibreUtil Bloqueado CtrlCalidad Transito Traslado EntPendACentro TransYTrasDeAlmOrig EntPendCliInt EntPendCliExt EntPendTot IngPlanifAntes30Dias IngPlanifUlt30Dias IngPlanifProx30Dias IngPlanifDesp30Dias  TO "SituacionGeneralStock" OPEN APPEND
+~Entrada: Registros:2803        Total de control:0                    
+~Salida: Registros:2803        Total de control:0                    
+~.17/02/2022   18:40:17 IngresosPendientesSinStock EXTRACT FIELDS Zona Centro Nombre Tipo Considerar Material Descripcion TipoMat Rubro RubroDesc SubRubro SubRubroDesc Grupo GrupoDesc Almacen LibreUtil Bloqueado CtrlCalidad Transito Traslado EntPendACentro TransYTrasDeAlmOrig EntPendCliInt EntPendCliExt EntPendTot IngPlanifAntes30Dias IngPlanifUlt30Dias IngPlanifProx30Dias IngPlanifDesp30Dias  TO "SituacionGeneralStock" OPEN APPEND
+~Entrada: Registros:222         Total de control:0                    
+~Salida: Registros:222         Total de control:0                    
+~.17/02/2022   18:40:17 TransitoTrasladoSinStock EXTRACT FIELDS Zona Centro Nombre Tipo Considerar Material Descripcion TipoMat Rubro RubroDesc SubRubro SubRubroDesc Grupo GrupoDesc Almacen LibreUtil Bloqueado CtrlCalidad Transito Traslado EntPendACentro TransYTrasDeAlmOrig EntPendCliInt EntPendCliExt EntPendTot IngPlanifAntes30Dias IngPlanifUlt30Dias IngPlanifProx30Dias IngPlanifDesp30Dias  TO "SituacionGeneralStock" OPEN APPEND
+~Entrada: Registros:567         Total de control:0                    
+~Salida: Registros:567         Total de control:0                    
+~.17/02/2022   18:40:18 SituacionGeneralStock SUMMARIZE ON Centro Material Almacen SUBTOTAL LibreUtil Bloqueado CtrlCalidad Transito Traslado EntPendACentro TransYTrasDeAlmOrig EntPendCliInt EntPendCliExt EntPendTot IngPlanifAntes30Dias IngPlanifUlt30Dias IngPlanifProx30Dias IngPlanifDesp30Dias OTHER Zona Centro Nombre Tipo Considerar Descripcion TipoMat Rubro RubroDesc SubRubro SubRubroDesc Grupo GrupoDesc Almacen TO "SituacionGeneralStockRES.FIL" OPEN PRESORT
+~Entrada: Registros:50993       Total de control:0                    
+~Salida: Registros:50782       Total de control:0                    
+~.17/02/2022   18:40:18 SituacionGeneralStockRES SORT ON Rubro SubRubro Grupo Almacen Zona Centro Material TipoMat IF Considerar = "SI" TO "SituacionGeneralStockORD"
+~Entrada: Registros:50782       Total de control:0                    
+~Salida: Registros:48332       Total de control:0                    
+~.17/02/2022   18:40:18 SituacionGeneralStockORD EXTRACT FIELDS Zona Centro Nombre Tipo Material Descripcion TipoMat Rubro RubroDesc SubRubro SubRubroDesc Grupo GrupoDesc Almacen LibreUtil Bloqueado CtrlCalidad Transito Traslado EntPendACentro TransYTrasDeAlmOrig EntPendCliInt EntPendCliExt EntPendTot DisponibleVtaCentro DisponibleVtaEmpresa DisponibleAlmCentro DisponibleAlmEmpresa IngPlanifAntes30Dias IngPlanifUlt30Dias IngPlanifProx30Dias IngPlanifDesp30Dias TO "SituacionGeneralStock"
+~Entrada: Registros:48332       Total de control:0                    
+~Salida: Registros:48332       Total de control:0                    
+[LASTVIEW] "Vista_predeterminada"
+[FILTER] Centro = "M768"
+[FILTER] Centro = "M323"
+^REPORT   Vista_predeterminada                                                Datos                                                             D,T.
+[SKIP] 0
+[TLINES] 1
+[RLINES] 1
+[LINE] 1
+Usu_Legacy           WIDTH 11 PICTURE ""
+[LINE] 1
+Cl_Legacy            WIDTH 10 PICTURE ""
+[LINE] 1
+Usu_SAP              WIDTH 9 PICTURE ""
+[LINE] 1
+Cl_SAP               WIDTH 10 PICTURE ""
+[LINE] 1
+Usu_REPO             WIDTH 10 PICTURE ""
+[LINE] 1
+Cl_REPO              WIDTH 10 PICTURE ""
+[LINE] 1
+megatone             WIDTH 10 PICTURE ""
+[LINE] 1
+confina              WIDTH 8 PICTURE ""
+[LINE] 1
+base_megatone        WIDTH 14 PICTURE ""
+[LINE] 1
+base_corefin         WIDTH 12 PICTURE ""
+[LINE] 1
+clientes_megatone    WIDTH 16 PICTURE ""
+[LINE] 1
+clientes_corefin     WIDTH 14 PICTURE ""
+[LINE] 1
+proveedores          WIDTH 12 PICTURE ""
+[LINE] 1
+musimundo            WIDTH 11 PICTURE ""
+[LINE] 1
+clientes_unificado   WIDTH 15 PICTURE ""
+[LINE] 1
+interfaz_sap         WIDTH 11 PICTURE ""
+[LINE] 1
+reposar              WIDTH 8 PICTURE ""
+^FORMAT   Datos                                                               Datos                                                             "" "Datos.FIL" 0  
+[PARENT_FOLDER_ID] 1593534508
+[LASTVIEW] "Vista_predeterminada"
+[RETRIEVE] 0
+[REFRESH] SOURCE "EXCEL FILES" TABLE "Datos$" QUALIFIER "D:\Mis Documentos\AUDITORIA OPERATIVA\SCRIPT\Biblioteca AX\Datos.xls" TO "Datos.FIL" WIDTH 50 MAXIMUM 100 FIELDS "Usu_Legacy","Cl_Legacy","Usu_SAP","Cl_SAP","Usu_REPO","Cl_REPO","megatone","confina","base_megatone","base_corefin","clientes_megatone","clientes_corefin","proveedores","musimundo","clientes_unificado","interfaz_sap","reposar"
+^BATCH    S09_Armar                                                           
+[PARENT_FOLDER_ID] 1593534819
+SET SAFETY OFF
+
+COMMENT
+Agregar si existen casos con Entregas Pendientes sin Stock (LU, Bloq, CCal, Trans o Tras)
+
+OPEN EntregasPendientesCentroM
+
+DEFINE RELATION Clave WITH Stock INDEX IxClaveStock
+
+EXTRACT FIELDS Zona Centro Nombre Tipo Considerar VALUE(Material;0) AS "Material" Descripcion TipoMat Rubro RubroDesc SubRubro SubRubroDesc Grupo GrupoDesc Almacen CantCliInt AS "EntPendCliInt" CantCliExt AS "EntPendCliExt" Total AS "EntPendTot" IF Stock.Clave = " " TO "EntregasPendientesSinStock"
+
+OPEN EntregasPendientesSinStock
+
+DELETE FIELD LibreUtil OK
+DEFINE FIELD LibreUtil COMPUTED 0
+
+DELETE FIELD Bloqueado OK
+DEFINE FIELD Bloqueado COMPUTED 0
+
+DELETE FIELD CtrlCalidad OK
+DEFINE FIELD CtrlCalidad COMPUTED 0
+
+DELETE FIELD Transito OK
+DEFINE FIELD Transito COMPUTED 0
+
+DELETE FIELD Traslado OK
+DEFINE FIELD Traslado COMPUTED 0
+
+DELETE FIELD EntPendACentro OK
+DEFINE FIELD EntPendACentro COMPUTED 0
+
+DELETE FIELD IngPlanifAntes30Dias OK
+DEFINE FIELD IngPlanifAntes30Dias COMPUTED 0
+
+DELETE FIELD IngPlanifUlt30Dias OK
+DEFINE FIELD IngPlanifUlt30Dias COMPUTED 0
+
+DELETE FIELD IngPlanifProx30Dias OK
+DEFINE FIELD IngPlanifProx30Dias COMPUTED 0
+
+DELETE FIELD IngPlanifDesp30Dias OK
+DEFINE FIELD IngPlanifDesp30Dias COMPUTED 0
+
+DELETE FIELD TransYTrasDeAlmOrig OK
+DEFINE FIELD TransYTrasDeAlmOrig COMPUTED 0
+
+COMMENT
+Agregar si existen casos con Entregas Pendientes a Centro sin Stock (LU, Bloq, CCal, Trans o Tras)
+
+OPEN EntregasPendientesACentroM
+
+DEFINE RELATION Clave WITH Stock INDEX IxClaveStock
+
+EXTRACT FIELDS Zona Centro Nombre Tipo Considerar VALUE(Material;0) AS "Material" Descripcion TipoMat Rubro RubroDesc SubRubro SubRubroDesc Grupo GrupoDesc Almacen EntPendACentro IF Stock.Clave = " " TO "EntregasPendientesACentroSinStock"
+
+OPEN EntregasPendientesACentroSinStock
+
+DELETE FIELD LibreUtil OK
+DEFINE FIELD LibreUtil COMPUTED 0
+
+DELETE FIELD Bloqueado OK
+DEFINE FIELD Bloqueado COMPUTED 0
+
+DELETE FIELD CtrlCalidad OK
+DEFINE FIELD CtrlCalidad COMPUTED 0
+
+DELETE FIELD Transito OK
+DEFINE FIELD Transito COMPUTED 0
+
+DELETE FIELD Traslado OK
+DEFINE FIELD Traslado COMPUTED 0
+
+DELETE FIELD EntPendCliInt OK
+DEFINE FIELD EntPendCliInt COMPUTED 0
+
+DELETE FIELD EntPendCliExt OK
+DEFINE FIELD EntPendCliExt COMPUTED 0
+
+DELETE FIELD EntPendTot OK
+DEFINE FIELD EntPendTot COMPUTED 0
+
+DELETE FIELD IngPlanifAntes30Dias OK
+DEFINE FIELD IngPlanifAntes30Dias COMPUTED 0
+
+DELETE FIELD IngPlanifUlt30Dias OK
+DEFINE FIELD IngPlanifUlt30Dias COMPUTED 0
+
+DELETE FIELD IngPlanifProx30Dias OK
+DEFINE FIELD IngPlanifProx30Dias COMPUTED 0
+
+DELETE FIELD IngPlanifDesp30Dias OK
+DEFINE FIELD IngPlanifDesp30Dias COMPUTED 0
+
+DELETE FIELD TransYTrasDeAlmOrig OK
+DEFINE FIELD TransYTrasDeAlmOrig COMPUTED 0
+
+COMMENT
+Agregar si existen casos con Ingresos Pendientes sin Stock (LU, Bloq, CCal, Trans o Tras)
+
+OPEN IngresosPendientesCentroMCRUZ
+
+DEFINE RELATION Clave WITH Stock INDEX IxClaveStock
+
+EXTRACT FIELDS Zona Centro Nombre Tipo Considerar VALUE(Material;0) AS "Material" Descripcion TipoMat Rubro RubroDesc SubRubro SubRubroDesc Grupo GrupoDesc Almacen Antes30Dias AS "IngPlanifAntes30Dias" Ult30Dias AS "IngPlanifUlt30Dias" Prox30Dias AS "IngPlanifProx30Dias" Desp30Dias AS "IngPlanifDesp30Dias" IF Stock.Clave = " " TO "IngresosPendientesSinStock" 
+
+OPEN IngresosPendientesSinStock
+
+DELETE FIELD LibreUtil OK
+DEFINE FIELD LibreUtil COMPUTED 0
+
+DELETE FIELD Bloqueado OK
+DEFINE FIELD Bloqueado COMPUTED 0
+
+DELETE FIELD CtrlCalidad OK
+DEFINE FIELD CtrlCalidad COMPUTED 0
+
+DELETE FIELD Transito OK
+DEFINE FIELD Transito COMPUTED 0
+
+DELETE FIELD Traslado OK
+DEFINE FIELD Traslado COMPUTED 0
+
+DELETE FIELD EntPendACentro OK
+DEFINE FIELD EntPendACentro COMPUTED 0
+
+DELETE FIELD EntPendCliInt OK
+DEFINE FIELD EntPendCliInt COMPUTED 0
+
+DELETE FIELD EntPendCliExt OK
+DEFINE FIELD EntPendCliExt COMPUTED 0
+
+DELETE FIELD EntPendTot OK
+DEFINE FIELD EntPendTot COMPUTED 0
+
+DELETE FIELD TransYTrasDeAlmOrig OK
+DEFINE FIELD TransYTrasDeAlmOrig COMPUTED 0
+
+COMMENT
+Agregar si existen casos con Transito o Traslado sin Stock (LU, Bloq, CCal, Trans o Tras)
+
+OPEN TransitoTrasladoCentroM
+
+DEFINE RELATION Clave WITH Stock INDEX IxClaveStock
+
+EXTRACT FIELDS Zona Centro Nombre Tipo Considerar VALUE(Material;0) AS "Material" Descripcion TipoMat Rubro RubroDesc SubRubro SubRubroDesc Grupo GrupoDesc Almacen TransitoTraslado AS "TransYTrasDeAlmOrig" IF Stock.Clave = " " TO "TransitoTrasladoSinStock" 
+
+OPEN TransitoTrasladoSinStock
+
+DELETE FIELD LibreUtil OK
+DEFINE FIELD LibreUtil COMPUTED 0
+
+DELETE FIELD Bloqueado OK
+DEFINE FIELD Bloqueado COMPUTED 0
+
+DELETE FIELD CtrlCalidad OK
+DEFINE FIELD CtrlCalidad COMPUTED 0
+
+DELETE FIELD Transito OK
+DEFINE FIELD Transito COMPUTED 0
+
+DELETE FIELD Traslado OK
+DEFINE FIELD Traslado COMPUTED 0
+
+DELETE FIELD EntPendACentro OK
+DEFINE FIELD EntPendACentro COMPUTED 0
+
+DELETE FIELD IngPlanifAntes30Dias OK
+DEFINE FIELD IngPlanifAntes30Dias COMPUTED 0
+
+DELETE FIELD IngPlanifUlt30Dias OK
+DEFINE FIELD IngPlanifUlt30Dias COMPUTED 0
+
+DELETE FIELD IngPlanifProx30Dias OK
+DEFINE FIELD IngPlanifProx30Dias COMPUTED 0
+
+DELETE FIELD IngPlanifDesp30Dias OK
+DEFINE FIELD IngPlanifDesp30Dias COMPUTED 0
+
+DELETE FIELD EntPendCliInt OK
+DEFINE FIELD EntPendCliInt COMPUTED 0
+
+DELETE FIELD EntPendCliExt OK
+DEFINE FIELD EntPendCliExt COMPUTED 0
+
+DELETE FIELD EntPendTot OK
+DEFINE FIELD EntPendTot COMPUTED 0
+
+COMMENT
+Stock (LU, Bloq, CCal, Trans o Tras)
+
+OPEN Stock
+
+DEFINE RELATION Clave WITH EntregasPendientesCentroM INDEX IxClaveEntPendientes
+DEFINE RELATION Clave WITH EntregasPendientesACentroM INDEX IxClaveEntPendientesACentro
+DEFINE RELATION Clave WITH IngresosPendientesCentroMCRUZ INDEX IxClaveIngPendientes
+DEFINE RELATION Clave WITH TransitoTrasladoCentroM INDEX IxClaveTransitoTraslado
+
+
+
+COMMENT
+Extraer para publicar
+
+EXTRACT FIELDS Zona Centro Nombre Tipo Considerar VALUE(Material;0) AS "Material" Descripcion TipoMat Rubro RubroDesc SubRubro SubRubroDesc Grupo GrupoDesc Almacen LibreUtil Bloqueado CtrlCalidad Transito Traslado EntregasPendientesACentroM.EntPendACentro AS "EntPendACentro" TransitoTrasladoCentroM.TransitoTraslado AS "TransYTrasDeAlmOrig" EntregasPendientesCentroM.CantCliInt AS "EntPendCliInt" EntregasPendientesCentroM.CantCliExt AS "EntPendCliExt" EntregasPendientesCentroM.Total AS "EntPendTot" IngresosPendientesCentroMCRUZ.Antes30Dias AS "IngPlanifAntes30Dias" IngresosPendientesCentroMCRUZ.Ult30Dias AS "IngPlanifUlt30Dias" IngresosPendientesCentroMCRUZ.Prox30Dias AS "IngPlanifProx30Dias" IngresosPendientesCentroMCRUZ.Desp30Dias AS "IngPlanifDesp30Dias" TO "SituacionGeneralStock" 
+
+OPEN SituacionGeneralStock
+
+COMM Agregar Entregas Pendientes Sin Stock
+
+OPEN EntregasPendientesSinStock
+
+EXTRACT FIELDS Zona Centro Nombre Tipo Considerar Material Descripcion TipoMat Rubro RubroDesc SubRubro SubRubroDesc Grupo GrupoDesc Almacen LibreUtil Bloqueado CtrlCalidad Transito Traslado EntPendACentro TransYTrasDeAlmOrig EntPendCliInt EntPendCliExt EntPendTot IngPlanifAntes30Dias IngPlanifUlt30Dias IngPlanifProx30Dias IngPlanifDesp30Dias  TO "SituacionGeneralStock" OPEN APPEND
+
+COMM Agregar Entregas Pendientes a Centro Sin Stock
+
+OPEN EntregasPendientesACentroSinStock
+
+EXTRACT FIELDS Zona Centro Nombre Tipo Considerar Material Descripcion TipoMat Rubro RubroDesc SubRubro SubRubroDesc Grupo GrupoDesc Almacen LibreUtil Bloqueado CtrlCalidad Transito Traslado EntPendACentro TransYTrasDeAlmOrig EntPendCliInt EntPendCliExt EntPendTot IngPlanifAntes30Dias IngPlanifUlt30Dias IngPlanifProx30Dias IngPlanifDesp30Dias  TO "SituacionGeneralStock" OPEN APPEND
+
+
+COMM Agregar Ingresos Pendientes Sin Stock
+
+OPEN IngresosPendientesSinStock
+
+EXTRACT FIELDS Zona Centro Nombre Tipo Considerar Material Descripcion TipoMat Rubro RubroDesc SubRubro SubRubroDesc Grupo GrupoDesc Almacen LibreUtil Bloqueado CtrlCalidad Transito Traslado EntPendACentro TransYTrasDeAlmOrig EntPendCliInt EntPendCliExt EntPendTot IngPlanifAntes30Dias IngPlanifUlt30Dias IngPlanifProx30Dias IngPlanifDesp30Dias  TO "SituacionGeneralStock" OPEN APPEND
+
+COMM Agregar Transito y Traslado Sin Stock
+
+OPEN TransitoTrasladoSinStock
+
+EXTRACT FIELDS Zona Centro Nombre Tipo Considerar Material Descripcion TipoMat Rubro RubroDesc SubRubro SubRubroDesc Grupo GrupoDesc Almacen LibreUtil Bloqueado CtrlCalidad Transito Traslado EntPendACentro TransYTrasDeAlmOrig EntPendCliInt EntPendCliExt EntPendTot IngPlanifAntes30Dias IngPlanifUlt30Dias IngPlanifProx30Dias IngPlanifDesp30Dias  TO "SituacionGeneralStock" OPEN APPEND
+
+OPEN SituacionGeneralStock
+
+SUMMARIZE ON Centro Material Almacen SUBTOTAL LibreUtil Bloqueado CtrlCalidad Transito Traslado EntPendACentro TransYTrasDeAlmOrig EntPendCliInt EntPendCliExt EntPendTot IngPlanifAntes30Dias IngPlanifUlt30Dias IngPlanifProx30Dias IngPlanifDesp30Dias OTHER Zona Centro Nombre Tipo Considerar Descripcion TipoMat Rubro RubroDesc SubRubro SubRubroDesc Grupo GrupoDesc Almacen TO "SituacionGeneralStockRES.FIL" OPEN PRESORT 
+
+OPEN SituacionGeneralStockRES
+
+DELETE FIELD DisponibleVtaCentro OK
+DEFINE FIELD DisponibleVtaCentro COMPUTED 
+""
+LibreUtil - EntPendTot IF Almacen = "0001" 
+0
+
+COMM
+AND LibreUtil - EntregasPendientesCentroM.Total >= 0
+0
+
+DELETE FIELD DisponibleVtaEmpresa OK
+DEFINE FIELD DisponibleVtaEmpresa COMPUTED 
+""
+LibreUtil - EntPendCliExt IF Almacen = "0001" 
+0
+
+COMM
+AND LibreUtil - EntregasPendientesCentroM.CantCliExt >= 0
+0
+
+DELETE FIELD DisponibleAlmCentro OK
+DEFINE FIELD DisponibleAlmCentro COMPUTED LibreUtil - EntPendTot
+
+COMM
+""
+LibreUtil - EntregasPendientesCentroM.Total IF LibreUtil - EntregasPendientesCentroM.Total >= 0
+0
+
+DELETE FIELD DisponibleAlmEmpresa OK
+DEFINE FIELD DisponibleAlmEmpresa COMPUTED LibreUtil - EntPendCliExt
+
+COMM
+""
+LibreUtil - EntregasPendientesCentroM.CantCliExt IF LibreUtil - EntregasPendientesCentroM.CantCliExt >= 0
+0
+
+COMM Ordenar
+
+SORT ON Rubro SubRubro Grupo Almacen Zona Centro Material TipoMat IF Considerar = "SI" TO "SituacionGeneralStockORD" 
+
+COMM Ordenar
+
+SORT ON Rubro SubRubro Grupo Almacen Zona Centro Material TipoMat IF Considerar = "SI" TO "SituacionGeneralStockORD" 
+
+OPEN SituacionGeneralStockORD
+
+EXTRACT FIELDS Zona Centro Nombre Tipo Material Descripcion TipoMat Rubro RubroDesc SubRubro SubRubroDesc Grupo GrupoDesc Almacen LibreUtil Bloqueado CtrlCalidad Transito Traslado EntPendACentro TransYTrasDeAlmOrig EntPendCliInt EntPendCliExt EntPendTot DisponibleVtaCentro DisponibleVtaEmpresa DisponibleAlmCentro DisponibleAlmEmpresa IngPlanifAntes30Dias IngPlanifUlt30Dias IngPlanifProx30Dias IngPlanifDesp30Dias TO "SituacionGeneralStock" 
+
+OPEN SituacionGeneralStock
+
+COMM
+EXCEL
+
+EXPORT FIELDS Zona Centro Nombre Tipo Material Descripcion TipoMat Rubro RubroDesc SubRubro SubRubroDesc Grupo GrupoDesc Almacen LibreUtil Bloqueado CtrlCalidad Transito Traslado EntPendACentro TransYTrasDeAlmOrig EntPendCliInt EntPendCliExt EntPendTot DisponibleVtaCentro DisponibleVtaEmpresa DisponibleAlmCentro DisponibleAlmEmpresa IngPlanifAntes30Dias IngPlanifUlt30Dias IngPlanifProx30Dias IngPlanifDesp30Dias XLSX TO "%vDirectorio%\SituacionGeneralStock"
+
+EXPORT FIELDS Zona Centro Nombre Tipo Material Descripcion TipoMat Rubro RubroDesc SubRubro SubRubroDesc Grupo GrupoDesc Almacen LibreUtil Bloqueado CtrlCalidad Transito Traslado EntPendACentro TransYTrasDeAlmOrig EntPendCliInt EntPendCliExt EntPendTot DisponibleVtaCentro DisponibleVtaEmpresa DisponibleAlmCentro DisponibleAlmEmpresa IngPlanifAntes30Dias IngPlanifUlt30Dias IngPlanifProx30Dias IngPlanifDesp30Dias XLSX TO "\\srvfs01\FILESERVER\AREAS\AUDITORIA OPERACIONES\Miguel\HistoricoStock\SituacionGeneralStock-%Nom%"
+
+
+COMM
+DEL
+EXPORT FIELDS Zona Centro Nombre Tipo Material Descripcion TipoMat Rubro RubroDesc SubRubro SubRubroDesc Grupo GrupoDesc Almacen LibreUtil Bloqueado CtrlCalidad Transito Traslado EntPendACentro TransYTrasDeAlmOrig EntPendCliInt EntPendCliExt EntPendTot DisponibleVtaCentro DisponibleVtaEmpresa DisponibleAlmCentro DisponibleAlmEmpresa IngPlanifAntes30Dias IngPlanifUlt30Dias IngPlanifProx30Dias IngPlanifDesp30Dias DELIMITED TO "\\srvfs01\STOCK_CURVA\SituacionGeneralStock" KEEPTITLE SEPARATOR "|" QUALIFIER NONE
+
+
+SET SAFETY ON
+^OPEN b,T,S09_Armar;b,T,S01_Inicializar;a,F,VentaStockDistribucion;f,F,SituacionGeneralStock;
